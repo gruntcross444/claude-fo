@@ -20,7 +20,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "https://claude-fo.vercel.app"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
