@@ -133,6 +133,15 @@ export default function SocialAuth({ setError }) {
   const { login } = useAuth()
   const navigate = useNavigate()
 
+  const hasGoogle = !!import.meta.env.VITE_GOOGLE_CLIENT_ID
+  const hasFacebook = !!import.meta.env.VITE_FACEBOOK_APP_ID
+  const hasApple = !!import.meta.env.VITE_APPLE_CLIENT_ID
+  const hasDiscord = !!import.meta.env.VITE_DISCORD_CLIENT_ID
+  const hasTelegram = !!import.meta.env.VITE_TELEGRAM_BOT_NAME
+
+  const hasAny = hasGoogle || hasFacebook || hasApple || hasDiscord || hasTelegram
+  if (!hasAny) return null
+
   return (
     <>
       <div style={styles.divider}>
@@ -142,25 +151,35 @@ export default function SocialAuth({ setError }) {
       </div>
 
       <div style={styles.socialGrid}>
-        <a href={googleUrl()} style={{ ...styles.socialBtn, background: '#444' }}>
-          <GoogleIcon /> Google
-        </a>
-        <a href={facebookUrl()} style={{ ...styles.socialBtn, background: '#1877F2' }}>
-          <FacebookIcon /> Facebook
-        </a>
-        <a href={appleUrl()} style={{ ...styles.socialBtn, background: '#000' }}>
-          <AppleIcon /> iCloud
-        </a>
-        <a href={discordUrl()} style={{ ...styles.socialBtn, background: '#5865F2' }}>
-          <DiscordIcon /> Discord
-        </a>
-        <button
-          type="button"
-          onClick={() => handleTelegramLogin(login, navigate, setError)}
-          style={{ ...styles.socialBtn, background: '#2AABEE', border: 'none', gridColumn: '1 / -1' }}
-        >
-          <TelegramIcon /> Telegram
-        </button>
+        {hasDiscord && (
+          <a href={discordUrl()} style={{ ...styles.socialBtn, background: '#5865F2', gridColumn: hasGoogle || hasFacebook || hasApple ? undefined : '1 / -1' }}>
+            <DiscordIcon /> Discord
+          </a>
+        )}
+        {hasGoogle && (
+          <a href={googleUrl()} style={{ ...styles.socialBtn, background: '#444' }}>
+            <GoogleIcon /> Google
+          </a>
+        )}
+        {hasFacebook && (
+          <a href={facebookUrl()} style={{ ...styles.socialBtn, background: '#1877F2' }}>
+            <FacebookIcon /> Facebook
+          </a>
+        )}
+        {hasApple && (
+          <a href={appleUrl()} style={{ ...styles.socialBtn, background: '#000' }}>
+            <AppleIcon /> iCloud
+          </a>
+        )}
+        {hasTelegram && (
+          <button
+            type="button"
+            onClick={() => handleTelegramLogin(login, navigate, setError)}
+            style={{ ...styles.socialBtn, background: '#2AABEE', border: 'none', gridColumn: '1 / -1' }}
+          >
+            <TelegramIcon /> Telegram
+          </button>
+        )}
       </div>
     </>
   )
