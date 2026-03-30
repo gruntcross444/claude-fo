@@ -1,0 +1,7 @@
+{
+  "name": "claude-fo",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && py -3.9 -m uvicorn main:app --reload --port 8000"
+  }
+}

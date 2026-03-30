@@ -1,0 +1,80 @@
+import { useEffect, useState } from 'react'
+import { useNavigate, useSearchParams, useParams } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import api from '../api'
+
+const PROVIDER_LABELS = {
+  discord: 'Discord',
+  google: 'Google',
+  facebook: 'Facebook',
+  apple: 'iCloud',
+  telegram: 'Telegram',
+}
+
+export default function OAuthCallback() {
+  const { provider } = useParams()
+  const [searchParams] = useSearchParams()
+  const [error, setError] = useState('')
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const code = searchParams.get('code')
+    if (!code) {
+      setError(`No authorization code received from ${PROVIDER_LABELS[provider] || provider}`)
+      return
+    }
+
+    api.post(`/auth/${provider}`, { code })
+      .then((res) => {
+        login(res.data.access_token)
+        navigate('/portfolio', { replace: true })
+      })
+      .catch((err) => {
+        setError(err.response?.data?.detail || `${PROVIDER_LABELS[provider] || provider} login failed`)
+      })
+  }, [provider, searchParams, login, navigate])
+
+  if (error) {
+    return (
+      <div style={styles.page}>
+        <div style={styles.card}>
+          <p style={styles.error}>{error}</p>
+          <a href="/login" style={styles.link}>Back to login</a>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div style={styles.page}>
+      <p style={styles.text}>Logging in with {PROVIDER_LABELS[provider] || provider}...</p>
+    </div>
+  )
+}
+
+const styles = {
+  page: {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '2rem',
+  },
+  card: {
+    textAlign: 'center',
+  },
+  text: {
+    color: '#888',
+    fontSize: '1rem',
+  },
+  error: {
+    color: '#f87171',
+    fontSize: '0.95rem',
+    marginBottom: '1rem',
+  },
+  link: {
+    color: '#a5b4fc',
+    textDecoration: 'none',
+  },
+}
