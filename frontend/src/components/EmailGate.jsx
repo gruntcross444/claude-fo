@@ -11,16 +11,19 @@ export default function EmailGate({ source, children }) {
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
+    if (!email || !email.includes('@')) {
+      setError('Please enter a valid email')
+      return
+    }
     setLoading(true)
     try {
       await api.post('/leads', { email, source: source || 'tool' })
-      sessionStorage.setItem('email_unlocked', 'true')
-      setUnlocked(true)
     } catch {
-      setError('Please enter a valid email')
-    } finally {
-      setLoading(false)
+      // Still unlock — the lead might already exist or network hiccup
     }
+    sessionStorage.setItem('email_unlocked', 'true')
+    setUnlocked(true)
+    setLoading(false)
   }
 
   if (unlocked) return children
