@@ -8,6 +8,7 @@ import ToolsPage from './pages/ToolsPage'
 import PromptsPage from './pages/PromptsPage'
 import ContactPage from './pages/ContactPage'
 import OAuthCallback from './pages/OAuthCallback'
+import DownloadPage from './pages/DownloadPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import ExitIntentPopup from './components/ExitIntentPopup'
 import StickyCTA from './components/StickyCTA'
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/tools" element={<ToolsPage />} />
         <Route path="/prompts" element={<PromptsPage />} />
         <Route path="/auth/:provider/callback" element={<OAuthCallback />} />
+      <Route path="/download" element={<DownloadPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/contact" element={<ContactPage />} />

@@ -47,7 +47,7 @@ def create_checkout(body: CheckoutRequest):
                 "quantity": 1,
             }],
             mode="payment",
-            success_url=f"{FRONTEND_URL}/store?success=true",
+            success_url=f"{FRONTEND_URL}/download?product={body.product_id}",
             cancel_url=f"{FRONTEND_URL}/store?canceled=true",
         )
         return {"url": session.url}
