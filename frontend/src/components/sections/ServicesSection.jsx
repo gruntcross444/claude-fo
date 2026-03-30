@@ -1,39 +1,40 @@
+import { Code2, Building2, Palette, Bot, Smartphone } from 'lucide-react'
 import useScrollReveal from '../../hooks/useScrollReveal'
 
 const services = [
   {
-    icon: '⚡',
+    Icon: Code2,
     title: 'Web Development',
     description: 'Full-stack applications built with modern technologies. Fast, scalable, and maintainable code.',
     accent: '#6366f1',
   },
   {
-    icon: '🏠',
+    Icon: Building2,
     title: 'Real Estate',
     description: 'Rental community platforms, property landing pages, and lead-generating tools for the real estate industry.',
     accent: '#c8a76b',
   },
   {
-    icon: '🎨',
+    Icon: Palette,
     title: 'Logo & Branding',
     description: 'Vector logos, animated logos, brand identity systems, and social media kits that make you stand out.',
     accent: '#a855f7',
   },
   {
-    icon: '🤖',
+    Icon: Bot,
     title: 'AI & Automation',
     description: 'Workflow automations, AI-powered funnels, lead magnets, email blasts, and SMS campaigns that run on autopilot.',
     accent: '#14b8a6',
   },
   {
-    icon: '📱',
+    Icon: Smartphone,
     title: 'Mobile Apps',
     description: 'Cross-platform mobile experiences that feel native. Reach your users wherever they are.',
     accent: '#f59e0b',
   },
 ]
 
-function ServiceCard({ icon, title, description, accent, delay }) {
+function ServiceCard({ Icon, title, description, accent, delay }) {
   const [ref, visible] = useScrollReveal(0.1)
 
   return (
@@ -56,7 +57,9 @@ function ServiceCard({ icon, title, description, accent, delay }) {
         e.currentTarget.style.boxShadow = 'none'
       }}
     >
-      <span style={styles.icon}>{icon}</span>
+      <div style={{ ...styles.iconWrap, background: `${accent}15`, border: `1px solid ${accent}30` }}>
+        <Icon size={24} color={accent} strokeWidth={1.5} />
+      </div>
       <h3 style={styles.cardTitle}>{title}</h3>
       <p style={styles.cardText}>{description}</p>
       <div style={{ ...styles.cardLine, background: accent }} />
@@ -79,27 +82,10 @@ export default function ServicesSection() {
 }
 
 const styles = {
-  section: {
-    padding: '5rem 2rem',
-    maxWidth: '1100px',
-    margin: '0 auto',
-    textAlign: 'center',
-  },
-  heading: {
-    fontSize: '2rem',
-    fontWeight: 700,
-    marginBottom: '0.5rem',
-  },
-  subheading: {
-    color: '#666',
-    marginBottom: '3rem',
-    fontSize: '1rem',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '1.2rem',
-  },
+  section: { padding: '5rem 2rem', maxWidth: '1100px', margin: '0 auto', textAlign: 'center' },
+  heading: { fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem' },
+  subheading: { color: '#666', marginBottom: '3rem', fontSize: '1rem' },
+  grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.2rem' },
   card: {
     padding: '2rem 1.5rem',
     borderRadius: '14px',
@@ -111,29 +97,16 @@ const styles = {
     position: 'relative',
     overflow: 'hidden',
   },
-  icon: {
-    fontSize: '2rem',
-    display: 'block',
+  iconWrap: {
+    width: '48px',
+    height: '48px',
+    borderRadius: '12px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: '1rem',
   },
-  cardTitle: {
-    fontSize: '1.05rem',
-    fontWeight: 600,
-    marginBottom: '0.5rem',
-    margin: '0 0 0.5rem',
-  },
-  cardText: {
-    color: '#777',
-    fontSize: '0.88rem',
-    lineHeight: 1.6,
-    margin: 0,
-  },
-  cardLine: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: '2px',
-    opacity: 0.5,
-  },
+  cardTitle: { fontSize: '1.05rem', fontWeight: 600, margin: '0 0 0.5rem' },
+  cardText: { color: '#777', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 },
+  cardLine: { position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px', opacity: 0.5 },
 }

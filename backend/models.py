@@ -18,6 +18,15 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
 
+class Lead(Base):
+    __tablename__ = "leads"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    source = Column(String, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 class ContactMessage(Base):
     __tablename__ = "contact_messages"
 

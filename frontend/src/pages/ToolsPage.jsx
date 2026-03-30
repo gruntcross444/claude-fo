@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Navbar from '../components/Navbar'
+import EmailGate from '../components/EmailGate'
 import MortgageCalculator from '../components/tools/MortgageCalculator'
 import RecastCalculator from '../components/tools/RecastCalculator'
 import FirstHomeChecklist from '../components/tools/FirstHomeChecklist'
@@ -41,7 +42,9 @@ export default function ToolsPage() {
           ))}
         </div>
 
-        <ActiveComponent />
+        <EmailGate source={`tool_${active}`}>
+          <ActiveComponent />
+        </EmailGate>
       </div>
 
       <footer style={styles.footer}>
