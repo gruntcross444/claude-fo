@@ -11,6 +11,7 @@ import OAuthCallback from './pages/OAuthCallback'
 import ProtectedRoute from './components/ProtectedRoute'
 import ExitIntentPopup from './components/ExitIntentPopup'
 import StickyCTA from './components/StickyCTA'
+import SpinWheel from './components/SpinWheel'
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <SpinWheel />
       <ExitIntentPopup />
       <StickyCTA />
     </>

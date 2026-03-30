@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { ArrowDown, ArrowRight, ChevronDown } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import ServicesSection from '../components/sections/ServicesSection'
 import FeaturesSection from '../components/sections/FeaturesSection'
@@ -35,13 +36,12 @@ function StatCounter({ label, value, suffix }) {
   )
 }
 
-function RevealSection({ children, delay = 0, style = {} }) {
+function RevealSection({ children, delay = 0 }) {
   const [ref, visible] = useScrollReveal(0.1)
   return (
     <div
       ref={ref}
       style={{
-        ...style,
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(40px)',
         transition: `opacity 0.8s ease ${delay}s, transform 0.8s ease ${delay}s`,
@@ -52,114 +52,182 @@ function RevealSection({ children, delay = 0, style = {} }) {
   )
 }
 
+function ScrollHint() {
+  return (
+    <div style={styles.scrollHint}>
+      <ChevronDown size={20} color="#555" style={{ animation: 'bounce 2s infinite' }} />
+    </div>
+  )
+}
+
 export default function LandingPage() {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
   const typedText = useTypingEffect(TYPING_WORDS, 90, 50, 1800)
 
   return (
-    <div style={styles.page}>
+    <div style={styles.snapContainer}>
       <Navbar />
 
-      {/* ── Hero ──────────────────────────────────────────── */}
-      <section style={styles.hero}>
-        <div style={styles.heroGlow} />
-        <RevealSection>
-          <p style={styles.eyebrow}>Premium Digital Agency</p>
-        </RevealSection>
-        <RevealSection delay={0.1}>
-          <h1 style={styles.heading}>
-            We craft<br />
-            <span style={styles.typed}>{typedText}</span>
-            <span style={styles.cursor}>|</span>
-          </h1>
-        </RevealSection>
-        <RevealSection delay={0.2}>
-          <p style={styles.sub}>
-            Full-stack development, AI automation, branding & real estate solutions.<br />
-            Exclusive. Premium. Results-driven.
-          </p>
-        </RevealSection>
-        <RevealSection delay={0.3}>
-          <div style={styles.actions}>
-            <button
-              style={styles.primaryBtn}
-              onClick={() => navigate(isAuthenticated ? '/portfolio' : '/register')}
-              onMouseEnter={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 30px rgba(99,102,241,0.4)' }}
-              onMouseLeave={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'none' }}
-            >
-              {isAuthenticated ? 'View Portfolio' : 'Explore Our Work'}
-            </button>
-            <a
-              href="#services"
-              style={styles.secondaryBtn}
-              onMouseEnter={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.4)'; e.target.style.color = '#fff' }}
-              onMouseLeave={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; e.target.style.color = '#aaa' }}
-            >
-              Our Services
-            </a>
-          </div>
-        </RevealSection>
+      {/* ── Section 1: Hero ──────────────────────────────── */}
+      <section style={styles.snapSection}>
+        <div style={styles.hero}>
+          <div style={styles.heroGlow} />
+          <RevealSection>
+            <p style={styles.eyebrow}>Premium Digital Agency</p>
+          </RevealSection>
+          <RevealSection delay={0.1}>
+            <h1 style={styles.heading}>
+              We craft<br />
+              <span style={styles.typed}>{typedText}</span>
+              <span style={styles.cursor}>|</span>
+            </h1>
+          </RevealSection>
+          <RevealSection delay={0.2}>
+            <p style={styles.sub}>
+              Full-stack development, AI automation, branding & real estate solutions.<br />
+              Exclusive. Premium. Results-driven.
+            </p>
+          </RevealSection>
+          <RevealSection delay={0.3}>
+            <div style={styles.actions}>
+              <button
+                style={styles.primaryBtn}
+                onClick={() => navigate(isAuthenticated ? '/portfolio' : '/register')}
+                onMouseEnter={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 30px rgba(99,102,241,0.4)' }}
+                onMouseLeave={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'none' }}
+              >
+                {isAuthenticated ? 'View Portfolio' : 'Explore Our Work'}
+              </button>
+              <a
+                href="#stats"
+                style={styles.secondaryBtn}
+                onMouseEnter={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.4)'; e.target.style.color = '#fff' }}
+                onMouseLeave={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; e.target.style.color = '#aaa' }}
+              >
+                Our Services <ArrowDown size={16} />
+              </a>
+            </div>
+          </RevealSection>
+          <ScrollHint />
+        </div>
       </section>
 
-      {/* ── Stats Bar ─────────────────────────────────────── */}
-      <RevealSection>
-        <section style={statStyles.bar}>
-          {STATS.map((s) => (
-            <StatCounter key={s.label} {...s} />
-          ))}
-        </section>
-      </RevealSection>
+      {/* ── Section 2: Stats + Trust ─────────────────────── */}
+      <section id="stats" style={styles.snapSection}>
+        <div style={styles.statsPage}>
+          <RevealSection>
+            <section style={statStyles.bar}>
+              {STATS.map((s) => (
+                <StatCounter key={s.label} {...s} />
+              ))}
+            </section>
+          </RevealSection>
+          <RevealSection delay={0.2}>
+            <div style={styles.trustedSection}>
+              <p style={styles.trustedLabel}>Trusted by businesses in</p>
+              <div style={styles.trustedLogos}>
+                {['Miami', 'New York', 'Los Angeles', 'Dubai', 'London'].map((city) => (
+                  <span key={city} style={styles.trustedItem}>{city}</span>
+                ))}
+              </div>
+            </div>
+          </RevealSection>
+          <RevealSection delay={0.4}>
+            <div style={styles.statsActions}>
+              <button
+                style={styles.primaryBtn}
+                onClick={() => navigate('/store')}
+                onMouseEnter={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 30px rgba(99,102,241,0.4)' }}
+                onMouseLeave={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'none' }}
+              >
+                Browse Store <ArrowRight size={16} />
+              </button>
+              <button
+                style={styles.ghostBtn}
+                onClick={() => navigate('/tools')}
+              >
+                Try Free Tools
+              </button>
+            </div>
+          </RevealSection>
+          <ScrollHint />
+        </div>
+      </section>
 
-      {/* ── Trusted By ────────────────────────────────────── */}
-      <RevealSection>
-        <section style={styles.trustedSection}>
-          <p style={styles.trustedLabel}>Trusted by businesses in</p>
-          <div style={styles.trustedLogos}>
-            {['Miami', 'New York', 'Los Angeles', 'Dubai', 'London'].map((city) => (
-              <span key={city} style={styles.trustedItem}>{city}</span>
-            ))}
+      {/* ── Section 3: Services ──────────────────────────── */}
+      <section style={styles.snapSection}>
+        <ServicesSection />
+        <ScrollHint />
+      </section>
+
+      {/* ── Section 4: Features ──────────────────────────── */}
+      <section style={styles.snapSection}>
+        <FeaturesSection />
+        <ScrollHint />
+      </section>
+
+      {/* ── Section 5: Portfolio Teaser ──────────────────── */}
+      <section style={styles.snapSection}>
+        <PortfolioTeaser />
+        <ScrollHint />
+      </section>
+
+      {/* ── Section 6: Final CTA ─────────────────────────── */}
+      <section style={styles.snapSection}>
+        <RevealSection>
+          <div style={styles.ctaSection}>
+            <div style={styles.ctaGlow} />
+            <h2 style={styles.ctaHeading}>Ready to elevate your brand?</h2>
+            <p style={styles.ctaSub}>Let's build something extraordinary together.</p>
+            <div style={styles.ctaActions}>
+              <button
+                style={styles.ctaBtn}
+                onClick={() => navigate(isAuthenticated ? '/contact' : '/register')}
+                onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.boxShadow = '0 8px 30px rgba(200,167,107,0.3)' }}
+                onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.boxShadow = 'none' }}
+              >
+                {isAuthenticated ? 'Get in Touch' : 'Start Your Project'}
+              </button>
+              <button style={styles.ghostBtn} onClick={() => navigate('/prompts')}>
+                Browse Free Prompts
+              </button>
+            </div>
           </div>
-        </section>
-      </RevealSection>
-
-      <ServicesSection />
-      <FeaturesSection />
-      <PortfolioTeaser />
-
-      {/* ── CTA Section ───────────────────────────────────── */}
-      <RevealSection>
-        <section style={styles.ctaSection}>
-          <div style={styles.ctaGlow} />
-          <h2 style={styles.ctaHeading}>Ready to elevate your brand?</h2>
-          <p style={styles.ctaSub}>Let's build something extraordinary together.</p>
-          <button
-            style={styles.ctaBtn}
-            onClick={() => navigate(isAuthenticated ? '/contact' : '/register')}
-            onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.boxShadow = '0 8px 30px rgba(200,167,107,0.3)' }}
-            onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.boxShadow = 'none' }}
-          >
-            {isAuthenticated ? 'Get in Touch' : 'Start Your Project'}
-          </button>
-        </section>
-      </RevealSection>
-
-      <footer style={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — All rights reserved</p>
-      </footer>
+        </RevealSection>
+        <footer style={styles.footer}>
+          <p>&copy; {new Date().getFullYear()} Claude.FO — All rights reserved</p>
+        </footer>
+      </section>
     </div>
   )
 }
 
 const styles = {
-  page: {
+  snapContainer: {
+    height: '100vh',
+    overflowY: 'auto',
+    scrollSnapType: 'y mandatory',
+    scrollBehavior: 'smooth',
+  },
+  snapSection: {
+    scrollSnapAlign: 'start',
     minHeight: '100vh',
-    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  scrollHint: {
+    position: 'absolute',
+    bottom: '2rem',
+    left: '50%',
+    transform: 'translateX(-50%)',
   },
   hero: {
     maxWidth: '1000px',
     margin: '0 auto',
-    padding: '8rem 2rem 4rem',
+    padding: '2rem',
     textAlign: 'center',
     position: 'relative',
   },
@@ -217,6 +285,9 @@ const styles = {
     flexWrap: 'wrap',
   },
   primaryBtn: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.4rem',
     padding: '0.9rem 2.5rem',
     borderRadius: '10px',
     border: 'none',
@@ -228,19 +299,43 @@ const styles = {
     transition: 'all 0.3s ease',
   },
   secondaryBtn: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.4rem',
     padding: '0.9rem 2.5rem',
     borderRadius: '10px',
     border: '1px solid rgba(255,255,255,0.15)',
     color: '#aaa',
     fontSize: '1rem',
     textDecoration: 'none',
-    display: 'inline-flex',
-    alignItems: 'center',
     transition: 'all 0.3s ease',
+  },
+  ghostBtn: {
+    padding: '0.8rem 2rem',
+    borderRadius: '10px',
+    border: '1px solid rgba(255,255,255,0.12)',
+    background: 'transparent',
+    color: '#aaa',
+    fontSize: '0.95rem',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  },
+  statsPage: {
+    maxWidth: '1000px',
+    margin: '0 auto',
+    padding: '2rem',
+    textAlign: 'center',
+  },
+  statsActions: {
+    display: 'flex',
+    gap: '1rem',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    marginTop: '3rem',
   },
   trustedSection: {
     textAlign: 'center',
-    padding: '2rem 2rem 4rem',
+    padding: '3rem 2rem',
   },
   trustedLabel: {
     fontSize: '0.8rem',
@@ -263,9 +358,8 @@ const styles = {
   },
   ctaSection: {
     textAlign: 'center',
-    padding: '6rem 2rem',
+    padding: '4rem 2rem',
     position: 'relative',
-    margin: '2rem 0',
   },
   ctaGlow: {
     position: 'absolute',
@@ -288,6 +382,12 @@ const styles = {
     fontSize: '1.1rem',
     marginBottom: '2.5rem',
   },
+  ctaActions: {
+    display: 'flex',
+    gap: '1rem',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
   ctaBtn: {
     padding: '1rem 3rem',
     borderRadius: '10px',
@@ -305,6 +405,7 @@ const styles = {
     color: '#444',
     fontSize: '0.85rem',
     borderTop: '1px solid rgba(255,255,255,0.06)',
+    marginTop: 'auto',
   },
 }
 
@@ -320,10 +421,7 @@ const statStyles = {
     borderTop: '1px solid rgba(255,255,255,0.06)',
     borderBottom: '1px solid rgba(255,255,255,0.06)',
   },
-  item: {
-    textAlign: 'center',
-    minWidth: '120px',
-  },
+  item: { textAlign: 'center', minWidth: '120px' },
   number: {
     display: 'block',
     fontSize: '2.5rem',
