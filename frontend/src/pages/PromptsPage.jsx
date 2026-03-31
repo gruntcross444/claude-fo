@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import { useAuth } from '../context/AuthContext'
 import useScrollReveal from '../hooks/useScrollReveal'
+import { useLang } from '../i18n/LanguageContext'
 
 const CATEGORIES = ['All', 'Slash Commands', 'AI Agents', 'Hooks & Automation', 'Code Review', 'Marketing', 'Business', 'Content Creation']
 
@@ -57,7 +58,7 @@ const PROMPTS = [
   { id: 35, title: 'Podcast Show Notes', category: 'Content Creation', description: 'Transform podcast transcripts into show notes, highlights, and quotes.', free: false, content: '' },
 ]
 
-function PromptCard({ prompt, onCopy, onUnlock }) {
+function PromptCard({ prompt, onCopy, onUnlock, t }) {
   const [copied, setCopied] = useState(false)
 
   function handleCopy() {
@@ -76,9 +77,9 @@ function PromptCard({ prompt, onCopy, onUnlock }) {
       <div style={styles.cardTop}>
         <span style={styles.cardCategory}>{prompt.category}</span>
         {prompt.free ? (
-          <span style={styles.freeBadge}>Free</span>
+          <span style={styles.freeBadge}>{t('prompts.free')}</span>
         ) : (
-          <span style={styles.proBadge}>Premium</span>
+          <span style={styles.proBadge}>{t('prompts.premium')}</span>
         )}
       </div>
       <h3 style={styles.cardTitle}>{prompt.title}</h3>
@@ -91,17 +92,17 @@ function PromptCard({ prompt, onCopy, onUnlock }) {
             onClick={handleCopy}
             style={{ ...styles.copyBtn, background: copied ? '#10b981' : 'rgba(99,102,241,0.15)' }}
           >
-            {copied ? 'Copied!' : 'Copy Prompt'}
+            {copied ? t('prompts.copied') : t('prompts.copy')}
           </button>
         </>
       ) : (
         <>
           <div style={styles.lockedBlock}>
             <span style={styles.lockIcon}>🔒</span>
-            <span>Unlock with premium pack</span>
+            <span>{t('prompts.unlock')}</span>
           </div>
           <button onClick={onUnlock} style={styles.unlockBtn}>
-            Get Full Access
+            {t('prompts.unlock')}
           </button>
         </>
       )}
@@ -115,6 +116,7 @@ export default function PromptsPage() {
   const { isAuthenticated } = useAuth()
   const navigate = useNavigate()
   const [ref, visible] = useScrollReveal(0.05)
+  const { t } = useLang()
 
   const filtered = PROMPTS
     .filter((p) => active === 'All' || p.category === active)
@@ -128,11 +130,11 @@ export default function PromptsPage() {
       <Navbar />
       <div style={styles.content}>
         <div style={styles.header}>
-          <span style={styles.eyebrow}>Magic Prompts Library</span>
-          <h1 style={styles.heading}>Prompt Library</h1>
+          <span style={styles.eyebrow}>{t('prompts.eyebrow')}</span>
+          <h1 style={styles.heading}>{t('prompts.heading')}</h1>
           <p style={styles.sub}>
             {totalCount} ready-to-use prompts for AI, marketing, business & code.
-            {' '}<span style={{ color: '#6ee7b7' }}>{freeCount} free samples</span> — copy & use instantly.
+            {' '}<span style={{ color: '#6ee7b7' }}>{freeCount} {t('prompts.free')}</span> — copy & use instantly.
           </p>
         </div>
 
@@ -174,6 +176,7 @@ export default function PromptsPage() {
             <PromptCard
               key={p.id}
               prompt={p}
+              t={t}
               onUnlock={() => navigate(isAuthenticated ? '/store' : '/register')}
             />
           ))}
@@ -184,21 +187,21 @@ export default function PromptsPage() {
         )}
 
         <div style={styles.ctaSection}>
-          <h2 style={styles.ctaHeading}>Want all {totalCount} prompts?</h2>
-          <p style={styles.ctaSub}>Get the full prompt library — unlock every premium template.</p>
+          <h2 style={styles.ctaHeading}>{t('prompts.ctaHeading')}</h2>
+          <p style={styles.ctaSub}>{t('prompts.ctaSub')}</p>
           <button
             style={styles.ctaBtn}
             onClick={() => navigate(isAuthenticated ? '/store' : '/register')}
             onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)' }}
             onMouseLeave={(e) => { e.target.style.transform = 'scale(1)' }}
           >
-            Browse Prompt Packs in Store
+            {t('prompts.ctaBtn')}
           </button>
         </div>
       </div>
 
       <footer style={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — All rights reserved</p>
+        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
       </footer>
     </div>
   )

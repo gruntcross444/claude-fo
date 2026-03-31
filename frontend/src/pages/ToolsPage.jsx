@@ -6,6 +6,7 @@ import RecastCalculator from '../components/tools/RecastCalculator'
 import FirstHomeChecklist from '../components/tools/FirstHomeChecklist'
 import RentVsBuy from '../components/tools/RentVsBuy'
 import PreQualQuiz from '../components/tools/PreQualQuiz'
+import { useLang } from '../i18n/LanguageContext'
 
 const TOOLS = [
   { id: 'mortgage', label: 'Mortgage Calculator', component: MortgageCalculator },
@@ -16,28 +17,29 @@ const TOOLS = [
 ]
 
 export default function ToolsPage() {
+  const { t } = useLang()
   const [active, setActive] = useState('mortgage')
 
-  const ActiveComponent = TOOLS.find((t) => t.id === active).component
+  const ActiveComponent = TOOLS.find((tool) => tool.id === active).component
 
   return (
     <div style={styles.page}>
       <Navbar />
       <div style={styles.content}>
         <div style={styles.header}>
-          <span style={styles.eyebrow}>Free Tools</span>
-          <h1 style={styles.heading}>Real Estate Tools</h1>
-          <p style={styles.sub}>Calculators, checklists, and assessments to help you make smarter decisions</p>
+          <span style={styles.eyebrow}>{t('tools.eyebrow')}</span>
+          <h1 style={styles.heading}>{t('tools.heading')}</h1>
+          <p style={styles.sub}>{t('tools.sub')}</p>
         </div>
 
         <div style={styles.tabs}>
-          {TOOLS.map((t) => (
+          {TOOLS.map((tool) => (
             <button
-              key={t.id}
-              onClick={() => setActive(t.id)}
-              style={{ ...styles.tab, ...(active === t.id ? styles.tabActive : {}) }}
+              key={tool.id}
+              onClick={() => setActive(tool.id)}
+              style={{ ...styles.tab, ...(active === tool.id ? styles.tabActive : {}) }}
             >
-              {t.label}
+              {tool.label}
             </button>
           ))}
         </div>
@@ -48,7 +50,7 @@ export default function ToolsPage() {
       </div>
 
       <footer style={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — All rights reserved</p>
+        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
       </footer>
     </div>
   )

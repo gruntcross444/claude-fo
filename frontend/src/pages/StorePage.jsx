@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom'
 import { Building2, Code2, Bot, Smartphone, Palette, Calculator, FileText, BarChart3, Home, Scale, ClipboardCheck, Wrench, Check, ArrowRight, Sparkles } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 
 const STORE_CATEGORIES = ['All', 'Real Estate', 'Web Development', 'AI & Automation', 'Mobile Apps', 'Logo & Branding']
@@ -39,6 +40,7 @@ const freeTools = [
 ]
 
 export default function StorePage() {
+  const { t } = useLang()
   const [active, setActive] = useState('All')
   const [loading, setLoading] = useState(null)
   const [searchParams] = useSearchParams()
@@ -69,13 +71,13 @@ export default function StorePage() {
 
         {/* ── Header ──────────────────────────────────── */}
         <div style={s.header}>
-          <div style={s.eyebrow}><Sparkles size={14} /> Digital Products</div>
-          <h1 style={s.heading}>Store</h1>
-          <p style={s.sub}>Premium templates, tools, and prompt packs to grow your business</p>
+          <div style={s.eyebrow}><Sparkles size={14} /> {t('store.eyebrow')}</div>
+          <h1 style={s.heading}>{t('store.heading')}</h1>
+          <p style={s.sub}>{t('store.sub')}</p>
         </div>
 
-        {success && <div style={s.successBanner}>Payment successful! Check your email for the download link.</div>}
-        {canceled && <div style={s.cancelBanner}>Checkout was canceled. No charge was made.</div>}
+        {success && <div style={s.successBanner}>{t('store.successBanner')}</div>}
+        {canceled && <div style={s.cancelBanner}>{t('store.cancelBanner')}</div>}
 
         {/* ── Category Tabs ───────────────────────────── */}
         <div style={s.tabs}>
@@ -92,7 +94,7 @@ export default function StorePage() {
         {/* ── Paid Products ──────────────────────────── */}
         {filteredPaid.length > 0 && (
           <>
-            <h2 style={s.sectionTitle}>Premium Products</h2>
+            <h2 style={s.sectionTitle}>{t('store.premiumProducts')}</h2>
             <div style={s.paidGrid}>
               {filteredPaid.map((p) => {
                 const CatIcon = CATEGORY_ICONS[p.category] || Code2
@@ -122,7 +124,7 @@ export default function StorePage() {
                       <div style={s.priceRow}>
                         <span style={s.price}>${p.price}</span>
                         <span style={s.originalPrice}>${p.originalPrice}</span>
-                        <span style={s.discount}>{Math.round((1 - p.price / p.originalPrice) * 100)}% off</span>
+                        <span style={s.discount}>{Math.round((1 - p.price / p.originalPrice) * 100)}% {t('store.off')}</span>
                       </div>
                       <button
                         onClick={() => handleBuy(p.id)}
@@ -131,7 +133,7 @@ export default function StorePage() {
                         onMouseEnter={(e) => { e.target.style.boxShadow = `0 6px 20px ${p.color}40` }}
                         onMouseLeave={(e) => { e.target.style.boxShadow = 'none' }}
                       >
-                        {loading === p.id ? 'Redirecting...' : 'Buy Now'}
+                        {loading === p.id ? t('store.redirecting') : t('store.buyNow')}
                       </button>
                     </div>
                   </div>
@@ -145,24 +147,24 @@ export default function StorePage() {
         {showFreeTools && (
           <>
             <div style={s.freeHeader}>
-              <h2 style={s.sectionTitle}>Free Tools</h2>
-              <span style={s.freeBadge}>Free</span>
+              <h2 style={s.sectionTitle}>{t('store.freeTools')}</h2>
+              <span style={s.freeBadge}>{t('store.free')}</span>
             </div>
             <div style={s.freeGrid}>
-              {freeTools.map((t) => (
+              {freeTools.map((tool) => (
                 <a
-                  key={t.id}
-                  href={t.toolLink}
+                  key={tool.id}
+                  href={tool.toolLink}
                   style={s.freeCard}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(200,167,107,0.3)'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)' }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; e.currentTarget.style.background = 'rgba(255,255,255,0.02)' }}
                 >
                   <div style={s.freeIcon}>
-                    <t.Icon size={20} color="#c8a76b" strokeWidth={1.5} />
+                    <tool.Icon size={20} color="#c8a76b" strokeWidth={1.5} />
                   </div>
                   <div style={s.freeText}>
-                    <strong style={s.freeTitle}>{t.title}</strong>
-                    <span style={s.freeDesc}>{t.description}</span>
+                    <strong style={s.freeTitle}>{tool.title}</strong>
+                    <span style={s.freeDesc}>{tool.description}</span>
                   </div>
                   <ArrowRight size={16} color="#666" />
                 </a>
@@ -173,20 +175,20 @@ export default function StorePage() {
 
         {/* ── Bottom CTA ─────────────────────────────── */}
         <div style={s.cta}>
-          <h2 style={s.ctaHeading}>Need something custom?</h2>
-          <p style={s.ctaSub}>We build tailored solutions for your business — from landing pages to full automation systems.</p>
+          <h2 style={s.ctaHeading}>{t('store.customCta')}</h2>
+          <p style={s.ctaSub}>{t('store.customSub')}</p>
           <button
             style={s.ctaBtn}
             onClick={() => navigate(isAuthenticated ? '/contact' : '/register')}
             onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.boxShadow = '0 8px 30px rgba(200,167,107,0.3)' }}
             onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.boxShadow = 'none' }}
           >
-            Let's Build It <ArrowRight size={16} />
+            {t('store.customBtn')} <ArrowRight size={16} />
           </button>
         </div>
       </div>
 
-      <footer style={s.footer}><p>&copy; {new Date().getFullYear()} Claude.FO — All rights reserved</p></footer>
+      <footer style={s.footer}><p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p></footer>
     </div>
   )
 }

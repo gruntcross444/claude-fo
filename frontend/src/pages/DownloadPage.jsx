@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 import { Download, CheckCircle, ArrowRight } from 'lucide-react'
 import Navbar from '../components/Navbar'
+import { useLang } from '../i18n/LanguageContext'
 
 const PRODUCT_FILES = {
   'prompts-real-estate': { name: 'Real Estate Prompt Pack', file: '/downloads/Real-Estate-Prompt-Pack-ClaudeFO.pdf' },
@@ -21,6 +22,7 @@ export default function DownloadPage() {
   const [searchParams] = useSearchParams()
   const productId = searchParams.get('product')
   const product = PRODUCT_FILES[productId]
+  const { t } = useLang()
 
   return (
     <div style={s.page}>
@@ -29,31 +31,31 @@ export default function DownloadPage() {
         <div style={s.iconWrap}>
           <CheckCircle size={48} color="#10b981" strokeWidth={1.5} />
         </div>
-        <h1 style={s.heading}>Payment Successful!</h1>
-        <p style={s.sub}>Thank you for your purchase.</p>
+        <h1 style={s.heading}>{t('download.heading')}</h1>
+        <p style={s.sub}>{t('download.sub')}</p>
 
         {product ? (
           <div style={s.card}>
             <h2 style={s.productName}>{product.name}</h2>
             {product.file ? (
               <a href={product.file} download style={s.downloadBtn}>
-                <Download size={18} /> Download Your Product
+                <Download size={18} /> {t('download.btn')}
               </a>
             ) : (
               <div style={s.pendingMsg}>
-                <p>Your product is being prepared and will be sent to your email shortly.</p>
-                <p style={s.small}>If you don't receive it within 24 hours, contact us.</p>
+                <p>{t('download.pending')}</p>
+                <p style={s.small}>{t('download.pendingSub')}</p>
               </div>
             )}
           </div>
         ) : (
           <div style={s.card}>
-            <p>Your download will be sent to your email shortly.</p>
+            <p>{t('download.pending')}</p>
           </div>
         )}
 
         <a href="/store" style={s.backLink}>
-          Browse more products <ArrowRight size={14} />
+          {t('download.back')} <ArrowRight size={14} />
         </a>
       </div>
     </div>

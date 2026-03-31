@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 
 // ── OAuth URL builders ─────────────────────────────────────────
@@ -132,6 +133,7 @@ function handleTelegramLogin(login, navigate, setError) {
 export default function SocialAuth({ setError }) {
   const { login } = useAuth()
   const navigate = useNavigate()
+  const { t } = useLang()
 
   const hasGoogle = !!import.meta.env.VITE_GOOGLE_CLIENT_ID
   const hasFacebook = !!import.meta.env.VITE_FACEBOOK_APP_ID
@@ -146,7 +148,7 @@ export default function SocialAuth({ setError }) {
     <>
       <div style={styles.divider}>
         <span style={styles.dividerLine} />
-        <span style={styles.dividerText}>or continue with</span>
+        <span style={styles.dividerText}>{t('auth.orContinue')}</span>
         <span style={styles.dividerLine} />
       </div>
 

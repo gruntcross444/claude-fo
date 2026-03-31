@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import Navbar from '../components/Navbar'
+import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 
 export default function ContactPage() {
+  const { t } = useLang()
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState(null) // 'sending' | 'sent' | 'error'
 
@@ -27,9 +29,9 @@ export default function ContactPage() {
       <Navbar />
       <div style={styles.content}>
         <div style={styles.header}>
-          <span style={styles.eyebrow}>Get in touch</span>
-          <h1 style={styles.heading}>Contact</h1>
-          <p style={styles.sub}>Let's talk about your project</p>
+          <span style={styles.eyebrow}>{t('contact.eyebrow')}</span>
+          <h1 style={styles.heading}>{t('contact.heading')}</h1>
+          <p style={styles.sub}>{t('contact.sub')}</p>
         </div>
 
         <div style={styles.grid}>
@@ -47,8 +49,8 @@ export default function ContactPage() {
                 </svg>
               </div>
               <div>
-                <strong style={styles.cardTitle}>WhatsApp</strong>
-                <span style={styles.cardSub}>Chat with me directly</span>
+                <strong style={styles.cardTitle}>{t('contact.whatsapp')}</strong>
+                <span style={styles.cardSub}>{t('contact.whatsappSub')}</span>
               </div>
               <span style={styles.arrow}>&rarr;</span>
             </a>
@@ -60,13 +62,13 @@ export default function ContactPage() {
                 </svg>
               </div>
               <div>
-                <strong style={styles.cardTitle}>Calendly</strong>
-                <span style={styles.cardSub}>Book a consultation — coming soon</span>
+                <strong style={styles.cardTitle}>{t('contact.calendly')}</strong>
+                <span style={styles.cardSub}>{t('contact.calendlySub')}</span>
               </div>
             </div>
 
             <div style={styles.socialSection}>
-              <p style={styles.socialTitle}>Follow us</p>
+              <p style={styles.socialTitle}>{t('contact.follow')}</p>
               <div style={styles.socialLinks}>
                 <a href="#" style={styles.socialBtn} title="Instagram">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -83,30 +85,30 @@ export default function ContactPage() {
 
           {/* ── Contact Form ───────────────────────────── */}
           <div style={styles.formCard}>
-            <h2 style={styles.formTitle}>Send a message</h2>
+            <h2 style={styles.formTitle}>{t('contact.formTitle')}</h2>
 
             {status === 'sent' && (
-              <div style={styles.success}>Message sent! I'll get back to you soon.</div>
+              <div style={styles.success}>{t('contact.sent')}</div>
             )}
             {status === 'error' && (
-              <div style={styles.errorMsg}>Something went wrong. Try WhatsApp instead.</div>
+              <div style={styles.errorMsg}>{t('contact.error')}</div>
             )}
 
             <form onSubmit={handleSubmit} style={styles.form}>
               <label style={styles.label}>
-                Name
-                <input name="name" type="text" value={form.name} onChange={handleChange} required style={styles.input} placeholder="Your name" />
+                {t('contact.name')}
+                <input name="name" type="text" value={form.name} onChange={handleChange} required style={styles.input} placeholder={t('contact.namePlaceholder')} />
               </label>
               <label style={styles.label}>
-                Email
-                <input name="email" type="email" value={form.email} onChange={handleChange} required style={styles.input} placeholder="you@example.com" />
+                {t('contact.email')}
+                <input name="email" type="email" value={form.email} onChange={handleChange} required style={styles.input} placeholder={t('contact.emailPlaceholder')} />
               </label>
               <label style={styles.label}>
-                Message
-                <textarea name="message" value={form.message} onChange={handleChange} required style={{ ...styles.input, minHeight: '140px', resize: 'vertical' }} placeholder="Tell me about your project..." />
+                {t('contact.message')}
+                <textarea name="message" value={form.message} onChange={handleChange} required style={{ ...styles.input, minHeight: '140px', resize: 'vertical' }} placeholder={t('contact.messagePlaceholder')} />
               </label>
               <button type="submit" disabled={status === 'sending'} style={styles.submitBtn}>
-                {status === 'sending' ? 'Sending...' : 'Send Message'}
+                {status === 'sending' ? t('contact.sending') : t('contact.send')}
               </button>
             </form>
           </div>
@@ -114,7 +116,7 @@ export default function ContactPage() {
       </div>
 
       <footer style={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — All rights reserved</p>
+        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
       </footer>
     </div>
   )
