@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { useLang } from '../../i18n/LanguageContext'
 
 const teaserProjects = [
   { title: 'Project Alpha', category: 'Web App', color: '#6366f1' },
@@ -10,11 +11,12 @@ const teaserProjects = [
 export default function PortfolioTeaser() {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
+  const { t } = useLang()
 
   return (
     <section id="portfolio" style={styles.section}>
-      <h2 style={styles.heading}>Portfolio</h2>
-      <p style={styles.subheading}>A selection of my work — register to see everything</p>
+      <h2 style={styles.heading}>{t('portfolioTeaser.heading')}</h2>
+      <p style={styles.subheading}>{t('portfolioTeaser.sub')}</p>
 
       <div style={styles.grid}>
         {teaserProjects.map((p) => (
@@ -30,12 +32,12 @@ export default function PortfolioTeaser() {
       </div>
 
       <div style={styles.cta}>
-        <p style={styles.ctaText}>Sign up to access the full portfolio</p>
+        <p style={styles.ctaText}>{t('portfolioTeaser.ctaText')}</p>
         <button
           style={styles.ctaBtn}
           onClick={() => navigate(isAuthenticated ? '/portfolio' : '/register')}
         >
-          {isAuthenticated ? 'View Portfolio' : 'Create Free Account'}
+          {isAuthenticated ? t('portfolioTeaser.ctaAuth') : t('portfolioTeaser.cta')}
         </button>
       </div>
     </section>

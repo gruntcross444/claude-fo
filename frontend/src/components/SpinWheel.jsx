@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { Gift, X, ArrowRight } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import api from '../api'
+import { useLang } from '../i18n/LanguageContext'
 
 const PRIZES = [
   { label: '50% OFF', color: '#c8a76b', weight: 1 },
@@ -41,6 +42,7 @@ export default function SpinWheel() {
   const [loading, setLoading] = useState(false)
   const wheelRef = useRef(null)
   const { isAuthenticated } = useAuth()
+  const { t } = useLang()
 
   if (!show || isAuthenticated) return null
 
@@ -77,12 +79,12 @@ export default function SpinWheel() {
         {phase === 'email' && (
           <div style={s.emailPhase}>
             <div style={s.giftIcon}><Gift size={36} color="#c8a76b" strokeWidth={1.5} /></div>
-            <h2 style={s.heading}>Spin to Win!</h2>
-            <p style={s.sub}>Enter your email for a chance to win up to <strong>50% off</strong> or free products.</p>
+            <h2 style={s.heading}>{t('spinWheel.heading')}</h2>
+            <p style={s.sub} dangerouslySetInnerHTML={{ __html: t('spinWheel.sub') }} />
             <form onSubmit={handleEmailSubmit} style={s.form}>
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com" style={s.input} />
               <button type="submit" disabled={loading} style={s.spinStartBtn}>
-                {loading ? 'Loading...' : 'Spin the Wheel'} {!loading && <ArrowRight size={14} />}
+                {loading ? t('spinWheel.loading') : t('spinWheel.btn')} {!loading && <ArrowRight size={14} />}
               </button>
             </form>
           </div>
@@ -146,19 +148,19 @@ export default function SpinWheel() {
             {phase === 'result' && prize && (
               <div style={s.resultSection}>
                 <h2 style={s.resultHeading}>
-                  {prize.label === 'Try Again' ? 'So close!' : 'You won!'}
+                  {prize.label === 'Try Again' ? t('spinWheel.lostHeading') : t('spinWheel.wonHeading')}
                 </h2>
                 <div style={{ ...s.prizeDisplay, borderColor: prize.color }}>
                   <span style={{ ...s.prizeText, color: prize.color }}>{prize.label}</span>
                 </div>
                 <p style={s.resultSub}>
                   {prize.label === 'Try Again'
-                    ? 'No worries — sign up now and get 5% off automatically.'
-                    : 'Your discount code has been sent to your email!'
+                    ? t('spinWheel.lostSub')
+                    : t('spinWheel.wonSub')
                   }
                 </p>
                 <button onClick={() => setShow(false)} style={s.doneBtn}>
-                  {prize.label === 'Try Again' ? 'Sign Up Anyway' : 'Continue Shopping'}
+                  {prize.label === 'Try Again' ? t('spinWheel.lostBtn') : t('spinWheel.wonBtn')}
                 </button>
               </div>
             )}

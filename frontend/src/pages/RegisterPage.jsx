@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 import SocialAuth from '../components/SocialAuth'
 
@@ -9,6 +10,7 @@ export default function RegisterPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login } = useAuth()
+  const { t } = useLang()
   const navigate = useNavigate()
 
   function handleChange(e) {
@@ -34,8 +36,8 @@ export default function RegisterPage() {
     <div style={styles.page}>
       <div style={styles.card}>
         <Link to="/" style={styles.logo}>Claude.FO</Link>
-        <h1 style={styles.heading}>Create an account</h1>
-        <p style={styles.sub}>Get access to the full portfolio</p>
+        <h1 style={styles.heading}>{t('auth.registerHeading')}</h1>
+        <p style={styles.sub}>{t('auth.registerSub')}</p>
 
         {error && <p style={styles.error}>{error}</p>}
 
@@ -43,7 +45,7 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} style={styles.form}>
           <label style={styles.label}>
-            Name
+            {t('auth.name')}
             <input
               name="name"
               type="text"
@@ -51,11 +53,11 @@ export default function RegisterPage() {
               onChange={handleChange}
               required
               style={styles.input}
-              placeholder="Your name"
+              placeholder={t('contact.namePlaceholder')}
             />
           </label>
           <label style={styles.label}>
-            Email
+            {t('auth.email')}
             <input
               name="email"
               type="email"
@@ -63,11 +65,11 @@ export default function RegisterPage() {
               onChange={handleChange}
               required
               style={styles.input}
-              placeholder="you@example.com"
+              placeholder={t('contact.emailPlaceholder')}
             />
           </label>
           <label style={styles.label}>
-            Password
+            {t('auth.password')}
             <input
               name="password"
               type="password"
@@ -79,13 +81,13 @@ export default function RegisterPage() {
             />
           </label>
           <button type="submit" disabled={loading} style={styles.btn}>
-            {loading ? 'Creating account...' : 'Create account'}
+            {loading ? t('auth.creating') : t('auth.registerBtn')}
           </button>
         </form>
 
         <p style={styles.footer}>
-          Already have an account?{' '}
-          <Link to="/login" style={styles.footerLink}>Log in</Link>
+          {t('auth.hasAccount')}{' '}
+          <Link to="/login" style={styles.footerLink}>{t('auth.logIn')}</Link>
         </p>
       </div>
     </div>

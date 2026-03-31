@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 import SocialAuth from '../components/SocialAuth'
 
@@ -9,6 +10,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login } = useAuth()
+  const { t } = useLang()
   const navigate = useNavigate()
 
   function handleChange(e) {
@@ -34,14 +36,14 @@ export default function LoginPage() {
     <div style={styles.page}>
       <div style={styles.card}>
         <Link to="/" style={styles.logo}>Claude.FO</Link>
-        <h1 style={styles.heading}>Welcome back</h1>
-        <p style={styles.sub}>Log in to access the portfolio</p>
+        <h1 style={styles.heading}>{t('auth.loginHeading')}</h1>
+        <p style={styles.sub}>{t('auth.loginSub')}</p>
 
         {error && <p style={styles.error}>{error}</p>}
 
         <form onSubmit={handleSubmit} style={styles.form}>
           <label style={styles.label}>
-            Email
+            {t('auth.email')}
             <input
               name="email"
               type="email"
@@ -53,7 +55,7 @@ export default function LoginPage() {
             />
           </label>
           <label style={styles.label}>
-            Password
+            {t('auth.password')}
             <input
               name="password"
               type="password"
@@ -65,15 +67,15 @@ export default function LoginPage() {
             />
           </label>
           <button type="submit" disabled={loading} style={styles.btn}>
-            {loading ? 'Logging in...' : 'Log in'}
+            {loading ? t('auth.loggingIn') : t('auth.loginBtn')}
           </button>
         </form>
 
         <SocialAuth setError={setError} />
 
         <p style={styles.footer}>
-          Don&apos;t have an account?{' '}
-          <Link to="/register" style={styles.footerLink}>Sign up</Link>
+          {t('auth.noAccount')}{' '}
+          <Link to="/register" style={styles.footerLink}>{t('auth.signUp')}</Link>
         </p>
       </div>
     </div>

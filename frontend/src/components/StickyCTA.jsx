@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { ArrowRight, X } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../i18n/LanguageContext'
 
 const HIDDEN_PATHS = ['/login', '/register', '/contact', '/auth']
 
@@ -10,6 +11,7 @@ export default function StickyCTA() {
   const { isAuthenticated } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const { t } = useLang()
 
   if (dismissed) return null
   if (HIDDEN_PATHS.some((p) => location.pathname.startsWith(p))) return null
@@ -23,13 +25,13 @@ export default function StickyCTA() {
     <div style={styles.bar}>
       <div style={styles.inner}>
         <p style={styles.text}>
-          Ready to start your project?
+          {t('stickyCta.text')}
         </p>
         <button
           style={styles.btn}
           onClick={() => navigate(isAuthenticated ? '/contact' : '/register')}
         >
-          {isAuthenticated ? 'Get in Touch' : 'Get a Free Consultation'} <ArrowRight size={14} />
+          {isAuthenticated ? t('stickyCta.btnAuth') : t('stickyCta.btn')} <ArrowRight size={14} />
         </button>
         <button onClick={handleDismiss} style={styles.close} aria-label="Dismiss">
           <X size={16} />

@@ -5,26 +5,10 @@ import ServicesSection from '../components/sections/ServicesSection'
 import FeaturesSection from '../components/sections/FeaturesSection'
 import PortfolioTeaser from '../components/sections/PortfolioTeaser'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../i18n/LanguageContext'
 import useTypingEffect from '../hooks/useTypingEffect'
 import useCounter from '../hooks/useCounter'
 import useScrollReveal from '../hooks/useScrollReveal'
-
-const TYPING_WORDS = [
-  'stunning websites',
-  'AI automations',
-  'brand identities',
-  'lead funnels',
-  'magic prompts',
-  'mobile apps',
-  'digital products',
-]
-
-const STATS = [
-  { label: 'Projects Delivered', value: 50, suffix: '+' },
-  { label: 'Happy Clients', value: 30, suffix: '+' },
-  { label: 'Tools Built', value: 12, suffix: '' },
-  { label: 'Years Experience', value: 5, suffix: '+' },
-]
 
 function StatCounter({ label, value, suffix }) {
   const [ref, count] = useCounter(value, 2000)
@@ -63,7 +47,17 @@ function ScrollHint() {
 export default function LandingPage() {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
-  const typedText = useTypingEffect(TYPING_WORDS, 90, 50, 1800)
+  const { t } = useLang()
+
+  const typingWords = t('typingWords')
+  const typedText = useTypingEffect(typingWords, 90, 50, 1800)
+
+  const STATS = [
+    { label: t('stats.projects'), value: 50, suffix: '+' },
+    { label: t('stats.clients'), value: 30, suffix: '+' },
+    { label: t('stats.tools'), value: 12, suffix: '' },
+    { label: t('stats.experience'), value: 5, suffix: '+' },
+  ]
 
   return (
     <div style={styles.snapContainer}>
@@ -74,19 +68,19 @@ export default function LandingPage() {
         <div style={styles.hero}>
           <div style={styles.heroGlow} />
           <RevealSection>
-            <p style={styles.eyebrow}>Premium Digital Agency</p>
+            <p style={styles.eyebrow}>{t('hero.eyebrow')}</p>
           </RevealSection>
           <RevealSection delay={0.1}>
             <h1 style={styles.heading}>
-              We craft<br />
+              {t('hero.heading')}<br />
               <span style={styles.typed}>{typedText}</span>
               <span style={styles.cursor}>|</span>
             </h1>
           </RevealSection>
           <RevealSection delay={0.2}>
             <p style={styles.sub}>
-              Full-stack development, AI automation, branding & real estate solutions.<br />
-              Exclusive. Premium. Results-driven.
+              {t('hero.sub')}<br />
+              {t('hero.sub2')}
             </p>
           </RevealSection>
           <RevealSection delay={0.3}>
@@ -97,7 +91,7 @@ export default function LandingPage() {
                 onMouseEnter={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 30px rgba(99,102,241,0.4)' }}
                 onMouseLeave={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'none' }}
               >
-                {isAuthenticated ? 'View Portfolio' : 'Explore Our Work'}
+                {isAuthenticated ? t('hero.ctaAuth') : t('hero.cta')}
               </button>
               <a
                 href="#stats"
@@ -105,7 +99,7 @@ export default function LandingPage() {
                 onMouseEnter={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.4)'; e.target.style.color = '#fff' }}
                 onMouseLeave={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; e.target.style.color = '#aaa' }}
               >
-                Our Services <ArrowDown size={16} />
+                {t('hero.secondary')} <ArrowDown size={16} />
               </a>
             </div>
           </RevealSection>
@@ -125,7 +119,7 @@ export default function LandingPage() {
           </RevealSection>
           <RevealSection delay={0.2}>
             <div style={styles.trustedSection}>
-              <p style={styles.trustedLabel}>Trusted by businesses in</p>
+              <p style={styles.trustedLabel}>{t('trust.label')}</p>
               <div style={styles.trustedLogos}>
                 {['Miami', 'New York', 'Los Angeles', 'Dubai', 'London'].map((city) => (
                   <span key={city} style={styles.trustedItem}>{city}</span>
@@ -141,13 +135,13 @@ export default function LandingPage() {
                 onMouseEnter={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 30px rgba(99,102,241,0.4)' }}
                 onMouseLeave={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'none' }}
               >
-                Browse Store <ArrowRight size={16} />
+                {t('statsCta.store')} <ArrowRight size={16} />
               </button>
               <button
                 style={styles.ghostBtn}
                 onClick={() => navigate('/tools')}
               >
-                Try Free Tools
+                {t('statsCta.tools')}
               </button>
             </div>
           </RevealSection>
@@ -178,8 +172,8 @@ export default function LandingPage() {
         <RevealSection>
           <div style={styles.ctaSection}>
             <div style={styles.ctaGlow} />
-            <h2 style={styles.ctaHeading}>Ready to elevate your brand?</h2>
-            <p style={styles.ctaSub}>Let's build something extraordinary together.</p>
+            <h2 style={styles.ctaHeading}>{t('cta.heading')}</h2>
+            <p style={styles.ctaSub}>{t('cta.sub')}</p>
             <div style={styles.ctaActions}>
               <button
                 style={styles.ctaBtn}
@@ -187,16 +181,16 @@ export default function LandingPage() {
                 onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.boxShadow = '0 8px 30px rgba(200,167,107,0.3)' }}
                 onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.boxShadow = 'none' }}
               >
-                {isAuthenticated ? 'Get in Touch' : 'Start Your Project'}
+                {isAuthenticated ? t('cta.btnAuth') : t('cta.btn')}
               </button>
               <button style={styles.ghostBtn} onClick={() => navigate('/prompts')}>
-                Browse Free Prompts
+                {t('cta.prompts')}
               </button>
             </div>
           </div>
         </RevealSection>
         <footer style={styles.footer}>
-          <p>&copy; {new Date().getFullYear()} Claude.FO — All rights reserved</p>
+          <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
         </footer>
       </section>
     </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Gift, X, ArrowRight } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import api from '../api'
+import { useLang } from '../i18n/LanguageContext'
 
 export default function ExitIntentPopup() {
   const [show, setShow] = useState(false)
@@ -9,6 +10,7 @@ export default function ExitIntentPopup() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const { isAuthenticated } = useAuth()
+  const { t } = useLang()
 
   useEffect(() => {
     if (isAuthenticated) return
@@ -57,8 +59,8 @@ export default function ExitIntentPopup() {
             <div style={styles.iconWrap}>
               <Gift size={32} color="#c8a76b" strokeWidth={1.5} />
             </div>
-            <h2 style={styles.heading}>Wait — don't leave empty-handed!</h2>
-            <p style={styles.sub}>Get <strong>10% off</strong> your first purchase + our free Real Estate Toolkit.</p>
+            <h2 style={styles.heading}>{t('exitPopup.heading')}</h2>
+            <p style={styles.sub} dangerouslySetInnerHTML={{ __html: t('exitPopup.sub') }} />
             <form onSubmit={handleSubmit} style={styles.form}>
               <input
                 type="email"
@@ -69,19 +71,19 @@ export default function ExitIntentPopup() {
                 style={styles.input}
               />
               <button type="submit" disabled={loading} style={styles.btn}>
-                {loading ? 'Sending...' : 'Claim My 10% Off'} {!loading && <ArrowRight size={14} />}
+                {loading ? t('exitPopup.sending') : t('exitPopup.btn')} {!loading && <ArrowRight size={14} />}
               </button>
             </form>
-            <p style={styles.privacy}>No spam. Unsubscribe anytime.</p>
+            <p style={styles.privacy}>{t('exitPopup.privacy')}</p>
           </>
         ) : (
           <>
             <div style={styles.iconWrap}>
               <Gift size={32} color="#10b981" strokeWidth={1.5} />
             </div>
-            <h2 style={styles.heading}>You're in!</h2>
-            <p style={styles.sub}>Check your inbox for the discount code and free toolkit.</p>
-            <button onClick={() => setShow(false)} style={styles.btn}>Continue Browsing</button>
+            <h2 style={styles.heading}>{t('exitPopup.successHeading')}</h2>
+            <p style={styles.sub}>{t('exitPopup.successSub')}</p>
+            <button onClick={() => setShow(false)} style={styles.btn}>{t('exitPopup.continue')}</button>
           </>
         )}
       </div>

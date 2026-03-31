@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../i18n/LanguageContext'
 
 export default function Navbar() {
   const { isAuthenticated, logout } = useAuth()
+  const { t, lang, switchLang } = useLang()
   const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -17,6 +19,10 @@ export default function Navbar() {
     setMenuOpen(false)
   }
 
+  function toggleLang() {
+    switchLang(lang === 'en' ? 'es' : 'en')
+  }
+
   return (
     <nav style={styles.nav}>
       <Link to="/" style={styles.logo} onClick={closeMenu}>
@@ -25,20 +31,23 @@ export default function Navbar() {
 
       {/* Desktop links */}
       <div style={styles.links}>
-        <a href="/#services" style={styles.link}>Services</a>
-        <a href="/#features" style={styles.link}>Features</a>
-        <Link to="/portfolio" style={styles.link}>Portfolio</Link>
-        <Link to="/store" style={styles.link}>Store</Link>
-        <Link to="/tools" style={styles.link}>Tools</Link>
-        <Link to="/prompts" style={styles.link}>Prompts</Link>
-        <Link to="/contact" style={styles.link}>Contact</Link>
+        <a href="/#services" style={styles.link}>{t('nav.services')}</a>
+        <a href="/#features" style={styles.link}>{t('nav.features')}</a>
+        <Link to="/portfolio" style={styles.link}>{t('nav.portfolio')}</Link>
+        <Link to="/store" style={styles.link}>{t('nav.store')}</Link>
+        <Link to="/tools" style={styles.link}>{t('nav.tools')}</Link>
+        <Link to="/prompts" style={styles.link}>{t('nav.prompts')}</Link>
+        <Link to="/contact" style={styles.link}>{t('nav.contact')}</Link>
       </div>
 
       <div style={styles.right}>
+        <button onClick={toggleLang} style={styles.langToggle} title="Switch language">
+          {lang === 'en' ? 'ES' : 'EN'}
+        </button>
         {isAuthenticated ? (
-          <button onClick={handleLogout} style={styles.btn}>Log out</button>
+          <button onClick={handleLogout} style={styles.btn}>{t('nav.logout')}</button>
         ) : (
-          <Link to="/login" style={styles.btnPrimary}>Log in</Link>
+          <Link to="/login" style={styles.btnPrimary}>{t('nav.login')}</Link>
         )}
       </div>
 
@@ -56,18 +65,21 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div style={styles.mobileMenu}>
-          <a href="/#services" style={styles.mobileLink} onClick={closeMenu}>Services</a>
-          <a href="/#features" style={styles.mobileLink} onClick={closeMenu}>Features</a>
-          <Link to="/portfolio" style={styles.mobileLink} onClick={closeMenu}>Portfolio</Link>
-          <Link to="/store" style={styles.mobileLink} onClick={closeMenu}>Store</Link>
-          <Link to="/tools" style={styles.mobileLink} onClick={closeMenu}>Tools</Link>
-          <Link to="/prompts" style={styles.mobileLink} onClick={closeMenu}>Prompts</Link>
-          <Link to="/contact" style={styles.mobileLink} onClick={closeMenu}>Contact</Link>
+          <a href="/#services" style={styles.mobileLink} onClick={closeMenu}>{t('nav.services')}</a>
+          <a href="/#features" style={styles.mobileLink} onClick={closeMenu}>{t('nav.features')}</a>
+          <Link to="/portfolio" style={styles.mobileLink} onClick={closeMenu}>{t('nav.portfolio')}</Link>
+          <Link to="/store" style={styles.mobileLink} onClick={closeMenu}>{t('nav.store')}</Link>
+          <Link to="/tools" style={styles.mobileLink} onClick={closeMenu}>{t('nav.tools')}</Link>
+          <Link to="/prompts" style={styles.mobileLink} onClick={closeMenu}>{t('nav.prompts')}</Link>
+          <Link to="/contact" style={styles.mobileLink} onClick={closeMenu}>{t('nav.contact')}</Link>
           <div style={styles.mobileDivider} />
+          <button onClick={toggleLang} style={styles.mobileLangBtn}>
+            {lang === 'en' ? 'Cambiar a Espanol' : 'Switch to English'}
+          </button>
           {isAuthenticated ? (
-            <button onClick={handleLogout} style={styles.mobileBtn}>Log out</button>
+            <button onClick={handleLogout} style={styles.mobileBtn}>{t('nav.logout')}</button>
           ) : (
-            <Link to="/register" style={styles.mobileBtnPrimary} onClick={closeMenu}>Get Started</Link>
+            <Link to="/register" style={styles.mobileBtnPrimary} onClick={closeMenu}>{t('nav.getStarted')}</Link>
           )}
         </div>
       )}
@@ -115,6 +127,19 @@ const styles = {
   right: {
     display: 'flex',
     alignItems: 'center',
+    gap: '0.6rem',
+  },
+  langToggle: {
+    padding: '0.3rem 0.6rem',
+    borderRadius: '6px',
+    border: '1px solid rgba(200,167,107,0.3)',
+    background: 'transparent',
+    color: '#c8a76b',
+    fontSize: '0.75rem',
+    fontWeight: 700,
+    cursor: 'pointer',
+    letterSpacing: '0.05em',
+    transition: 'all 0.2s',
   },
   btn: {
     padding: '0.45rem 1.1rem',
@@ -177,6 +202,17 @@ const styles = {
     height: '1px',
     background: 'rgba(255,255,255,0.08)',
     margin: '0.5rem 0',
+  },
+  mobileLangBtn: {
+    padding: '0.6rem',
+    borderRadius: '8px',
+    border: '1px solid rgba(200,167,107,0.3)',
+    background: 'transparent',
+    color: '#c8a76b',
+    cursor: 'pointer',
+    fontSize: '0.9rem',
+    fontWeight: 500,
+    textAlign: 'center',
   },
   mobileBtn: {
     padding: '0.7rem',

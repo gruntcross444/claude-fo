@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import { Mail, ArrowRight } from 'lucide-react'
 import api from '../api'
+import { useLang } from '../i18n/LanguageContext'
 
 export default function EmailGate({ source, children }) {
   const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem('email_unlocked') === 'true')
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const { t } = useLang()
 
   async function handleSubmit(e) {
     e.preventDefault()
     setError('')
     if (!email || !email.includes('@')) {
-      setError('Please enter a valid email')
+      setError(t('emailGate.error'))
       return
     }
     setLoading(true)
@@ -36,8 +38,8 @@ export default function EmailGate({ source, children }) {
           <div style={styles.iconWrap}>
             <Mail size={28} color="#c8a76b" strokeWidth={1.5} />
           </div>
-          <h3 style={styles.heading}>See your results</h3>
-          <p style={styles.sub}>Enter your email to unlock the calculator results. Free, no spam.</p>
+          <h3 style={styles.heading}>{t('emailGate.heading')}</h3>
+          <p style={styles.sub}>{t('emailGate.sub')}</p>
           {error && <p style={styles.error}>{error}</p>}
           <form onSubmit={handleSubmit} style={styles.form}>
             <input
@@ -49,10 +51,10 @@ export default function EmailGate({ source, children }) {
               style={styles.input}
             />
             <button type="submit" disabled={loading} style={styles.btn}>
-              {loading ? 'Unlocking...' : 'Unlock Results'} {!loading && <ArrowRight size={14} />}
+              {loading ? t('emailGate.unlocking') : t('emailGate.btn')} {!loading && <ArrowRight size={14} />}
             </button>
           </form>
-          <p style={styles.privacy}>We respect your privacy. Unsubscribe anytime.</p>
+          <p style={styles.privacy}>{t('emailGate.privacy')}</p>
         </div>
       </div>
     </div>
