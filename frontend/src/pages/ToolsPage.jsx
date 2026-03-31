@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Calculator, BarChart3, ClipboardCheck, Scale, FileText, ChevronRight, Wrench } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import EmailGate from '../components/EmailGate'
 import MortgageCalculator from '../components/tools/MortgageCalculator'
@@ -9,83 +10,134 @@ import PreQualQuiz from '../components/tools/PreQualQuiz'
 import { useLang } from '../i18n/LanguageContext'
 
 const TOOLS = [
-  { id: 'mortgage', label: 'Mortgage Calculator', component: MortgageCalculator },
-  { id: 'recast', label: 'Recast Calculator', component: RecastCalculator },
-  { id: 'checklist', label: 'First Home Checklist', component: FirstHomeChecklist },
-  { id: 'rentvsbuy', label: 'Rent vs Buy', component: RentVsBuy },
-  { id: 'quiz', label: 'PQ Assessment', component: PreQualQuiz },
+  { id: 'mortgage', label: 'Mortgage Calculator', desc: 'Estimate your monthly payment', Icon: Calculator, component: MortgageCalculator, color: '#6366f1' },
+  { id: 'recast', label: 'Recast Calculator', desc: 'Payment after lump-sum reduction', Icon: BarChart3, component: RecastCalculator, color: '#10b981' },
+  { id: 'checklist', label: 'First Home Checklist', desc: '10 steps to buying your first home', Icon: ClipboardCheck, component: FirstHomeChecklist, color: '#f59e0b' },
+  { id: 'rentvsbuy', label: 'Rent vs Buy', desc: 'Compare costs over time', Icon: Scale, component: RentVsBuy, color: '#a855f7' },
+  { id: 'quiz', label: 'PQ Assessment', desc: 'Are you ready to buy?', Icon: FileText, component: PreQualQuiz, color: '#ec4899' },
 ]
 
 export default function ToolsPage() {
   const { t } = useLang()
   const [active, setActive] = useState('mortgage')
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  const ActiveComponent = TOOLS.find((tool) => tool.id === active).component
+  const activeTool = TOOLS.find((tool) => tool.id === active)
+  const ActiveComponent = activeTool.component
 
   return (
-    <div style={styles.page}>
+    <div style={s.page}>
       <Navbar />
-      <div style={styles.content}>
-        <div style={styles.header}>
-          <span style={styles.eyebrow}>{t('tools.eyebrow')}</span>
-          <h1 style={styles.heading}>{t('tools.heading')}</h1>
-          <p style={styles.sub}>{t('tools.sub')}</p>
-        </div>
+      <div style={s.layout}>
 
-        <div style={styles.tabs}>
-          {TOOLS.map((tool) => (
-            <button
-              key={tool.id}
-              onClick={() => setActive(tool.id)}
-              style={{ ...styles.tab, ...(active === tool.id ? styles.tabActive : {}) }}
-            >
-              {tool.label}
-            </button>
-          ))}
-        </div>
+        {/* ── Mobile toggle ─────────────────────────── */}
+        <button style={s.mobileToggle} onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <Wrench size={16} /> Tools Menu <ChevronRight size={14} style={{ transform: sidebarOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
+        </button>
 
-        <EmailGate source={`tool_${active}`}>
-          <ActiveComponent />
-        </EmailGate>
+        {/* ── Left Sidebar ──────────────────────────── */}
+        <aside style={{ ...s.sidebar, ...(sidebarOpen ? s.sidebarOpen : {}) }}>
+          <div style={s.sidebarHeader}>
+            <Wrench size={18} color="#c8a76b" />
+            <span style={s.sidebarTitle}>{t('tools.eyebrow')}</span>
+          </div>
+          <div style={s.toolList}>
+            {TOOLS.map((tool) => {
+              const isActive = active === tool.id
+              return (
+                <button
+                  key={tool.id}
+                  onClick={() => { setActive(tool.id); setSidebarOpen(false) }}
+                  style={{ ...s.toolBtn, ...(isActive ? { ...s.toolBtnActive, borderLeftColor: tool.color, background: `${tool.color}10` } : {}) }}
+                >
+                  <div style={{ ...s.toolIcon, background: isActive ? `${tool.color}20` : 'rgba(255,255,255,0.04)', borderColor: isActive ? `${tool.color}40` : 'rgba(255,255,255,0.08)' }}>
+                    <tool.Icon size={18} color={isActive ? tool.color : '#666'} strokeWidth={1.5} />
+                  </div>
+                  <div style={s.toolInfo}>
+                    <span style={{ ...s.toolLabel, color: isActive ? '#fff' : '#aaa' }}>{tool.label}</span>
+                    <span style={s.toolDesc}>{tool.desc}</span>
+                  </div>
+                  {isActive && <ChevronRight size={14} color={tool.color} />}
+                </button>
+              )
+            })}
+          </div>
+          <div style={s.sidebarFooter}>
+            <p style={s.sidebarNote}>All tools are 100% free.<br />No credit card required.</p>
+          </div>
+        </aside>
+
+        {/* ── Right Content Area ────────────────────── */}
+        <main style={s.main}>
+          <div style={s.toolHeader}>
+            <div style={{ ...s.activeIcon, background: `${activeTool.color}15`, border: `1px solid ${activeTool.color}30` }}>
+              <activeTool.Icon size={24} color={activeTool.color} strokeWidth={1.5} />
+            </div>
+            <div>
+              <h1 style={s.heading}>{activeTool.label}</h1>
+              <p style={s.sub}>{activeTool.desc}</p>
+            </div>
+          </div>
+
+          <EmailGate source={`tool_${active}`}>
+            <ActiveComponent />
+          </EmailGate>
+        </main>
       </div>
 
-      <footer style={styles.footer}>
+      <footer style={s.footer}>
         <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
       </footer>
     </div>
   )
 }
 
-const styles = {
+const s = {
   page: { minHeight: '100vh' },
-  content: { maxWidth: '800px', margin: '0 auto', padding: '3rem 2rem' },
-  header: { textAlign: 'center', marginBottom: '2rem' },
-  eyebrow: {
-    display: 'inline-block',
-    padding: '0.3rem 0.9rem',
-    borderRadius: '999px',
-    border: '1px solid rgba(200,167,107,0.4)',
-    color: '#c8a76b',
-    fontSize: '0.8rem',
-    marginBottom: '1rem',
-  },
-  heading: { fontSize: '2.2rem', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
-  sub: { color: '#888', fontSize: '1rem', margin: 0 },
-  tabs: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem', marginBottom: '2rem' },
-  tab: {
-    padding: '0.5rem 1rem',
-    borderRadius: '999px',
-    border: '1px solid rgba(255,255,255,0.1)',
-    background: 'transparent',
-    color: '#888',
-    fontSize: '0.85rem',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-  },
-  tabActive: {
-    background: 'linear-gradient(135deg, #c8a76b, #a88a4e)',
-    color: '#fff',
-    border: '1px solid transparent',
-  },
-  footer: { textAlign: 'center', padding: '2rem', color: '#555', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
+  layout: { display: 'flex', maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', gap: '1.5rem', position: 'relative' },
+
+  // Mobile toggle
+  mobileToggle: { display: 'none', alignItems: 'center', gap: '0.5rem', padding: '0.7rem 1rem', margin: '1rem 0', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.03)', color: '#aaa', fontSize: '0.9rem', cursor: 'pointer', width: '100%' },
+
+  // Sidebar
+  sidebar: { width: '280px', flexShrink: 0, padding: '2rem 0', position: 'sticky', top: '70px', height: 'fit-content', maxHeight: 'calc(100vh - 90px)', overflowY: 'auto' },
+  sidebarOpen: {},
+  sidebarHeader: { display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0 0.5rem', marginBottom: '1.5rem' },
+  sidebarTitle: { fontSize: '0.85rem', fontWeight: 700, color: '#c8a76b', textTransform: 'uppercase', letterSpacing: '0.08em' },
+  toolList: { display: 'flex', flexDirection: 'column', gap: '0.4rem' },
+  toolBtn: { display: 'flex', alignItems: 'center', gap: '0.8rem', padding: '0.8rem', borderRadius: '12px', border: 'none', borderLeft: '3px solid transparent', background: 'transparent', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s', width: '100%' },
+  toolBtnActive: { borderLeft: '3px solid' },
+  toolIcon: { width: '38px', height: '38px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: '1px solid', transition: 'all 0.2s' },
+  toolInfo: { flex: 1, minWidth: 0 },
+  toolLabel: { display: 'block', fontSize: '0.9rem', fontWeight: 600, transition: 'color 0.2s' },
+  toolDesc: { display: 'block', fontSize: '0.75rem', color: '#555', marginTop: '0.15rem' },
+  sidebarFooter: { marginTop: '2rem', padding: '1rem', borderRadius: '10px', background: 'rgba(200,167,107,0.05)', border: '1px solid rgba(200,167,107,0.15)' },
+  sidebarNote: { fontSize: '0.78rem', color: '#888', lineHeight: 1.5, margin: 0, textAlign: 'center' },
+
+  // Main content
+  main: { flex: 1, padding: '2rem 0', minWidth: 0 },
+  toolHeader: { display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' },
+  activeIcon: { width: '52px', height: '52px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+  heading: { fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.2rem', letterSpacing: '-0.02em' },
+  sub: { color: '#777', fontSize: '0.9rem', margin: 0 },
+
+  footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
+}
+
+// Responsive CSS for mobile
+if (typeof document !== 'undefined') {
+  const id = 'tools-responsive'
+  if (!document.getElementById(id)) {
+    const style = document.createElement('style')
+    style.id = id
+    style.textContent = `
+      @media (max-width: 768px) {
+        [data-tools-layout] { flex-direction: column !important; }
+        [data-tools-sidebar] { width: 100% !important; position: static !important; display: none !important; }
+        [data-tools-sidebar].open { display: flex !important; }
+        [data-tools-toggle] { display: flex !important; }
+      }
+    `
+    document.head.appendChild(style)
+  }
 }
