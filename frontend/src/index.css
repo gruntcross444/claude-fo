@@ -72,6 +72,18 @@ a {
   60% { transform: translateY(4px); }
 }
 
+/* ── Spin wheel pointer pulse ──────────────────────────── */
+@keyframes pointerPulse {
+  0% { transform: translateX(-50%) scale(1); }
+  100% { transform: translateX(-50%) scale(1.2); }
+}
+
+/* ── Fade in up for results ────────────────────────────── */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Smooth scrolling ──────────────────────────────────── */
 html {
   scroll-behavior: smooth;

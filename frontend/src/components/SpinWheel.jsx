@@ -53,20 +53,27 @@ export default function SpinWheel() {
       await api.post('/leads', { email, source: 'spin_wheel' })
     } catch { /* already captured */ }
     setLoading(false)
-    setPhase('spinning')
 
     const winIndex = getWeightedIndex()
     const segmentAngle = 360 / PRIZES.length
     const targetAngle = 360 - (winIndex * segmentAngle + segmentAngle / 2)
-    const fullSpins = 360 * 5
+    const fullSpins = 360 * 8
     const finalRotation = fullSpins + targetAngle
 
-    setRotation(finalRotation)
     setPrize(PRIZES[winIndex])
+    setRotation(0)
+    setPhase('spinning')
+
+    // Delay rotation by 1 frame so the browser registers the transition
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setRotation(finalRotation)
+      })
+    })
 
     setTimeout(() => {
       setPhase('result')
-    }, 4500)
+    }, 5500)
   }
 
   const segAngle = 360 / PRIZES.length
@@ -94,7 +101,7 @@ export default function SpinWheel() {
           <div style={s.wheelPhase}>
             <div style={s.wheelContainer}>
               {/* Pointer */}
-              <div style={s.pointer}>&#9660;</div>
+              <div style={{ ...s.pointer, animation: phase === 'spinning' && rotation > 0 ? 'pointerPulse 0.15s infinite alternate' : 'none' }}>&#9660;</div>
               {/* Wheel */}
               <svg
                 ref={wheelRef}
@@ -103,7 +110,8 @@ export default function SpinWheel() {
                 viewBox="0 0 300 300"
                 style={{
                   transform: `rotate(${rotation}deg)`,
-                  transition: phase === 'spinning' ? 'transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99)' : 'none',
+                  transition: phase === 'spinning' && rotation > 0 ? 'transform 5s cubic-bezier(0.15, 0.60, 0.08, 1.00)' : 'none',
+                  filter: phase === 'spinning' && rotation > 0 ? 'drop-shadow(0 0 20px rgba(200,167,107,0.3))' : 'none',
                 }}
               >
                 {PRIZES.map((p, i) => {
@@ -188,7 +196,7 @@ const s = {
   wheelContainer: { position: 'relative', width: '300px', height: '300px', margin: '0 auto 1.5rem' },
   pointer: { position: 'absolute', top: '-8px', left: '50%', transform: 'translateX(-50%)', fontSize: '24px', color: '#c8a76b', zIndex: 5, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' },
 
-  resultSection: { padding: '0.5rem 0' },
+  resultSection: { padding: '0.5rem 0', animation: 'fadeInUp 0.5s ease' },
   resultHeading: { fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.8rem' },
   prizeDisplay: { display: 'inline-block', padding: '0.6rem 2rem', borderRadius: '12px', border: '2px solid', background: 'rgba(255,255,255,0.03)', marginBottom: '1rem' },
   prizeText: { fontSize: '1.5rem', fontWeight: 800 },
