@@ -18,14 +18,20 @@ export default function EmailGate({ source, children }) {
       return
     }
     setLoading(true)
+    // Fire the lead capture but don't wait forever — unlock after 3s max
+    const unlock = () => {
+      sessionStorage.setItem('email_unlocked', 'true')
+      setUnlocked(true)
+      setLoading(false)
+    }
+    const timeout = setTimeout(unlock, 3000)
     try {
       await api.post('/leads', { email, source: source || 'tool' })
     } catch {
       // Still unlock — the lead might already exist or network hiccup
     }
-    sessionStorage.setItem('email_unlocked', 'true')
-    setUnlocked(true)
-    setLoading(false)
+    clearTimeout(timeout)
+    unlock()
   }
 
   if (unlocked) return children
