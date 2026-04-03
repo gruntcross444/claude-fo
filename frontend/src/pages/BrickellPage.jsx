@@ -171,7 +171,7 @@ export default function BrickellPage() {
           <div style={s.mapWrap}>
             <iframe
               title="Brickell Map"
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14362.5!2d-80.1918!3d25.7617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4v1"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Brickell,Miami,FL&zoom=14&maptype=roadmap"
               style={s.mapIframe}
               loading="lazy"
               allowFullScreen
