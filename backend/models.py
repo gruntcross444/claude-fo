@@ -55,6 +55,23 @@ class ScheduledEmail(Base):
     created_at = Column(DateTime, default=_utcnow)
 
 
+class RentalApplication(Base):
+    __tablename__ = "rental_applications"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    email = Column(String, nullable=False, index=True)
+    phone = Column(String, nullable=True)
+    building_id = Column(String, nullable=False)
+    building_name = Column(String, nullable=False)
+    wizard_data = Column(Text, nullable=True)  # JSON with SSN redacted
+    stripe_session_id = Column(String, nullable=True)
+    stripe_payment_intent = Column(String, nullable=True)
+    amount_cents = Column(Integer, default=20000)
+    status = Column(String, default="pending_payment")  # pending_payment, paid, under_review, approved, denied
+    created_at = Column(DateTime, default=_utcnow)
+
+
 class Order(Base):
     __tablename__ = "orders"
 

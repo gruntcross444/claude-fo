@@ -8,6 +8,7 @@ from routers import contact as contact_router
 from routers import payments as payments_router
 from routers import leads as leads_router
 from routers import email_cron as email_cron_router
+from routers import applications as applications_router
 
 load_dotenv()
 
@@ -32,6 +33,7 @@ app.include_router(contact_router.router)
 app.include_router(payments_router.router)
 app.include_router(leads_router.router)
 app.include_router(email_cron_router.router)
+app.include_router(applications_router.router)
 
 
 @app.get("/")

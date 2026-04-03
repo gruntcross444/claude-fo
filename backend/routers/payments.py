@@ -4,8 +4,8 @@ import stripe
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from database import SessionLocal
-from models import Order
-from emails import send_purchase_confirmation
+from models import Order, RentalApplication
+from emails import send_purchase_confirmation, send_application_confirmation, send_application_to_owner
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["payments"])
@@ -27,11 +27,13 @@ PRODUCTS = {
     "prompts-marketing": {"name": "Marketing & Sales Prompts", "price": 1900},
     "prompts-business": {"name": "Business & Productivity Pack", "price": 1400},
     "prompts-content": {"name": "Content Creator Toolkit", "price": 1900},
+    "rental-application": {"name": "Rental Application Fee", "price": 20000},
 }
 
 
 class CheckoutRequest(BaseModel):
     product_id: str
+    application_id: int = None
 
 
 @router.post("/checkout")
@@ -39,6 +41,19 @@ def create_checkout(body: CheckoutRequest):
     product = PRODUCTS.get(body.product_id)
     if not product:
         raise HTTPException(status_code=400, detail="Product not found")
+
+    metadata = {"product_id": body.product_id}
+    if body.application_id:
+        metadata["application_id"] = str(body.application_id)
+
+    # Rental applications go to confirmation page, products go to download
+    if body.product_id == "rental-application":
+        success = f"{FRONTEND_URL}/application-confirmation?session_id={{CHECKOUT_SESSION_ID}}"
+        cancel = f"{FRONTEND_URL}/brickell?canceled=true"
+    else:
+        success = f"{FRONTEND_URL}/download?product={body.product_id}&session_id={{CHECKOUT_SESSION_ID}}"
+        cancel = f"{FRONTEND_URL}/store?canceled=true"
+
     try:
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
@@ -51,9 +66,9 @@ def create_checkout(body: CheckoutRequest):
                 "quantity": 1,
             }],
             mode="payment",
-            success_url=f"{FRONTEND_URL}/download?product={body.product_id}&session_id={{CHECKOUT_SESSION_ID}}",
-            cancel_url=f"{FRONTEND_URL}/store?canceled=true",
-            metadata={"product_id": body.product_id},
+            success_url=success,
+            cancel_url=cancel,
+            metadata=metadata,
         )
         return {"url": session.url}
     except stripe.error.StripeError as e:
@@ -91,15 +106,35 @@ async def stripe_webhook(request: Request):
         finally:
             db.close()
 
-        # Send purchase confirmation email with download link
-        product_info = PRODUCTS.get(product_id)
-        if product_info and customer_email != "unknown":
-            send_purchase_confirmation(
-                to=customer_email,
-                product_name=product_info["name"],
-                product_id=product_id,
-                amount_cents=amount,
-            )
+        # Handle rental application payments
+        if product_id == "rental-application":
+            app_id = session_data.get("metadata", {}).get("application_id")
+            if not app_id:
+                logger.warning(f"Rental application payment without application_id: {session_data.get('id')}")
+            else:
+                db2 = SessionLocal()
+                try:
+                    rental_app = db2.query(RentalApplication).filter(RentalApplication.id == int(app_id)).first()
+                    if rental_app:
+                        rental_app.status = "paid"
+                        rental_app.stripe_session_id = session_data.get("id")
+                        rental_app.stripe_payment_intent = payment_intent
+                        rental_app.amount_cents = amount
+                        db2.commit()
+                        send_application_confirmation(customer_email, rental_app.name, rental_app.building_name)
+                        send_application_to_owner(rental_app.name, rental_app.email, rental_app.phone, rental_app.building_name, rental_app.wizard_data)
+                finally:
+                    db2.close()
+        else:
+            # Send purchase confirmation email with download link
+            product_info = PRODUCTS.get(product_id)
+            if product_info and customer_email != "unknown":
+                send_purchase_confirmation(
+                    to=customer_email,
+                    product_name=product_info["name"],
+                    product_id=product_id,
+                    amount_cents=amount,
+                )
     return {"status": "ok"}
 
 

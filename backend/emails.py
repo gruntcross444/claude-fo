@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 resend.api_key = os.getenv("RESEND_API_KEY", "")
 FROM_EMAIL = os.getenv("FROM_EMAIL", "Claude.FO <noreply@claudefo.com>")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+OWNER_EMAIL = os.getenv("OWNER_EMAIL", "lieskaram@gmail.com")
 
 
 # ── Core sender ─────────────────────────────────────────────────
@@ -256,3 +257,90 @@ def send_welcome_email(to: str, sequence_num: int = 1):
         return
 
     send_email(to, subject, _wrap(body))
+
+
+# ── 5. Rental application confirmation (to applicant) ─────────
+
+def send_application_confirmation(to: str, applicant_name: str, building_name: str):
+    """Send application confirmation to the applicant."""
+    body = f"""
+    <h2 style="color:#f3f4f6;font-size:22px;text-align:center;margin:0 0 8px;">
+      Application Submitted!
+    </h2>
+    <p style="text-align:center;margin-bottom:24px;">
+      Thank you, <strong style="color:#f3f4f6;">{applicant_name}</strong>. Your rental application for
+      <strong style="color:#c8a76b;">{building_name}</strong> has been received.
+    </p>
+    <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:20px;margin-bottom:24px;">
+      <p style="margin:0 0 12px;font-weight:600;color:#6ee7b7;">What happens next:</p>
+      <ol style="margin:0;padding-left:20px;color:#999;font-size:13px;line-height:2.2;">
+        <li>Our team reviews your application</li>
+        <li>Credit and background check processed</li>
+        <li>You&rsquo;ll hear back within <strong style="color:#f3f4f6;">24-48 hours</strong></li>
+        <li>If approved, we&rsquo;ll send lease details</li>
+      </ol>
+    </div>
+    <div style="text-align:center;">
+      <a href="{FRONTEND_URL}/brickell" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#c8a76b,#a88a4e);color:#fff;text-decoration:none;border-radius:10px;font-weight:600;font-size:15px;">
+        Back to Brickell Living
+      </a>
+    </div>
+    <p style="text-align:center;font-size:13px;color:#666;margin-top:16px;">
+      Questions? Reach us on <a href="https://wa.me/13057999003" style="color:#25D366;text-decoration:none;">WhatsApp</a>.
+    </p>
+    """
+    send_email(to, f"Application Received — {building_name}", _wrap(body))
+
+
+# ── 6. Rental application details (to owner) ──────────────────
+
+def send_application_to_owner(applicant_name: str, applicant_email: str, applicant_phone: str, building_name: str, wizard_data_json: str):
+    """Send full application details to the business owner."""
+    import json
+    try:
+        data = json.loads(wizard_data_json) if wizard_data_json else {}
+    except (json.JSONDecodeError, TypeError):
+        data = {}
+
+    rows = ""
+    field_labels = {
+        "name": "Full Name", "email": "Email", "phone": "Phone", "dob": "Date of Birth",
+        "ssn": "SSN", "emergencyName": "Emergency Contact", "emergencyPhone": "Emergency Phone",
+        "address": "Current Address", "city": "City", "state": "State", "zip": "ZIP",
+        "currentRent": "Current Rent", "duration": "Duration at Address",
+        "landlordName": "Landlord Name", "landlordPhone": "Landlord Phone", "moveReason": "Reason for Moving",
+        "employmentStatus": "Employment Status", "employer": "Employer", "jobTitle": "Job Title",
+        "monthlyIncome": "Monthly Income", "supervisorName": "Supervisor", "supervisorPhone": "Supervisor Phone",
+        "jobDuration": "Time at Job",
+        "buildingName": "Building", "unitType": "Unit Type", "moveInDate": "Move-in Date",
+        "maxBudget": "Max Budget", "specialRequirements": "Special Requirements",
+    }
+
+    for key, label in field_labels.items():
+        value = data.get(key, "")
+        if value:
+            rows += f'<tr><td style="padding:6px 12px;color:#888;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);">{label}</td><td style="padding:6px 12px;color:#f3f4f6;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);">{value}</td></tr>'
+
+    body = f"""
+    <h2 style="color:#f3f4f6;font-size:22px;text-align:center;margin:0 0 8px;">
+      New Rental Application
+    </h2>
+    <p style="text-align:center;margin-bottom:24px;">
+      <strong style="color:#c8a76b;">{applicant_name}</strong> applied for
+      <strong style="color:#6366f1;">{building_name}</strong>
+    </p>
+    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-bottom:24px;">
+      <table style="width:100%;border-collapse:collapse;">
+        {rows}
+      </table>
+    </div>
+    <div style="background:rgba(200,167,107,0.08);border:1px solid rgba(200,167,107,0.2);border-radius:10px;padding:16px;margin-bottom:16px;">
+      <p style="margin:0;font-size:13px;color:#c8a76b;font-weight:600;">
+        Contact: {applicant_email} | {applicant_phone}
+      </p>
+    </div>
+    <p style="text-align:center;font-size:12px;color:#555;">
+      Application fee: $200.00 (paid via Stripe)
+    </p>
+    """
+    send_email(OWNER_EMAIL, f"NEW APPLICATION: {applicant_name} — {building_name}", _wrap(body))

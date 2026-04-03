@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
-import { ArrowRight, Loader2, Building2, Utensils, Music, ShoppingBag, Train, MapPin } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { ArrowRight, Loader2, Building2, Utensils, Music, ShoppingBag, Train, MapPin, FileText } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import { useLang } from '../i18n/LanguageContext'
 import useScrollReveal from '../hooks/useScrollReveal'
@@ -50,7 +51,7 @@ function Reveal({ children, delay = 0 }) {
   )
 }
 
-function BuildingCard({ building, delay, onInquire, t }) {
+function BuildingCard({ building, delay, onInquire, onApply, t }) {
   const [ref, visible] = useScrollReveal(0.05)
 
   return (
@@ -85,12 +86,20 @@ function BuildingCard({ building, delay, onInquire, t }) {
             <span key={a} style={s.amenityTag}>{t(`brickell.amenities.${a}`)}</span>
           ))}
         </div>
-        <button
-          style={{ ...s.inquireBtn, background: building.color }}
-          onClick={() => onInquire(building.name)}
-        >
-          {t('brickell.inquire')} <ArrowRight size={14} />
-        </button>
+        <div style={s.cardActions}>
+          <button
+            style={{ ...s.inquireBtn, background: building.color }}
+            onClick={() => onInquire(building.name)}
+          >
+            {t('brickell.inquire')}
+          </button>
+          <button
+            style={s.applyBtn}
+            onClick={() => onApply(building.id, building.name)}
+          >
+            <FileText size={14} /> {t('application.applyNow')}
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -100,6 +109,7 @@ function BuildingCard({ building, delay, onInquire, t }) {
 
 export default function BrickellPage() {
   const { t } = useLang()
+  const navigate = useNavigate()
   const formRef = useRef(null)
   const [form, setForm] = useState({ name: '', email: '', phone: '', budget: '', timeline: '', message: '', building: '' })
   const [status, setStatus] = useState(null)
@@ -112,6 +122,10 @@ export default function BrickellPage() {
   function handleInquire(buildingName) {
     setForm((prev) => ({ ...prev, building: buildingName }))
     formRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  function handleApply(buildingId, buildingName) {
+    navigate(`/apply?building=${buildingId}&name=${encodeURIComponent(buildingName)}`)
   }
 
   async function handleSubmit(e) {
@@ -180,7 +194,7 @@ export default function BrickellPage() {
         </div>
         <div style={s.grid} data-brickell-grid>
           {PROMO_BUILDINGS.map((b, i) => (
-            <BuildingCard key={b.id} building={b} delay={i * 0.1} onInquire={handleInquire} t={t} />
+            <BuildingCard key={b.id} building={b} delay={i * 0.1} onInquire={handleInquire} onApply={handleApply} t={t} />
           ))}
         </div>
       </section>
@@ -193,7 +207,7 @@ export default function BrickellPage() {
         </Reveal>
         <div style={s.grid} data-brickell-grid>
           {STANDARD_BUILDINGS.map((b, i) => (
-            <BuildingCard key={b.id} building={b} delay={(i % 3) * 0.1} onInquire={handleInquire} t={t} />
+            <BuildingCard key={b.id} building={b} delay={(i % 3) * 0.1} onInquire={handleInquire} onApply={handleApply} t={t} />
           ))}
         </div>
       </section>
@@ -365,7 +379,9 @@ const s = {
   cardAddress: { fontSize: '0.78rem', color: '#888', display: 'flex', alignItems: 'center', gap: '0.3rem', marginBottom: '0.8rem' },
   amenities: { display: 'flex', flexWrap: 'wrap', gap: '0.3rem', marginBottom: '1rem' },
   amenityTag: { fontSize: '0.7rem', padding: '0.2rem 0.55rem', borderRadius: '999px', border: '1px solid rgba(200,167,107,0.2)', background: 'rgba(200,167,107,0.05)', color: '#c8a76b' },
-  inquireBtn: { marginTop: 'auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', padding: '0.6rem', borderRadius: '10px', border: 'none', color: '#fff', fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer', transition: 'all 0.3s ease', width: '100%' },
+  cardActions: { marginTop: 'auto', display: 'flex', gap: '0.5rem' },
+  inquireBtn: { flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem', padding: '0.6rem', borderRadius: '10px', border: 'none', color: '#fff', fontWeight: 600, fontSize: '0.82rem', cursor: 'pointer', transition: 'all 0.3s ease' },
+  applyBtn: { flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem', padding: '0.6rem', borderRadius: '10px', border: '1px solid rgba(200,167,107,0.3)', background: 'rgba(200,167,107,0.08)', color: '#c8a76b', fontWeight: 600, fontSize: '0.82rem', cursor: 'pointer', transition: 'all 0.3s ease' },
 
   // Map
   mapWrap: { borderRadius: '20px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)' },
