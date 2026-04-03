@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams, useParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 
 const PROVIDER_LABELS = {
@@ -13,6 +14,7 @@ const PROVIDER_LABELS = {
 
 export default function OAuthCallback() {
   const { provider } = useParams()
+  const { t } = useLang()
   const [searchParams] = useSearchParams()
   const [error, setError] = useState('')
   const { login } = useAuth()
@@ -40,7 +42,7 @@ export default function OAuthCallback() {
       <div style={styles.page}>
         <div style={styles.card}>
           <p style={styles.error}>{error}</p>
-          <a href="/login" style={styles.link}>Back to login</a>
+          <a href="/login" style={styles.link}>{t('authExtra.backToLogin')}</a>
         </div>
       </div>
     )

@@ -226,6 +226,36 @@ export default {
     pending: 'Tu producto esta siendo preparado y sera enviado a tu email en breve.',
     pendingSub: 'Si no lo recibes en 24 horas, contactanos.',
     back: 'Ver mas productos',
+    verifying: 'Verificando tu compra...',
+    verifyingNote: 'Solo tomara un momento.',
+    verificationFailed: 'Verificacion Fallida',
+  },
+
+  // Portfolio
+  portfolio: {
+    eyebrow: 'Nuestro Trabajo',
+    heading: 'Portafolio',
+    sub: 'Trabajo seleccionado en bienes raices, web, movil y diseno',
+    empty: 'No hay proyectos en esta categoria aun. Proximamente!',
+    visitSite: 'Visitar sitio',
+    viewInStore: 'Ver en tienda',
+  },
+
+  // Tools extra
+  toolsExtra: {
+    menu: 'Menu de Herramientas',
+    freeNote: 'Todas las herramientas son 100% gratis.\nNo se requiere tarjeta de credito.',
+  },
+
+  // Prompts extra
+  promptsExtra: {
+    description: 'prompts listos para usar en IA, marketing, negocios y codigo.',
+    searchPlaceholder: 'Buscar prompts...',
+  },
+
+  // Auth extra
+  authExtra: {
+    backToLogin: 'Volver al inicio de sesion',
   },
 
   // Stats section CTAs

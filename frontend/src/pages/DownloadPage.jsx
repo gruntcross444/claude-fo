@@ -57,8 +57,8 @@ export default function DownloadPage() {
         <Navbar />
         <div style={s.content}>
           <Loader2 size={48} color="#c8a76b" style={{ animation: 'spin 1s linear infinite', marginBottom: '1.5rem' }} />
-          <h1 style={s.heading}>Verifying your purchase...</h1>
-          <p style={s.sub}>This will only take a moment.</p>
+          <h1 style={s.heading}>{t('download.verifying')}</h1>
+          <p style={s.sub}>{t('download.verifyingNote')}</p>
         </div>
       </div>
     )
@@ -73,10 +73,10 @@ export default function DownloadPage() {
           <div style={s.iconWrap}>
             <XCircle size={48} color="#f87171" strokeWidth={1.5} />
           </div>
-          <h1 style={s.heading}>Verification Failed</h1>
+          <h1 style={s.heading}>{t('download.verificationFailed')}</h1>
           <p style={s.sub}>{error}</p>
           <a href="/store" style={s.backLink}>
-            Back to Store <ArrowRight size={14} />
+            {t('download.back')} <ArrowRight size={14} />
           </a>
         </div>
       </div>

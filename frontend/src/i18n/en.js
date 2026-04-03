@@ -226,6 +226,36 @@ export default {
     pending: 'Your product is being prepared and will be sent to your email shortly.',
     pendingSub: "If you don't receive it within 24 hours, contact us.",
     back: 'Browse more products',
+    verifying: 'Verifying your purchase...',
+    verifyingNote: 'This will only take a moment.',
+    verificationFailed: 'Verification Failed',
+  },
+
+  // Portfolio
+  portfolio: {
+    eyebrow: 'Our Work',
+    heading: 'Portfolio',
+    sub: 'Selected work across real estate, web, mobile, and design',
+    empty: 'No projects in this category yet. Stay tuned!',
+    visitSite: 'Visit site',
+    viewInStore: 'View in store',
+  },
+
+  // Tools extra
+  toolsExtra: {
+    menu: 'Tools Menu',
+    freeNote: 'All tools are 100% free.\nNo credit card required.',
+  },
+
+  // Prompts extra
+  promptsExtra: {
+    description: 'ready-to-use prompts for AI, marketing, business & code.',
+    searchPlaceholder: 'Search prompts...',
+  },
+
+  // Auth extra
+  authExtra: {
+    backToLogin: 'Back to login',
   },
 
   // Stats section CTAs

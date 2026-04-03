@@ -133,7 +133,7 @@ export default function PromptsPage() {
           <span style={styles.eyebrow}>{t('prompts.eyebrow')}</span>
           <h1 style={styles.heading}>{t('prompts.heading')}</h1>
           <p style={styles.sub}>
-            {totalCount} ready-to-use prompts for AI, marketing, business & code.
+            {totalCount} {t('promptsExtra.description')}
             {' '}<span style={{ color: '#6ee7b7' }}>{freeCount} {t('prompts.free')}</span> — copy & use instantly.
           </p>
         </div>
@@ -141,7 +141,7 @@ export default function PromptsPage() {
         <div style={styles.searchWrap}>
           <input
             type="text"
-            placeholder="Search prompts..."
+            placeholder={t('promptsExtra.searchPlaceholder')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             style={styles.searchInput}

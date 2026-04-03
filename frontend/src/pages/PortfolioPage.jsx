@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Building2, Code2, Bot, Smartphone, Palette, ShoppingCart, BarChart3, Kanban, Dumbbell, MapPin, PenTool, Video, FileText, Wand2, Mail, MessageSquare, Send, Megaphone, ArrowUpRight, ShoppingBag, ExternalLink } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import useScrollReveal from '../hooks/useScrollReveal'
+import { useLang } from '../i18n/LanguageContext'
 
 const CATEGORIES = ['All', 'Real Estate', 'Web Development', 'AI & Automation', 'Mobile Apps', 'Logo & Branding']
 
@@ -42,7 +43,7 @@ const projects = [
   { title: 'Website Templates Pack', category: 'Web Development', description: 'Ready-to-deploy landing page and portfolio templates built with React — clean, fast, responsive.', color: '#6366f1', Icon: Code2, tags: ['React', 'Tailwind', 'Vite'], storeLink: true, image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&h=300&fit=crop' },
 ]
 
-function ProjectCard({ project, delay }) {
+function ProjectCard({ project, delay, t }) {
   const [ref, visible] = useScrollReveal(0.05)
   const { Icon } = project
 
@@ -85,12 +86,12 @@ function ProjectCard({ project, delay }) {
         <div style={s.links}>
           {project.link && (
             <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ ...s.linkBtn, borderColor: `${project.color}40`, color: project.color }}>
-              <ExternalLink size={13} /> Visit site
+              <ExternalLink size={13} /> {t('portfolio.visitSite')}
             </a>
           )}
           {project.storeLink && (
             <a href="/store" style={{ ...s.linkBtn, borderColor: 'rgba(16,185,129,0.4)', color: '#10b981' }}>
-              <ShoppingBag size={13} /> View in store
+              <ShoppingBag size={13} /> {t('portfolio.viewInStore')}
             </a>
           )}
         </div>
@@ -101,6 +102,7 @@ function ProjectCard({ project, delay }) {
 
 export default function PortfolioPage() {
   const [active, setActive] = useState('All')
+  const { t } = useLang()
 
   const filtered = active === 'All'
     ? projects
@@ -111,9 +113,9 @@ export default function PortfolioPage() {
       <Navbar />
       <div style={s.content}>
         <div style={s.header}>
-          <span style={s.eyebrow}>Our Work</span>
-          <h1 style={s.heading}>Portfolio</h1>
-          <p style={s.sub}>Selected work across real estate, web, mobile, and design</p>
+          <span style={s.eyebrow}>{t('portfolio.eyebrow')}</span>
+          <h1 style={s.heading}>{t('portfolio.heading')}</h1>
+          <p style={s.sub}>{t('portfolio.sub')}</p>
         </div>
 
         <div style={s.tabs}>
@@ -135,15 +137,15 @@ export default function PortfolioPage() {
 
         <div style={s.grid}>
           {filtered.map((p, i) => (
-            <ProjectCard key={p.title} project={p} delay={(i % 3) * 0.1} />
+            <ProjectCard key={p.title} project={p} delay={(i % 3) * 0.1} t={t} />
           ))}
         </div>
 
         {filtered.length === 0 && (
-          <p style={s.empty}>No projects in this category yet. Stay tuned!</p>
+          <p style={s.empty}>{t('portfolio.empty')}</p>
         )}
       </div>
-      <footer style={s.footer}><p>&copy; {new Date().getFullYear()} Claude.FO — All rights reserved</p></footer>
+      <footer style={s.footer}><p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p></footer>
     </div>
   )
 }

@@ -32,7 +32,7 @@ export default function ToolsPage() {
 
         {/* ── Mobile toggle ─────────────────────────── */}
         <button style={s.mobileToggle} onClick={() => setSidebarOpen(!sidebarOpen)}>
-          <Wrench size={16} /> Tools Menu <ChevronRight size={14} style={{ transform: sidebarOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
+          <Wrench size={16} /> {t('toolsExtra.menu')} <ChevronRight size={14} style={{ transform: sidebarOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
         </button>
 
         {/* ── Left Sidebar ──────────────────────────── */}
@@ -63,7 +63,7 @@ export default function ToolsPage() {
             })}
           </div>
           <div style={s.sidebarFooter}>
-            <p style={s.sidebarNote}>All tools are 100% free.<br />No credit card required.</p>
+            <p style={s.sidebarNote}>{t('toolsExtra.freeNote').split('\n').map((line, i) => <span key={i}>{line}<br /></span>)}</p>
           </div>
         </aside>
 
