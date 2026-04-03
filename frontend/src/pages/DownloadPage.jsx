@@ -5,9 +5,9 @@ import { useLang } from '../i18n/LanguageContext'
 
 const PRODUCT_FILES = {
   'prompts-real-estate': { name: 'Real Estate Prompt Pack', file: '/downloads/Real-Estate-Prompt-Pack-ClaudeFO.pdf' },
-  'prompts-marketing': { name: 'Marketing & Sales Prompts', file: null },
-  'prompts-business': { name: 'Business & Productivity Pack', file: null },
-  'prompts-content': { name: 'Content Creator Toolkit', file: null },
+  'prompts-marketing': { name: 'Marketing & Sales Prompts', file: '/downloads/Marketing-Sales-Prompts-ClaudeFO.pdf' },
+  'prompts-business': { name: 'Business & Productivity Pack', file: '/downloads/Business-Productivity-Prompts-ClaudeFO.pdf' },
+  'prompts-content': { name: 'Content Creator Toolkit', file: '/downloads/Content-Creator-Toolkit-ClaudeFO.pdf' },
   'finance-tracker': { name: 'Monthly Finance Tracker', file: null },
   'website-templates': { name: 'Website Templates Pack', file: null },
   'real-estate-template': { name: 'Real Estate Landing Template', file: null },
