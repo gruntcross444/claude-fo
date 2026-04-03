@@ -24,11 +24,11 @@ export default function App() {
         <Route path="/store" element={<StorePage />} />
         <Route path="/tools" element={<ToolsPage />} />
         <Route path="/prompts" element={<PromptsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/auth/:provider/callback" element={<OAuthCallback />} />
-      <Route path="/download" element={<DownloadPage />} />
+        <Route path="/download" element={<DownloadPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/contact" element={<ContactPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

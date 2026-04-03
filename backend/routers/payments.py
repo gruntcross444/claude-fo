@@ -1,11 +1,15 @@
 import os
+import logging
 import stripe
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["payments"])
 
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
 # Product catalog — prices in cents
@@ -53,3 +57,25 @@ def create_checkout(body: CheckoutRequest):
         return {"url": session.url}
     except stripe.error.StripeError as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/webhook")
+async def stripe_webhook(request: Request):
+    payload = await request.body()
+    sig_header = request.headers.get("stripe-signature", "")
+
+    try:
+        event = stripe.Webhook.construct_event(payload, sig_header, STRIPE_WEBHOOK_SECRET)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid payload")
+    except stripe.error.SignatureVerificationError:
+        raise HTTPException(status_code=400, detail="Invalid signature")
+
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
+        customer_email = session.get("customer_details", {}).get("email", "unknown")
+        success_url = session.get("success_url", "")
+        product_id = success_url.split("product=")[-1] if "product=" in success_url else "unknown"
+        logger.info(f"Payment confirmed for {customer_email} - {product_id}")
+
+    return {"status": "ok"}
