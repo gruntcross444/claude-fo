@@ -9,6 +9,7 @@ import PromptsPage from './pages/PromptsPage'
 import ContactPage from './pages/ContactPage'
 import OAuthCallback from './pages/OAuthCallback'
 import DownloadPage from './pages/DownloadPage'
+import BrickellPage from './pages/BrickellPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import ExitIntentPopup from './components/ExitIntentPopup'
 import StickyCTA from './components/StickyCTA'
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/auth/:provider/callback" element={<OAuthCallback />} />
         <Route path="/download" element={<DownloadPage />} />
+        <Route path="/brickell" element={<BrickellPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/portfolio" element={<PortfolioPage />} />
         </Route>
