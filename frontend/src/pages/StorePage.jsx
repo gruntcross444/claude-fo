@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { Bot, Calculator, BarChart3, Scale, ClipboardCheck, FileText, Check, ArrowRight, Sparkles } from 'lucide-react'
+import { Bot, Calculator, BarChart3, Scale, ClipboardCheck, FileText, Check, ArrowRight, Sparkles, Loader2 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../i18n/LanguageContext'
@@ -101,7 +101,7 @@ export default function StorePage() {
                         onMouseEnter={(e) => { e.target.style.boxShadow = `0 6px 20px ${p.color}40` }}
                         onMouseLeave={(e) => { e.target.style.boxShadow = 'none' }}
                       >
-                        {loading === p.id ? t('store.redirecting') : t('store.buyNow')}
+                        {loading === p.id ? <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> {t('store.redirecting')}</> : t('store.buyNow')}
                       </button>
                     </div>
                   </div>
@@ -174,8 +174,8 @@ const s = {
   tab: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1rem', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.08)', background: 'transparent', color: '#888', fontSize: '0.83rem', cursor: 'pointer', transition: 'all 0.2s' },
   tabActive: { background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', border: '1px solid transparent' },
   sectionTitle: { fontSize: '1.3rem', fontWeight: 700, marginBottom: '1.2rem', margin: '0 0 1.2rem' },
-  paidGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(340px, 100%), 1fr))', gap: '1.2rem', marginBottom: '3rem' },
-  paidCard: { borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column' },
+  paidGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(340px, 100%), 1fr))', gap: '1.5rem', marginBottom: '3rem' },
+  paidCard: { borderRadius: '20px', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)', padding: '1.8rem', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column', backdropFilter: 'blur(8px)', position: 'relative', overflow: 'hidden' },
   paidCardTop: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' },
   paidIcon: { width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
   badge: { padding: '0.2rem 0.7rem', borderRadius: '999px', color: '#fff', fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' },
@@ -187,10 +187,10 @@ const s = {
   feature: { fontSize: '0.78rem', color: '#999', display: 'flex', alignItems: 'center', gap: '0.4rem' },
   paidBottom: { marginTop: 'auto' },
   priceRow: { display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '0.8rem' },
-  price: { fontSize: '1.5rem', fontWeight: 800 },
+  price: { fontSize: '1.8rem', fontWeight: 800, color: '#f3f4f6' },
   originalPrice: { fontSize: '0.9rem', color: '#555', textDecoration: 'line-through' },
   discount: { fontSize: '0.72rem', color: '#10b981', fontWeight: 600, background: 'rgba(16,185,129,0.1)', padding: '0.15rem 0.5rem', borderRadius: '999px' },
-  buyBtn: { width: '100%', padding: '0.7rem', borderRadius: '10px', border: 'none', color: '#fff', fontWeight: 600, fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.3s ease' },
+  buyBtn: { width: '100%', padding: '0.85rem', borderRadius: '12px', border: 'none', color: '#fff', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' },
   freeHeader: { display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '2.5rem' },
   freeBadge: { fontSize: '0.7rem', padding: '0.2rem 0.7rem', borderRadius: '999px', background: 'rgba(200,167,107,0.15)', color: '#c8a76b', fontWeight: 600, textTransform: 'uppercase' },
   freeGrid: { display: 'flex', flexDirection: 'column', gap: '0.6rem', marginBottom: '3rem' },

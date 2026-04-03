@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Loader2 } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
@@ -104,7 +105,7 @@ export default function ContactPage() {
                 <textarea name="message" value={form.message} onChange={handleChange} required maxLength={5000} style={{ ...styles.input, minHeight: '140px', resize: 'vertical' }} placeholder={t('contact.messagePlaceholder')} />
               </label>
               <button type="submit" disabled={status === 'sending'} style={styles.submitBtn}>
-                {status === 'sending' ? t('contact.sending') : t('contact.send')}
+                {status === 'sending' ? <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite', display: 'inline-block', verticalAlign: 'middle', marginRight: '0.4rem' }} />{t('contact.sending')}</> : t('contact.send')}
               </button>
             </form>
           </div>
@@ -136,13 +137,13 @@ const styles = {
   socialTitle: { fontSize: '0.85rem', color: '#888', margin: '0 0 0.8rem' },
   socialLinks: { display: 'flex', gap: '0.6rem' },
   socialBtn: { width: '40px', height: '40px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#aaa', textDecoration: 'none', transition: 'border-color 0.2s' },
-  formCard: { padding: '2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' },
+  formCard: { padding: '2rem', borderRadius: '20px', border: '1px solid rgba(99,102,241,0.15)', background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(8px)' },
   formTitle: { fontSize: '1.2rem', fontWeight: 700, margin: '0 0 1.5rem' },
   success: { padding: '0.8rem 1rem', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', fontSize: '0.9rem', marginBottom: '1rem' },
   errorMsg: { padding: '0.8rem 1rem', borderRadius: '10px', background: 'rgba(248,113,113,0.1)', color: '#f87171', fontSize: '0.9rem', marginBottom: '1rem' },
   form: { display: 'flex', flexDirection: 'column', gap: '1rem' },
   label: { display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.9rem', color: '#ccc' },
   input: { padding: '0.65rem 0.9rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.05)', color: 'inherit', fontSize: '0.95rem', outline: 'none', fontFamily: 'inherit' },
-  submitBtn: { padding: '0.75rem', borderRadius: '10px', border: 'none', background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', marginTop: '0.5rem' },
+  submitBtn: { padding: '0.85rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', marginTop: '0.5rem', boxShadow: '0 4px 15px rgba(99,102,241,0.25)', transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center' },
   footer: { textAlign: 'center', padding: '2rem', color: '#555', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }
