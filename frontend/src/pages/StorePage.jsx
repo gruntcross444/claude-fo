@@ -53,7 +53,6 @@ export default function StorePage() {
   const showFreeTools = active === 'All' || active === 'Real Estate'
 
   async function handleBuy(productId) {
-    if (!isAuthenticated) { navigate('/register'); return }
     setLoading(productId)
     try {
       const res = await api.post('/checkout', { product_id: productId })

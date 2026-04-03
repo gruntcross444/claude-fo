@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Download, CheckCircle, ArrowRight } from 'lucide-react'
+import { Download, CheckCircle, ArrowRight, Loader2, XCircle } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import { useLang } from '../i18n/LanguageContext'
+import api from '../api'
 
 const PRODUCT_FILES = {
   'prompts-real-estate': { name: 'Real Estate Prompt Pack', file: '/downloads/Real-Estate-Prompt-Pack-ClaudeFO.pdf' },
@@ -21,9 +23,67 @@ const PRODUCT_FILES = {
 export default function DownloadPage() {
   const [searchParams] = useSearchParams()
   const productId = searchParams.get('product')
+  const sessionId = searchParams.get('session_id')
   const product = PRODUCT_FILES[productId]
   const { t } = useLang()
 
+  const [verifying, setVerifying] = useState(!!sessionId)
+  const [verified, setVerified] = useState(!sessionId) // if no session_id, skip verification
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    if (!sessionId) return
+
+    api.get(`/verify-purchase?session_id=${sessionId}`)
+      .then((res) => {
+        if (res.data.verified) {
+          setVerified(true)
+        } else {
+          setError('Payment could not be verified.')
+        }
+      })
+      .catch(() => {
+        setError('Payment verification failed. If you were charged, please contact support.')
+      })
+      .finally(() => {
+        setVerifying(false)
+      })
+  }, [sessionId])
+
+  // Verifying state
+  if (verifying) {
+    return (
+      <div style={s.page}>
+        <Navbar />
+        <div style={s.content}>
+          <Loader2 size={48} color="#c8a76b" style={{ animation: 'spin 1s linear infinite', marginBottom: '1.5rem' }} />
+          <h1 style={s.heading}>Verifying your purchase...</h1>
+          <p style={s.sub}>This will only take a moment.</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Verification failed
+  if (error) {
+    return (
+      <div style={s.page}>
+        <Navbar />
+        <div style={s.content}>
+          <div style={s.iconWrap}>
+            <XCircle size={48} color="#f87171" strokeWidth={1.5} />
+          </div>
+          <h1 style={s.heading}>Verification Failed</h1>
+          <p style={s.sub}>{error}</p>
+          <a href="/store" style={s.backLink}>
+            Back to Store <ArrowRight size={14} />
+          </a>
+        </div>
+      </div>
+    )
+  }
+
+  // Verified — show download
   return (
     <div style={s.page}>
       <Navbar />
@@ -34,7 +94,7 @@ export default function DownloadPage() {
         <h1 style={s.heading}>{t('download.heading')}</h1>
         <p style={s.sub}>{t('download.sub')}</p>
 
-        {product ? (
+        {product && verified ? (
           <div style={s.card}>
             <h2 style={s.productName}>{product.name}</h2>
             {product.file ? (

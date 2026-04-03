@@ -3,16 +3,16 @@ import logging
 import stripe
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
+from database import SessionLocal
+from models import Order
 
 logger = logging.getLogger(__name__)
-
 router = APIRouter(tags=["payments"])
 
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
-# Product catalog — prices in cents
 PRODUCTS = {
     "finance-tracker": {"name": "Monthly Finance Tracker", "price": 1900},
     "social-media-kit": {"name": "Social Media Kit", "price": 2900},
@@ -38,7 +38,6 @@ def create_checkout(body: CheckoutRequest):
     product = PRODUCTS.get(body.product_id)
     if not product:
         raise HTTPException(status_code=400, detail="Product not found")
-
     try:
         session = stripe.checkout.Session.create(
             payment_method_types=["card"],
@@ -51,8 +50,9 @@ def create_checkout(body: CheckoutRequest):
                 "quantity": 1,
             }],
             mode="payment",
-            success_url=f"{FRONTEND_URL}/download?product={body.product_id}",
+            success_url=f"{FRONTEND_URL}/download?product={body.product_id}&session_id={{CHECKOUT_SESSION_ID}}",
             cancel_url=f"{FRONTEND_URL}/store?canceled=true",
+            metadata={"product_id": body.product_id},
         )
         return {"url": session.url}
     except stripe.error.StripeError as e:
@@ -63,19 +63,48 @@ def create_checkout(body: CheckoutRequest):
 async def stripe_webhook(request: Request):
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature", "")
-
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, STRIPE_WEBHOOK_SECRET)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid payload")
     except stripe.error.SignatureVerificationError:
         raise HTTPException(status_code=400, detail="Invalid signature")
-
     if event["type"] == "checkout.session.completed":
-        session = event["data"]["object"]
-        customer_email = session.get("customer_details", {}).get("email", "unknown")
-        success_url = session.get("success_url", "")
-        product_id = success_url.split("product=")[-1] if "product=" in success_url else "unknown"
-        logger.info(f"Payment confirmed for {customer_email} - {product_id}")
-
+        session_data = event["data"]["object"]
+        customer_email = session_data.get("customer_details", {}).get("email", "unknown")
+        product_id = session_data.get("metadata", {}).get("product_id", "unknown")
+        payment_intent = session_data.get("payment_intent", "")
+        amount = session_data.get("amount_total", 0)
+        logger.info(f"Payment confirmed: {customer_email} bought {product_id} (${amount/100:.2f})")
+        db = SessionLocal()
+        try:
+            order = Order(
+                email=customer_email,
+                product_id=product_id,
+                stripe_session_id=session_data.get("id"),
+                stripe_payment_intent=payment_intent,
+                amount_cents=amount,
+            )
+            db.add(order)
+            db.commit()
+        finally:
+            db.close()
     return {"status": "ok"}
+
+
+@router.get("/verify-purchase")
+def verify_purchase(session_id: str):
+    if not session_id:
+        raise HTTPException(status_code=400, detail="Missing session_id")
+    try:
+        session = stripe.checkout.Session.retrieve(session_id)
+    except stripe.error.StripeError:
+        raise HTTPException(status_code=400, detail="Invalid session")
+    if session.payment_status != "paid":
+        raise HTTPException(status_code=403, detail="Payment not completed")
+    product_id = session.metadata.get("product_id", "")
+    return {
+        "verified": True,
+        "product_id": product_id,
+        "email": session.customer_details.email if session.customer_details else None,
+    }

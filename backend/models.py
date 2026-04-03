@@ -35,3 +35,15 @@ class ContactMessage(Base):
     email = Column(String, nullable=False)
     message = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class Order(Base):
+    __tablename__ = "orders"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, nullable=False)
+    product_id = Column(String, nullable=False)
+    stripe_session_id = Column(String, nullable=True)
+    stripe_payment_intent = Column(String, nullable=True)
+    amount_cents = Column(Integer, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
