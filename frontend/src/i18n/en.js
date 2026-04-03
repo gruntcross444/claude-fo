@@ -380,7 +380,16 @@ export default {
     propertiesHeading: 'Featured Buildings',
     propertiesSub: 'Curated luxury residences in the heart of Brickell',
     inquire: 'Inquire',
+    inquiringAbout: 'Inquiring about:',
     perMonth: '/mo',
+    promoHeading: 'Easy Approval Buildings',
+    promoSub: 'Only 2 months deposit + $150 application fee. No paystubs or proof of income required.',
+    promoDetails: {
+      deposit: '2 Months Deposit',
+      appFee: '$150 App Fee',
+      noPaystubs: 'No Paystubs Required',
+      idOnly: 'Valid ID + Good Credit',
+    },
     amenities: {
       pool: 'Pool', gym: 'Gym', concierge: 'Concierge', spa: 'Spa',
       rooftop: 'Rooftop', valet: 'Valet', marina: 'Marina', theater: 'Theater',

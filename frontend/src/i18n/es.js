@@ -380,7 +380,16 @@ export default {
     propertiesHeading: 'Edificios Destacados',
     propertiesSub: 'Residencias de lujo seleccionadas en el corazon de Brickell',
     inquire: 'Consultar',
+    inquiringAbout: 'Consultando sobre:',
     perMonth: '/mes',
+    promoHeading: 'Edificios de Aprobacion Facil',
+    promoSub: 'Solo 2 meses de deposito + $150 de aplicacion. Sin comprobantes de ingreso.',
+    promoDetails: {
+      deposit: '2 Meses de Deposito',
+      appFee: '$150 Aplicacion',
+      noPaystubs: 'Sin Comprobantes de Ingreso',
+      idOnly: 'ID Valida + Buen Credito',
+    },
     amenities: {
       pool: 'Piscina', gym: 'Gimnasio', concierge: 'Concierge', spa: 'Spa',
       rooftop: 'Terraza', valet: 'Valet', marina: 'Marina', theater: 'Teatro',

@@ -7,7 +7,15 @@ import api from '../api'
 
 // ── Building data ──────────────────────────────────────────────
 
-const BUILDINGS = [
+// Promotional buildings — easy approval
+const PROMO_BUILDINGS = [
+  { id: 'flaglerRiver', name: 'Flagler on the River', address: '40 NW South River Dr, Miami, FL 33130', price: '$2,200 - $3,800', image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'rooftop', 'petFriendly'], color: '#10b981', promo: true },
+  { id: 'downtown5th', name: 'Downtown 5th', address: '500 NE 5th Terrace, Miami, FL 33132', price: '$2,000 - $3,500', image: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'coworking'], color: '#10b981', promo: true },
+  { id: 'downtown1st', name: 'Downtown 1st', address: '234 NE 1st St, Miami, FL 33132', price: '$1,900 - $3,200', image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'petFriendly'], color: '#10b981', promo: true },
+]
+
+// Standard buildings
+const STANDARD_BUILDINGS = [
   { id: 'brickellHeights', name: 'Brickell Heights', address: '45 SW 9th St, Miami, FL 33130', price: '$2,500 - $5,500', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'rooftop', 'concierge'], color: '#c8a76b' },
   { id: 'riseBrickell', name: 'Rise Brickell', address: '88 SW 7th St, Miami, FL 33130', price: '$2,800 - $6,000', image: 'https://images.unsplash.com/photo-1567684014761-b65e2e59b9eb?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'spa', 'valet'], color: '#6366f1' },
   { id: 'slsLux', name: 'SLS Lux Brickell', address: '801 S Miami Ave, Miami, FL 33130', price: '$3,200 - $8,000', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=400&fit=crop', amenities: ['pool', 'spa', 'concierge', 'valet', 'rooftop'], color: '#a855f7' },
@@ -16,6 +24,8 @@ const BUILDINGS = [
   { id: 'flatiron', name: 'Flatiron Brickell', address: '1000 Brickell Plaza, Miami, FL 33131', price: '$2,600 - $5,800', image: 'https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'rooftop', 'petFriendly'], color: '#ec4899' },
   { id: 'ninaMiami', name: 'Nina at Miami Worldcenter', address: '1800 NE 1st Ave, Miami, FL 33132', price: '$2,400 - $5,200', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'theater', 'coworking'], color: '#6366f1' },
   { id: 'thePlaza', name: 'The Plaza on Brickell', address: '950 Brickell Bay Dr, Miami, FL 33131', price: '$2,200 - $4,800', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'concierge', 'valet'], color: '#c8a76b' },
+  { id: 'miamiRiverWalk', name: 'Miami River Walk', address: '45 SW North River Dr, Miami, FL 33130', price: '$2,300 - $4,500', image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'marina', 'petFriendly'], color: '#f59e0b' },
+  { id: 'brickellTen', name: 'Brickell Ten', address: '1010 Brickell Ave, Miami, FL 33131', price: '$2,700 - $5,500', image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&h=400&fit=crop', amenities: ['pool', 'gym', 'concierge', 'rooftop'], color: '#a855f7' },
 ]
 
 const HIGHLIGHTS = [
@@ -65,6 +75,7 @@ function BuildingCard({ building, delay, onInquire, t }) {
         <img src={building.image} alt={building.name} style={s.cardImage} loading="lazy" />
         <div style={s.cardImageOverlay} />
         <span style={{ ...s.cardPrice, color: building.color }}>{building.price}{t('brickell.perMonth')}</span>
+        {building.promo && <span style={s.promoBadge}>{t('brickell.promoDetails.noPaystubs')}</span>}
       </div>
       <div style={s.cardBody}>
         <h3 style={s.cardTitle}>{building.name}</h3>
@@ -94,7 +105,8 @@ export default function BrickellPage() {
   const [status, setStatus] = useState(null)
 
   function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    const { name: field, value } = e.target
+    setForm((prev) => ({ ...prev, [field]: value }))
   }
 
   function handleInquire(buildingName) {
@@ -149,14 +161,38 @@ export default function BrickellPage() {
         </div>
       </section>
 
-      {/* ── Property Showcase ─────────────────────────────── */}
+      {/* ── Promo Buildings ──────────────────────────────── */}
+      <section style={s.section}>
+        <Reveal>
+          <div style={s.promoBanner}>
+            <span style={s.promoIcon}>&#9889;</span>
+            <div>
+              <h2 style={s.promoHeading}>{t('brickell.promoHeading')}</h2>
+              <p style={s.promoSub}>{t('brickell.promoSub')}</p>
+            </div>
+          </div>
+        </Reveal>
+        <div style={s.promoDetails}>
+          <span style={s.promoTag}>{t('brickell.promoDetails.deposit')}</span>
+          <span style={s.promoTag}>{t('brickell.promoDetails.appFee')}</span>
+          <span style={s.promoTag}>{t('brickell.promoDetails.noPaystubs')}</span>
+          <span style={s.promoTag}>{t('brickell.promoDetails.idOnly')}</span>
+        </div>
+        <div style={s.grid} data-brickell-grid>
+          {PROMO_BUILDINGS.map((b, i) => (
+            <BuildingCard key={b.id} building={b} delay={i * 0.1} onInquire={handleInquire} t={t} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── All Buildings ─────────────────────────────────── */}
       <section style={s.section}>
         <Reveal>
           <h2 style={s.sectionHeading}>{t('brickell.propertiesHeading')}</h2>
           <p style={s.sectionSub}>{t('brickell.propertiesSub')}</p>
         </Reveal>
         <div style={s.grid} data-brickell-grid>
-          {BUILDINGS.map((b, i) => (
+          {STANDARD_BUILDINGS.map((b, i) => (
             <BuildingCard key={b.id} building={b} delay={(i % 3) * 0.1} onInquire={handleInquire} t={t} />
           ))}
         </div>
@@ -251,7 +287,7 @@ export default function BrickellPage() {
               </label>
               {form.building && (
                 <div style={s.buildingBadge}>
-                  <Building2 size={14} /> Inquiring about: <strong>{form.building}</strong>
+                  <Building2 size={14} /> {t('brickell.inquiringAbout')} <strong>{form.building}</strong>
                 </div>
               )}
               <label style={s.label}>
@@ -308,6 +344,14 @@ const s = {
   sectionHeading: { fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em', textAlign: 'center' },
   sectionSub: { color: '#888', fontSize: '1rem', textAlign: 'center', marginBottom: '2.5rem' },
 
+  // Promo section
+  promoBanner: { display: 'flex', alignItems: 'center', gap: '1rem', padding: '1.5rem 2rem', borderRadius: '18px', border: '1px solid rgba(16,185,129,0.2)', background: 'rgba(16,185,129,0.05)', backdropFilter: 'blur(4px)', marginBottom: '1.5rem' },
+  promoIcon: { fontSize: '2rem', flexShrink: 0 },
+  promoHeading: { fontSize: '1.2rem', fontWeight: 800, margin: '0 0 0.2rem', color: '#6ee7b7' },
+  promoSub: { fontSize: '0.88rem', color: '#888', margin: 0, lineHeight: 1.5 },
+  promoDetails: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.5rem', justifyContent: 'center' },
+  promoTag: { fontSize: '0.78rem', padding: '0.3rem 0.8rem', borderRadius: '999px', border: '1px solid rgba(16,185,129,0.25)', background: 'rgba(16,185,129,0.08)', color: '#6ee7b7', fontWeight: 600 },
+
   // Property grid
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(320px, 100%), 1fr))', gap: '1.5rem' },
   card: { borderRadius: '18px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(4px)', overflow: 'hidden', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column' },
@@ -315,6 +359,7 @@ const s = {
   cardImage: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' },
   cardImageOverlay: { position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,11,15,0.7) 0%, transparent 50%)' },
   cardPrice: { position: 'absolute', bottom: '12px', left: '16px', fontSize: '1.1rem', fontWeight: 800 },
+  promoBadge: { position: 'absolute', top: '12px', right: '12px', fontSize: '0.68rem', padding: '0.25rem 0.6rem', borderRadius: '999px', background: 'rgba(16,185,129,0.9)', color: '#fff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' },
   cardBody: { padding: '1.3rem 1.5rem 1.5rem', flex: 1, display: 'flex', flexDirection: 'column' },
   cardTitle: { fontSize: '1.1rem', fontWeight: 700, margin: '0 0 0.3rem' },
   cardAddress: { fontSize: '0.78rem', color: '#888', display: 'flex', alignItems: 'center', gap: '0.3rem', marginBottom: '0.8rem' },
