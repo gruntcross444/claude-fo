@@ -113,6 +113,7 @@ export default function PortfolioPage() {
       <Navbar />
       <div style={s.content}>
         <div style={s.header}>
+          <div style={s.headerGlow} />
           <span style={s.eyebrow}>{t('portfolio.eyebrow')}</span>
           <h1 style={s.heading}>{t('portfolio.heading')}</h1>
           <p style={s.sub}>{t('portfolio.sub')}</p>
@@ -153,17 +154,18 @@ export default function PortfolioPage() {
 const s = {
   page: { minHeight: '100vh' },
   content: { maxWidth: '1100px', margin: '0 auto', padding: 'clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem)' },
-  header: { marginBottom: '2rem', textAlign: 'center' },
-  eyebrow: { display: 'inline-block', padding: '0.3rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(99,102,241,0.3)', color: '#a5b4fc', fontSize: '0.8rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.08em' },
-  heading: { fontSize: 'clamp(1.5rem, 5vw, 2.4rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
+  header: { marginBottom: '2rem', textAlign: 'center', position: 'relative', overflow: 'hidden' },
+  headerGlow: { position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '500px', height: '300px', background: 'radial-gradient(ellipse, rgba(99,102,241,0.1) 0%, transparent 70%)', pointerEvents: 'none' },
+  eyebrow: { display: 'inline-block', padding: '0.3rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(200,167,107,0.3)', background: 'rgba(200,167,107,0.08)', color: '#c8a76b', fontSize: '0.82rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.08em' },
+  heading: { fontSize: 'clamp(1.8rem, 5vw, 2.4rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
   sub: { color: '#777', fontSize: '1rem', margin: 0 },
   tabs: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.4rem', marginBottom: '2.5rem' },
   tab: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1rem', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.08)', background: 'transparent', color: '#888', fontSize: '0.83rem', cursor: 'pointer', transition: 'all 0.2s' },
   tabActive: { background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', border: '1px solid transparent' },
   tabCount: { fontSize: '0.7rem', background: 'rgba(255,255,255,0.08)', padding: '0.1rem 0.4rem', borderRadius: '999px', color: '#666' },
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(320px, 100%), 1fr))', gap: '1.2rem' },
-  card: { borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', overflow: 'hidden', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column' },
-  cardHeader: { height: '160px', position: 'relative', overflow: 'hidden' },
+  card: { borderRadius: '18px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(4px)', overflow: 'hidden', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column' },
+  cardHeader: { height: '160px', position: 'relative', overflow: 'hidden', borderRadius: '18px 18px 0 0' },
   cardImage: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' },
   cardImageOverlay: { position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,11,15,0.8) 0%, transparent 60%)' },
   iconBadge: { position: 'absolute', bottom: '12px', left: '16px', width: '32px', height: '32px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
@@ -172,9 +174,9 @@ const s = {
   title: { fontSize: '1.1rem', fontWeight: 700, margin: '0 0 0.5rem' },
   description: { color: '#777', fontSize: '0.85rem', lineHeight: 1.6, margin: '0 0 1rem' },
   tags: { display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '1rem' },
-  tag: { fontSize: '0.72rem', padding: '0.2rem 0.55rem', borderRadius: '999px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#999' },
+  tag: { fontSize: '0.75rem', padding: '0.2rem 0.55rem', borderRadius: '999px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#999' },
   links: { marginTop: 'auto', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' },
-  linkBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.35rem', padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid', fontSize: '0.78rem', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s' },
+  linkBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.35rem', padding: '0.4rem 0.8rem', borderRadius: '10px', border: '1px solid', fontSize: '0.78rem', fontWeight: 500, textDecoration: 'none', transition: 'all 0.2s' },
   empty: { textAlign: 'center', color: '#555', padding: '3rem', fontSize: '1rem' },
   footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }

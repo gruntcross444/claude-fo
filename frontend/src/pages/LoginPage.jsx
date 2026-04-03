@@ -35,6 +35,7 @@ export default function LoginPage() {
   return (
     <div style={styles.page}>
       <div style={styles.glow} />
+      <div style={styles.glow2} />
       <div style={styles.card}>
         <Link to="/" style={styles.logo}>
           <span style={styles.logoAccent}>Claude</span>.FO
@@ -97,13 +98,23 @@ const styles = {
   },
   glow: {
     position: 'absolute',
-    top: '20%',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: '600px',
+    top: '10%',
+    left: '30%',
+    width: '500px',
     height: '400px',
-    background: 'radial-gradient(ellipse, rgba(99,102,241,0.12) 0%, rgba(168,85,247,0.06) 40%, transparent 70%)',
+    background: 'radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, transparent 70%)',
     pointerEvents: 'none',
+    animation: 'float 8s ease-in-out infinite',
+  },
+  glow2: {
+    position: 'absolute',
+    bottom: '10%',
+    right: '20%',
+    width: '400px',
+    height: '300px',
+    background: 'radial-gradient(ellipse, rgba(200,167,107,0.08) 0%, transparent 70%)',
+    pointerEvents: 'none',
+    animation: 'float 10s ease-in-out infinite reverse',
   },
   card: {
     width: '100%',
@@ -163,24 +174,28 @@ const styles = {
     color: '#ccc',
   },
   input: {
-    padding: '0.65rem 0.9rem',
-    borderRadius: '8px',
-    border: '1px solid rgba(255,255,255,0.12)',
-    background: 'rgba(255,255,255,0.05)',
+    padding: '0.75rem 1rem',
+    borderRadius: '12px',
+    border: '1px solid rgba(255,255,255,0.1)',
+    background: 'rgba(255,255,255,0.04)',
+    backdropFilter: 'blur(4px)',
     color: 'inherit',
     fontSize: '0.95rem',
     outline: 'none',
+    transition: 'border-color 0.2s',
   },
   btn: {
     marginTop: '0.5rem',
-    padding: '0.75rem',
-    borderRadius: '8px',
+    padding: '0.85rem',
+    borderRadius: '12px',
     border: 'none',
     background: 'linear-gradient(135deg, #6366f1, #a855f7)',
     color: '#fff',
-    fontWeight: 600,
+    fontWeight: 700,
     fontSize: '1rem',
     cursor: 'pointer',
+    boxShadow: '0 4px 15px rgba(99,102,241,0.25)',
+    transition: 'all 0.3s ease',
   },
   footer: {
     fontSize: '0.9rem',

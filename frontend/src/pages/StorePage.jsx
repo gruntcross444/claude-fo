@@ -51,6 +51,7 @@ export default function StorePage() {
 
         {/* ── Header ──────────────────────────────────── */}
         <div style={s.header}>
+          <div style={s.headerGlow} />
           <div style={s.eyebrow}><Sparkles size={14} /> {t('store.eyebrow')}</div>
           <h1 style={s.heading}>{t('store.heading')}</h1>
           <p style={s.sub}>{t('store.sub')}</p>
@@ -164,9 +165,10 @@ export default function StorePage() {
 const s = {
   page: { minHeight: '100vh' },
   content: { maxWidth: '1100px', margin: '0 auto', padding: 'clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem)' },
-  header: { textAlign: 'center', marginBottom: '2rem' },
-  eyebrow: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.3rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(16,185,129,0.3)', color: '#6ee7b7', fontSize: '0.8rem', marginBottom: '1rem' },
-  heading: { fontSize: 'clamp(1.5rem, 5vw, 2.4rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
+  header: { textAlign: 'center', marginBottom: '2rem', position: 'relative', overflow: 'hidden' },
+  headerGlow: { position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '500px', height: '300px', background: 'radial-gradient(ellipse, rgba(99,102,241,0.1) 0%, transparent 70%)', pointerEvents: 'none' },
+  eyebrow: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.3rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(200,167,107,0.3)', background: 'rgba(200,167,107,0.08)', color: '#c8a76b', fontSize: '0.82rem', marginBottom: '1rem' },
+  heading: { fontSize: 'clamp(1.8rem, 5vw, 2.4rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
   sub: { color: '#777', fontSize: '1rem', margin: 0 },
   successBanner: { padding: '1rem', borderRadius: '12px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', color: '#6ee7b7', textAlign: 'center', marginBottom: '2rem', fontSize: '0.95rem' },
   cancelBanner: { padding: '1rem', borderRadius: '12px', background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.3)', color: '#f87171', textAlign: 'center', marginBottom: '2rem', fontSize: '0.95rem' },
@@ -190,11 +192,11 @@ const s = {
   price: { fontSize: '1.8rem', fontWeight: 800, color: '#f3f4f6' },
   originalPrice: { fontSize: '0.9rem', color: '#555', textDecoration: 'line-through' },
   discount: { fontSize: '0.72rem', color: '#10b981', fontWeight: 600, background: 'rgba(16,185,129,0.1)', padding: '0.15rem 0.5rem', borderRadius: '999px' },
-  buyBtn: { width: '100%', padding: '0.85rem', borderRadius: '12px', border: 'none', color: '#fff', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 12px rgba(0,0,0,0.2)' },
+  buyBtn: { width: '100%', padding: '0.85rem', borderRadius: '12px', border: 'none', color: '#fff', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 16px rgba(0,0,0,0.25)' },
   freeHeader: { display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '2.5rem' },
   freeBadge: { fontSize: '0.7rem', padding: '0.2rem 0.7rem', borderRadius: '999px', background: 'rgba(200,167,107,0.15)', color: '#c8a76b', fontWeight: 600, textTransform: 'uppercase' },
   freeGrid: { display: 'flex', flexDirection: 'column', gap: '0.6rem', marginBottom: '3rem' },
-  freeCard: { display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', textDecoration: 'none', color: 'inherit', transition: 'all 0.2s' },
+  freeCard: { display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(4px)', textDecoration: 'none', color: 'inherit', transition: 'all 0.2s' },
   freeIcon: { width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(200,167,107,0.1)', border: '1px solid rgba(200,167,107,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   freeText: { flex: 1 },
   freeTitle: { display: 'block', fontSize: '0.95rem', marginBottom: '0.15rem' },
@@ -202,6 +204,6 @@ const s = {
   cta: { textAlign: 'center', padding: '4rem 0 2rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
   ctaHeading: { fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.5rem' },
   ctaSub: { color: '#777', marginBottom: '2rem', fontSize: '1rem', maxWidth: '500px', margin: '0 auto 2rem' },
-  ctaBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.9rem 2.5rem', borderRadius: '10px', border: 'none', background: 'linear-gradient(135deg, #c8a76b, #a88a4e)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', transition: 'all 0.3s ease' },
+  ctaBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.9rem 2.5rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #c8a76b, #a88a4e)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 20px rgba(200,167,107,0.3)' },
   footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }

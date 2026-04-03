@@ -141,6 +141,7 @@ export default function PromptsPage() {
       <Navbar />
       <div style={styles.content}>
         <div style={styles.header}>
+          <div style={styles.headerGlow} />
           <span style={styles.eyebrow}>{t('prompts.eyebrow')}</span>
           <h1 style={styles.heading}>{t('prompts.heading')}</h1>
           <p style={styles.sub}>
@@ -221,18 +222,19 @@ export default function PromptsPage() {
 const styles = {
   page: { minHeight: '100vh' },
   content: { maxWidth: '1100px', margin: '0 auto', padding: 'clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem)' },
-  header: { textAlign: 'center', marginBottom: '2rem' },
-  eyebrow: { display: 'inline-block', padding: '0.3rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(245,158,11,0.3)', color: '#f59e0b', fontSize: '0.8rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.08em' },
-  heading: { fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
+  header: { textAlign: 'center', marginBottom: '2rem', position: 'relative', overflow: 'hidden' },
+  headerGlow: { position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '500px', height: '300px', background: 'radial-gradient(ellipse, rgba(99,102,241,0.1) 0%, transparent 70%)', pointerEvents: 'none' },
+  eyebrow: { display: 'inline-block', padding: '0.3rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(200,167,107,0.3)', background: 'rgba(200,167,107,0.08)', color: '#c8a76b', fontSize: '0.82rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.08em' },
+  heading: { fontSize: 'clamp(1.8rem, 5vw, 2.4rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
   sub: { color: '#888', fontSize: '1rem', margin: 0 },
   searchWrap: { maxWidth: '500px', margin: '0 auto 2rem' },
-  searchInput: { width: '100%', padding: '0.8rem 1.2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)', color: '#fff', fontSize: '1rem', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' },
+  searchInput: { width: '100%', padding: '0.8rem 1.2rem', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(8px)', color: '#fff', fontSize: '1rem', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' },
   tabs: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.4rem', marginBottom: '2rem' },
   tab: { padding: '0.4rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.08)', background: 'transparent', color: '#888', fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '0.4rem' },
   tabActive: { background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', border: '1px solid transparent' },
   tabCount: { fontSize: '0.7rem', background: 'rgba(255,255,255,0.1)', padding: '0.1rem 0.4rem', borderRadius: '999px' },
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(320px, 100%), 1fr))', gap: '1.2rem' },
-  card: { borderRadius: '14px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column' },
+  card: { borderRadius: '18px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(4px)', padding: '1.5rem', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column' },
   cardTop: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' },
   cardCategory: { fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#666' },
   freeBadge: { fontSize: '0.7rem', padding: '0.15rem 0.6rem', borderRadius: '999px', background: 'rgba(16,185,129,0.15)', color: '#6ee7b7', fontWeight: 600 },
@@ -251,6 +253,6 @@ const styles = {
   ctaSection: { textAlign: 'center', padding: '4rem 0 2rem', borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '3rem' },
   ctaHeading: { fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.5rem' },
   ctaSub: { color: '#777', marginBottom: '2rem' },
-  ctaBtn: { padding: '0.9rem 2.5rem', borderRadius: '10px', border: 'none', background: 'linear-gradient(135deg, #f59e0b, #d97706)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', transition: 'all 0.3s ease' },
+  ctaBtn: { padding: '0.9rem 2.5rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #c8a76b, #a88a4e)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 20px rgba(200,167,107,0.3)' },
   footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }

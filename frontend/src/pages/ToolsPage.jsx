@@ -97,7 +97,7 @@ const s = {
   layout: { display: 'flex', maxWidth: '1200px', margin: '0 auto', padding: '0 1rem', gap: '1.5rem', position: 'relative' },
 
   // Mobile toggle
-  mobileToggle: { display: 'none', alignItems: 'center', gap: '0.5rem', padding: '0.7rem 1rem', margin: '1rem 0', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.03)', color: '#aaa', fontSize: '0.9rem', cursor: 'pointer', width: '100%' },
+  mobileToggle: { display: 'none', alignItems: 'center', gap: '0.5rem', padding: '0.8rem 1.2rem', margin: '1rem 0', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(4px)', color: '#aaa', fontSize: '0.9rem', cursor: 'pointer', width: '100%' },
 
   // Sidebar
   sidebar: { width: '280px', flexShrink: 0, padding: '2rem 0', position: 'sticky', top: '70px', height: 'fit-content', maxHeight: 'calc(100vh - 90px)', overflowY: 'auto' },
@@ -105,13 +105,13 @@ const s = {
   sidebarHeader: { display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0 0.5rem', marginBottom: '1.5rem' },
   sidebarTitle: { fontSize: '0.85rem', fontWeight: 700, color: '#c8a76b', textTransform: 'uppercase', letterSpacing: '0.08em' },
   toolList: { display: 'flex', flexDirection: 'column', gap: '0.4rem' },
-  toolBtn: { display: 'flex', alignItems: 'center', gap: '0.8rem', padding: '0.8rem', borderRadius: '12px', border: 'none', borderLeft: '3px solid transparent', background: 'transparent', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s', width: '100%' },
+  toolBtn: { display: 'flex', alignItems: 'center', gap: '0.8rem', padding: '0.9rem', borderRadius: '14px', border: 'none', borderLeft: '3px solid transparent', background: 'transparent', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s', width: '100%' },
   toolBtnActive: { borderLeft: '3px solid' },
   toolIcon: { width: '38px', height: '38px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: '1px solid', transition: 'all 0.2s' },
   toolInfo: { flex: 1, minWidth: 0 },
   toolLabel: { display: 'block', fontSize: '0.9rem', fontWeight: 600, transition: 'color 0.2s' },
   toolDesc: { display: 'block', fontSize: '0.75rem', color: '#555', marginTop: '0.15rem' },
-  sidebarFooter: { marginTop: '2rem', padding: '1rem', borderRadius: '10px', background: 'rgba(200,167,107,0.05)', border: '1px solid rgba(200,167,107,0.15)' },
+  sidebarFooter: { marginTop: '2rem', padding: '1.2rem', borderRadius: '14px', background: 'rgba(200,167,107,0.04)', border: '1px solid rgba(200,167,107,0.12)', backdropFilter: 'blur(4px)' },
   sidebarNote: { fontSize: '0.78rem', color: '#888', lineHeight: 1.5, margin: 0, textAlign: 'center' },
 
   // Main content

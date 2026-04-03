@@ -30,6 +30,7 @@ export default function ContactPage() {
       <Navbar />
       <div style={styles.content}>
         <div style={styles.header}>
+          <div style={styles.headerGlow} />
           <span style={styles.eyebrow}>{t('contact.eyebrow')}</span>
           <h1 style={styles.heading}>{t('contact.heading')}</h1>
           <p style={styles.sub}>{t('contact.sub')}</p>
@@ -121,14 +122,15 @@ export default function ContactPage() {
 
 const styles = {
   page: { minHeight: '100vh' },
-  content: { maxWidth: '1000px', margin: '0 auto', padding: '3rem 2rem' },
-  header: { textAlign: 'center', marginBottom: '3rem' },
-  eyebrow: { display: 'inline-block', padding: '0.3rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(99,102,241,0.4)', color: '#a5b4fc', fontSize: '0.8rem', marginBottom: '1rem' },
-  heading: { fontSize: '2.2rem', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
+  content: { maxWidth: '1000px', margin: '0 auto', padding: 'clamp(2rem, 5vw, 3rem) 2rem' },
+  header: { textAlign: 'center', marginBottom: '3rem', position: 'relative', overflow: 'hidden' },
+  headerGlow: { position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '500px', height: '300px', background: 'radial-gradient(ellipse, rgba(99,102,241,0.1) 0%, transparent 70%)', pointerEvents: 'none' },
+  eyebrow: { display: 'inline-block', padding: '0.3rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(200,167,107,0.3)', background: 'rgba(200,167,107,0.08)', color: '#c8a76b', fontSize: '0.82rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 },
+  heading: { fontSize: 'clamp(1.8rem, 5vw, 2.4rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
   sub: { color: '#888', fontSize: '1rem', margin: 0 },
   grid: { display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '2rem', alignItems: 'start' },
   sidebar: { display: 'flex', flexDirection: 'column', gap: '1rem' },
-  contactCard: { display: 'flex', alignItems: 'center', gap: '1rem', padding: '1.2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)', textDecoration: 'none', color: 'inherit', transition: 'border-color 0.2s' },
+  contactCard: { display: 'flex', alignItems: 'center', gap: '1rem', padding: '1.2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(4px)', textDecoration: 'none', color: 'inherit', transition: 'all 0.3s ease' },
   iconWrap: { width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid', flexShrink: 0 },
   cardTitle: { display: 'block', fontSize: '0.95rem', marginBottom: '0.15rem' },
   cardSub: { fontSize: '0.8rem', color: '#888' },

@@ -88,8 +88,9 @@ export default function DownloadPage() {
     <div style={s.page}>
       <Navbar />
       <div style={s.content}>
+        <div style={s.glow} />
         <div style={s.iconWrap}>
-          <CheckCircle size={48} color="#10b981" strokeWidth={1.5} />
+          <CheckCircle size={56} color="#10b981" strokeWidth={1.5} />
         </div>
         <h1 style={s.heading}>{t('download.heading')}</h1>
         <p style={s.sub}>{t('download.sub')}</p>
@@ -124,14 +125,15 @@ export default function DownloadPage() {
 
 const s = {
   page: { minHeight: '100vh' },
-  content: { maxWidth: '500px', margin: '0 auto', padding: '5rem 2rem', textAlign: 'center' },
-  iconWrap: { marginBottom: '1.5rem' },
-  heading: { fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem' },
-  sub: { color: '#888', marginBottom: '2rem' },
-  card: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '2rem', marginBottom: '2rem' },
-  productName: { fontSize: '1.2rem', fontWeight: 700, marginBottom: '1.5rem' },
-  downloadBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.9rem 2rem', borderRadius: '10px', border: 'none', background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff', fontWeight: 700, fontSize: '1rem', textDecoration: 'none', transition: 'all 0.3s' },
+  content: { maxWidth: '520px', margin: '0 auto', padding: 'clamp(3rem, 10vh, 5rem) 2rem', textAlign: 'center', position: 'relative' },
+  glow: { position: 'absolute', top: '-50px', left: '50%', transform: 'translateX(-50%)', width: '400px', height: '300px', background: 'radial-gradient(ellipse, rgba(16,185,129,0.12) 0%, transparent 70%)', pointerEvents: 'none' },
+  iconWrap: { marginBottom: '1.5rem', position: 'relative' },
+  heading: { fontSize: 'clamp(1.8rem, 5vw, 2.2rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em', position: 'relative' },
+  sub: { color: '#888', marginBottom: '2rem', position: 'relative' },
+  card: { background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(16,185,129,0.15)', borderRadius: '20px', padding: '2.5rem', marginBottom: '2rem', backdropFilter: 'blur(8px)', position: 'relative' },
+  productName: { fontSize: '1.3rem', fontWeight: 700, marginBottom: '1.5rem' },
+  downloadBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '1rem 2.5rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff', fontWeight: 700, fontSize: '1rem', textDecoration: 'none', transition: 'all 0.3s', boxShadow: '0 4px 20px rgba(16,185,129,0.3)' },
   pendingMsg: { color: '#888', lineHeight: 1.6 },
   small: { fontSize: '0.85rem', color: '#555', marginTop: '0.5rem' },
-  backLink: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#a5b4fc', textDecoration: 'none', fontSize: '0.95rem' },
+  backLink: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#a5b4fc', textDecoration: 'none', fontSize: '0.95rem', position: 'relative' },
 }
