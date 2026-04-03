@@ -5,6 +5,7 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from database import SessionLocal
 from models import Order
+from emails import send_purchase_confirmation
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["payments"])
@@ -89,6 +90,16 @@ async def stripe_webhook(request: Request):
             db.commit()
         finally:
             db.close()
+
+        # Send purchase confirmation email with download link
+        product_info = PRODUCTS.get(product_id)
+        if product_info and customer_email != "unknown":
+            send_purchase_confirmation(
+                to=customer_email,
+                product_name=product_info["name"],
+                product_id=product_id,
+                amount_cents=amount,
+            )
     return {"status": "ok"}
 
 

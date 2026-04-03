@@ -158,3 +158,16 @@ html {
     font-size: 13px;
   }
 }
+
+/* ── Touch devices: prevent sticky hover states ───────── */
+@media (hover: none) {
+  * {
+    -webkit-tap-highlight-color: rgba(99, 102, 241, 0.15);
+  }
+}
+
+/* ── Spin animation for loader ────────────────────────── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

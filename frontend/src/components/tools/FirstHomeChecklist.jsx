@@ -1,19 +1,9 @@
 import { useState } from 'react'
-
-const ITEMS = [
-  { id: 1, text: 'Check your credit score (aim for 620+, ideally 740+)', tip: 'Free at annualcreditreport.com' },
-  { id: 2, text: 'Save for a down payment (3–20% of home price)', tip: 'FHA loans require as little as 3.5%' },
-  { id: 3, text: 'Get pre-approved for a mortgage', tip: 'Shows sellers you are a serious buyer' },
-  { id: 4, text: 'Calculate your debt-to-income ratio (below 43%)', tip: 'Monthly debts / gross monthly income' },
-  { id: 5, text: 'Budget for closing costs (2–5% of loan amount)', tip: 'Includes appraisal, title, and lender fees' },
-  { id: 6, text: 'Build an emergency fund (3–6 months of expenses)', tip: 'Separate from your down payment savings' },
-  { id: 7, text: 'Research first-time buyer programs in your state', tip: 'Many offer down payment assistance or lower rates' },
-  { id: 8, text: 'Gather documents (W-2s, tax returns, bank statements)', tip: 'Lenders typically need the last 2 years' },
-  { id: 9, text: 'Hire a real estate agent', tip: 'Buyer agents are usually free — the seller pays' },
-  { id: 10, text: 'Get a home inspection before closing', tip: 'Can save you from costly surprises' },
-]
+import { useLang } from '../../i18n/LanguageContext'
 
 export default function FirstHomeChecklist() {
+  const { t } = useLang()
+  const items = t('firstHome.items')
   const [checked, setChecked] = useState({})
 
   function toggle(id) {
@@ -21,36 +11,36 @@ export default function FirstHomeChecklist() {
   }
 
   const done = Object.values(checked).filter(Boolean).length
-  const pct = Math.round((done / ITEMS.length) * 100)
+  const pct = Math.round((done / items.length) * 100)
 
   return (
     <div style={styles.card}>
-      <h3 style={styles.title}>First Home Checklist</h3>
-      <p style={styles.desc}>10 steps to buying your first home</p>
+      <h3 style={styles.title}>{t('firstHome.title')}</h3>
+      <p style={styles.desc}>{t('firstHome.desc')}</p>
 
       <div style={styles.progressWrap}>
         <div style={styles.progressBar}>
           <div style={{ ...styles.progressFill, width: `${pct}%` }} />
         </div>
-        <span style={styles.progressText}>{done}/{ITEMS.length} complete</span>
+        <span style={styles.progressText}>{done}/{items.length} {t('firstHome.complete')}</span>
       </div>
 
       <div style={styles.list}>
-        {ITEMS.map((item) => (
+        {items.map((item, i) => (
           <div
-            key={item.id}
+            key={i}
             role="checkbox"
-            aria-checked={!!checked[item.id]}
+            aria-checked={!!checked[i]}
             tabIndex={0}
-            style={{ ...styles.item, opacity: checked[item.id] ? 0.6 : 1 }}
-            onClick={() => toggle(item.id)}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(item.id) } }}
+            style={{ ...styles.item, opacity: checked[i] ? 0.6 : 1 }}
+            onClick={() => toggle(i)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(i) } }}
           >
-            <span style={{ ...styles.checkbox, ...(checked[item.id] ? styles.checked : {}) }}>
-              {checked[item.id] ? '✓' : ''}
+            <span style={{ ...styles.checkbox, ...(checked[i] ? styles.checked : {}) }}>
+              {checked[i] ? '✓' : ''}
             </span>
             <div>
-              <span style={{ textDecoration: checked[item.id] ? 'line-through' : 'none' }}>{item.text}</span>
+              <span style={{ textDecoration: checked[i] ? 'line-through' : 'none' }}>{item.text}</span>
               <span style={styles.tip}>{item.tip}</span>
             </div>
           </div>

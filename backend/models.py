@@ -1,6 +1,10 @@
-from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, DateTime
+from datetime import datetime, timezone
+from sqlalchemy import Column, Integer, String, Text, DateTime, Index
 from database import Base
+
+
+def _utcnow():
+    return datetime.now(timezone.utc)
 
 
 class User(Base):
@@ -15,7 +19,7 @@ class User(Base):
     facebook_id = Column(String, nullable=True)
     apple_id = Column(String, nullable=True)
     telegram_id = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=_utcnow)
 
 
 class Lead(Base):
@@ -24,7 +28,7 @@ class Lead(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     source = Column(String, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=_utcnow)
 
 
 class ContactMessage(Base):
@@ -34,7 +38,21 @@ class ContactMessage(Base):
     name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     message = Column(Text, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=_utcnow)
+
+
+class ScheduledEmail(Base):
+    __tablename__ = "scheduled_emails"
+    __table_args__ = (
+        Index("ix_scheduled_pending", "sent", "send_after"),
+    )
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, nullable=False, index=True)
+    email_type = Column(String, nullable=False)  # e.g. "welcome_2", "welcome_3"
+    send_after = Column(DateTime, nullable=False)
+    sent = Column(Integer, default=0)  # 0 = pending, 1 = sent
+    created_at = Column(DateTime, default=_utcnow)
 
 
 class Order(Base):
@@ -46,4 +64,4 @@ class Order(Base):
     stripe_session_id = Column(String, nullable=True)
     stripe_payment_intent = Column(String, nullable=True)
     amount_cents = Column(Integer, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=_utcnow)

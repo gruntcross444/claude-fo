@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { useLang } from '../../i18n/LanguageContext'
 
 export default function RecastCalculator() {
+  const { t } = useLang()
   const [balance, setBalance] = useState(280000)
   const [rate, setRate] = useState(6.5)
   const [remaining, setRemaining] = useState(25)
@@ -22,24 +24,24 @@ export default function RecastCalculator() {
 
   return (
     <div style={styles.card}>
-      <h3 style={styles.title}>Recast Calculator</h3>
-      <p style={styles.desc}>See your new payment after a lump-sum principal reduction</p>
+      <h3 style={styles.title}>{t('recastCalc.title')}</h3>
+      <p style={styles.desc}>{t('recastCalc.desc')}</p>
 
       <div style={styles.fields}>
         <label style={styles.label}>
-          Current Balance
+          {t('recastCalc.currentBalance')}
           <input type="number" value={balance} onChange={(e) => setBalance(+e.target.value)} style={styles.input} />
         </label>
         <label style={styles.label}>
-          Interest Rate (%)
+          {t('recastCalc.interestRate')}
           <input type="number" value={rate} onChange={(e) => setRate(+e.target.value)} style={styles.input} step={0.1} />
         </label>
         <label style={styles.label}>
-          Years Remaining
+          {t('recastCalc.yearsRemaining')}
           <input type="number" value={remaining} onChange={(e) => setRemaining(+e.target.value)} style={styles.input} />
         </label>
         <label style={styles.label}>
-          Lump Sum Payment
+          {t('recastCalc.lumpSum')}
           <input type="number" value={lumpSum} onChange={(e) => setLumpSum(+e.target.value)} style={styles.input} />
         </label>
       </div>
@@ -47,17 +49,17 @@ export default function RecastCalculator() {
       <div style={styles.results}>
         <div style={styles.row}>
           <div style={styles.col}>
-            <span style={styles.small}>Current Payment</span>
+            <span style={styles.small}>{t('recastCalc.currentPayment')}</span>
             <span style={styles.val}>${currentMonthly.toLocaleString('en-US', { maximumFractionDigits: 0 })}</span>
           </div>
-          <div style={styles.arrow}>→</div>
+          <div style={styles.arrow}>&rarr;</div>
           <div style={styles.col}>
-            <span style={styles.small}>New Payment</span>
+            <span style={styles.small}>{t('recastCalc.newPayment')}</span>
             <span style={{ ...styles.val, color: '#6ee7b7' }}>${Math.max(0, newMonthly).toLocaleString('en-US', { maximumFractionDigits: 0 })}</span>
           </div>
         </div>
         <div style={styles.savingsRow}>
-          You save <strong>${savings.toLocaleString('en-US', { maximumFractionDigits: 0 })}/mo</strong> — that&apos;s <strong>${(savings * 12).toLocaleString('en-US', { maximumFractionDigits: 0 })}/year</strong>
+          {t('recastCalc.youSave')} <strong>${savings.toLocaleString('en-US', { maximumFractionDigits: 0 })}{t('recastCalc.perMonth')}</strong> &mdash; <strong>${(savings * 12).toLocaleString('en-US', { maximumFractionDigits: 0 })}{t('recastCalc.perYear')}</strong>
         </div>
       </div>
     </div>

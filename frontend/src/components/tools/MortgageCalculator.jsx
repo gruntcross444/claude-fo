@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { useLang } from '../../i18n/LanguageContext'
 
 export default function MortgageCalculator() {
+  const { t } = useLang()
   const [price, setPrice] = useState(350000)
   const [down, setDown] = useState(20)
   const [rate, setRate] = useState(6.5)
@@ -17,37 +19,37 @@ export default function MortgageCalculator() {
 
   return (
     <div style={styles.card}>
-      <h3 style={styles.title}>Mortgage Calculator</h3>
-      <p style={styles.desc}>Estimate your monthly payment</p>
+      <h3 style={styles.title}>{t('mortgageCalc.title')}</h3>
+      <p style={styles.desc}>{t('mortgageCalc.desc')}</p>
 
       <div style={styles.fields}>
         <label style={styles.label}>
-          Home Price
+          {t('mortgageCalc.homePrice')}
           <input type="number" value={price} onChange={(e) => setPrice(+e.target.value)} style={styles.input} />
         </label>
         <label style={styles.label}>
-          Down Payment (%)
+          {t('mortgageCalc.downPayment')}
           <input type="number" value={down} onChange={(e) => setDown(+e.target.value)} style={styles.input} min={0} max={100} />
         </label>
         <label style={styles.label}>
-          Interest Rate (%)
+          {t('mortgageCalc.interestRate')}
           <input type="number" value={rate} onChange={(e) => setRate(+e.target.value)} style={styles.input} step={0.1} />
         </label>
         <label style={styles.label}>
-          Loan Term (years)
+          {t('mortgageCalc.loanTerm')}
           <input type="number" value={term} onChange={(e) => setTerm(+e.target.value)} style={styles.input} />
         </label>
       </div>
 
       <div style={styles.results}>
         <div style={styles.resultMain}>
-          <span style={styles.resultLabel}>Monthly Payment</span>
+          <span style={styles.resultLabel}>{t('mortgageCalc.monthlyPayment')}</span>
           <span style={styles.resultValue}>${monthly.toLocaleString('en-US', { maximumFractionDigits: 0 })}</span>
         </div>
         <div style={styles.resultRow}>
-          <div><span style={styles.small}>Loan Amount</span><br />${loanAmount.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
-          <div><span style={styles.small}>Total Interest</span><br />${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
-          <div><span style={styles.small}>Total Paid</span><br />${totalPaid.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
+          <div><span style={styles.small}>{t('mortgageCalc.loanAmount')}</span><br />${loanAmount.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
+          <div><span style={styles.small}>{t('mortgageCalc.totalInterest')}</span><br />${totalInterest.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
+          <div><span style={styles.small}>{t('mortgageCalc.totalPaid')}</span><br />${totalPaid.toLocaleString('en-US', { maximumFractionDigits: 0 })}</div>
         </div>
       </div>
     </div>

@@ -20,6 +20,20 @@ class ContactRequest(BaseModel):
             raise ValueError('Invalid email format')
         return v.lower().strip()
 
+    @field_validator('name')
+    @classmethod
+    def validate_name(cls, v):
+        if len(v.strip()) < 1 or len(v) > 100:
+            raise ValueError('Name must be between 1 and 100 characters')
+        return v.strip()
+
+    @field_validator('message')
+    @classmethod
+    def validate_message(cls, v):
+        if len(v.strip()) < 1 or len(v) > 5000:
+            raise ValueError('Message must be between 1 and 5000 characters')
+        return v.strip()
+
 
 @router.post("/contact")
 def submit_contact(body: ContactRequest, db: Session = Depends(get_db)):

@@ -5,18 +5,18 @@ import api from '../api'
 import { useLang } from '../i18n/LanguageContext'
 
 const PRIZES = [
-  { label: '50% OFF', color: '#c8a76b', weight: 1 },
-  { label: '5% OFF', color: '#6366f1', weight: 15 },
-  { label: 'Free Tool', color: '#10b981', weight: 10 },
-  { label: '15% OFF', color: '#a855f7', weight: 8 },
-  { label: '10% OFF', color: '#f59e0b', weight: 12 },
-  { label: 'Try Again', color: '#444', weight: 20 },
-  { label: '25% OFF', color: '#ec4899', weight: 3 },
-  { label: '5% OFF', color: '#6366f1', weight: 15 },
-  { label: 'Free Guide', color: '#14b8a6', weight: 8 },
-  { label: '20% OFF', color: '#8b5cf6', weight: 5 },
-  { label: '10% OFF', color: '#f59e0b', weight: 12 },
-  { label: 'Free Prompt Pack', color: '#f43f5e', weight: 6 },
+  { label: '50% OFF', color: '#c8a76b', weight: 1, code: 'SPIN50' },
+  { label: '5% OFF', color: '#6366f1', weight: 15, code: 'SPIN5' },
+  { label: 'Free Tool', color: '#10b981', weight: 10, code: 'FREETOOL' },
+  { label: '15% OFF', color: '#a855f7', weight: 8, code: 'SPIN15' },
+  { label: '10% OFF', color: '#f59e0b', weight: 12, code: 'SPIN10' },
+  { label: 'Try Again', color: '#444', weight: 20, code: '' },
+  { label: '25% OFF', color: '#ec4899', weight: 3, code: 'SPIN25' },
+  { label: '5% OFF', color: '#6366f1', weight: 15, code: 'SPIN5' },
+  { label: 'Free Guide', color: '#14b8a6', weight: 8, code: 'FREEGUIDE' },
+  { label: '20% OFF', color: '#8b5cf6', weight: 5, code: 'SPIN20' },
+  { label: '10% OFF', color: '#f59e0b', weight: 12, code: 'SPIN10' },
+  { label: 'Free Prompt Pack', color: '#f43f5e', weight: 6, code: 'FREEPROMPTS' },
 ]
 
 function getWeightedIndex() {
@@ -49,18 +49,26 @@ export default function SpinWheel() {
   async function handleEmailSubmit(e) {
     e.preventDefault()
     setLoading(true)
+
+    const winIndex = getWeightedIndex()
+    const wonPrize = PRIZES[winIndex]
+
     try {
-      await api.post('/leads', { email, source: 'spin_wheel' })
+      await api.post('/leads', {
+        email,
+        source: 'spin_wheel',
+        prize: wonPrize.label,
+        prize_code: wonPrize.code,
+      })
     } catch { /* already captured */ }
     setLoading(false)
 
-    const winIndex = getWeightedIndex()
     const segmentAngle = 360 / PRIZES.length
     const targetAngle = 360 - (winIndex * segmentAngle + segmentAngle / 2)
     const fullSpins = 360 * 8
     const finalRotation = fullSpins + targetAngle
 
-    setPrize(PRIZES[winIndex])
+    setPrize(wonPrize)
     setRotation(0)
     setPhase('spinning')
 

@@ -1,54 +1,31 @@
 import { useState } from 'react'
+import { useLang } from '../../i18n/LanguageContext'
 
-const QUESTIONS = [
-  {
-    q: 'What is your annual household income?',
-    options: ['Under $40,000', '$40,000 – $75,000', '$75,000 – $120,000', '$120,000+'],
-    scores: [1, 2, 3, 4],
-  },
-  {
-    q: 'How much do you have saved for a down payment?',
-    options: ['Under $5,000', '$5,000 – $20,000', '$20,000 – $50,000', '$50,000+'],
-    scores: [1, 2, 3, 4],
-  },
-  {
-    q: 'What is your credit score range?',
-    options: ['Below 580', '580 – 619', '620 – 739', '740+'],
-    scores: [1, 2, 3, 4],
-  },
-  {
-    q: 'What is your current debt-to-income ratio?',
-    options: ['Over 50%', '43% – 50%', '36% – 43%', 'Under 36%'],
-    scores: [1, 2, 3, 4],
-  },
-  {
-    q: 'How long have you been at your current job?',
-    options: ['Less than 6 months', '6 months – 1 year', '1 – 2 years', '2+ years'],
-    scores: [1, 2, 3, 4],
-  },
-]
+const SCORES = [1, 2, 3, 4]
 
-function getResult(score) {
-  const max = QUESTIONS.length * 4
-  const pct = (score / max) * 100
-  if (pct >= 80) return { label: 'Strong Candidate', color: '#10b981', text: 'You are in a great position to buy. Talk to a lender and get pre-approved!' }
-  if (pct >= 60) return { label: 'Good Candidate', color: '#6366f1', text: 'You are on the right track. A few improvements could strengthen your application.' }
-  if (pct >= 40) return { label: 'Getting There', color: '#f59e0b', text: 'Focus on building savings and improving your credit score before applying.' }
-  return { label: 'Needs Preparation', color: '#f43f5e', text: 'Consider working on your finances for 6–12 months before starting the home buying process.' }
+function getResult(score, maxScore, t) {
+  const pct = (score / maxScore) * 100
+  if (pct >= 80) return { ...t('preQual.results.strong'), color: '#10b981' }
+  if (pct >= 60) return { ...t('preQual.results.good'), color: '#6366f1' }
+  if (pct >= 40) return { ...t('preQual.results.getting'), color: '#f59e0b' }
+  return { ...t('preQual.results.needs'), color: '#f43f5e' }
 }
 
 export default function PreQualQuiz() {
+  const { t } = useLang()
+  const questions = t('preQual.questions')
   const [current, setCurrent] = useState(0)
   const [answers, setAnswers] = useState([])
   const [selected, setSelected] = useState(null)
 
-  const done = current >= QUESTIONS.length
+  const done = current >= questions.length
   const score = answers.reduce((a, b) => a + b, 0)
-  const result = done ? getResult(score) : null
+  const maxScore = questions.length * 4
+  const result = done ? getResult(score, maxScore, t) : null
 
   function next() {
     if (selected === null) return
-    setAnswers([...answers, QUESTIONS[current].scores[selected]])
+    setAnswers([...answers, SCORES[selected]])
     setSelected(null)
     setCurrent(current + 1)
   }
@@ -61,22 +38,22 @@ export default function PreQualQuiz() {
 
   return (
     <div style={styles.card}>
-      <h3 style={styles.title}>Pre-Qualification Self Assessment</h3>
-      <p style={styles.desc}>Find out if you are ready to buy a home</p>
+      <h3 style={styles.title}>{t('preQual.title')}</h3>
+      <p style={styles.desc}>{t('preQual.desc')}</p>
 
       {!done ? (
         <>
           <div style={styles.progress}>
-            <span style={styles.step}>Question {current + 1} of {QUESTIONS.length}</span>
+            <span style={styles.step}>{t('preQual.question')} {current + 1} {t('preQual.of')} {questions.length}</span>
             <div style={styles.progressBar}>
-              <div style={{ ...styles.progressFill, width: `${(current / QUESTIONS.length) * 100}%` }} />
+              <div style={{ ...styles.progressFill, width: `${(current / questions.length) * 100}%` }} />
             </div>
           </div>
 
-          <p style={styles.question}>{QUESTIONS[current].q}</p>
+          <p style={styles.question}>{questions[current].q}</p>
 
           <div style={styles.options}>
-            {QUESTIONS[current].options.map((opt, i) => (
+            {questions[current].options.map((opt, i) => (
               <button
                 key={i}
                 onClick={() => setSelected(i)}
@@ -88,7 +65,7 @@ export default function PreQualQuiz() {
           </div>
 
           <button onClick={next} disabled={selected === null} style={{ ...styles.nextBtn, opacity: selected === null ? 0.4 : 1 }}>
-            {current === QUESTIONS.length - 1 ? 'See Results' : 'Next'}
+            {current === questions.length - 1 ? t('preQual.seeResults') : t('preQual.next')}
           </button>
         </>
       ) : (
@@ -96,10 +73,10 @@ export default function PreQualQuiz() {
           <div style={{ ...styles.resultBadge, background: result.color }}>{result.label}</div>
           <div style={styles.scoreCircle}>
             <span style={styles.scoreNumber}>{score}</span>
-            <span style={styles.scoreMax}>/{QUESTIONS.length * 4}</span>
+            <span style={styles.scoreMax}>/{maxScore}</span>
           </div>
           <p style={styles.resultText}>{result.text}</p>
-          <button onClick={reset} style={styles.retakeBtn}>Retake Quiz</button>
+          <button onClick={reset} style={styles.retakeBtn}>{t('preQual.retake')}</button>
         </div>
       )}
     </div>
