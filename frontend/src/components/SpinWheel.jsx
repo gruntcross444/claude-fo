@@ -64,7 +64,12 @@ export default function SpinWheel() {
     setLoading(false)
 
     const segmentAngle = 360 / PRIZES.length
-    const targetAngle = 360 - (winIndex * segmentAngle + segmentAngle / 2)
+    // Pointer is at top (270°). Segments start at 0° (3 o'clock).
+    // To land segment winIndex under the pointer:
+    // The center of segment winIndex is at (winIndex + 0.5) * segmentAngle degrees.
+    // We need to rotate so that angle ends up at 270° (top).
+    const segmentCenter = (winIndex + 0.5) * segmentAngle
+    const targetAngle = 270 - segmentCenter
     const fullSpins = 360 * 8
     const finalRotation = fullSpins + targetAngle
 
