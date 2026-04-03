@@ -78,6 +78,12 @@ export default {
     ctaText: 'Sign up to access the full portfolio',
   },
 
+  // Testimonials
+  testimonials: {
+    heading: 'What people are saying',
+    sub: 'Results that speak for themselves',
+  },
+
   // CTA
   cta: {
     heading: 'Ready to elevate your brand?',

@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import ServicesSection from '../components/sections/ServicesSection'
 import FeaturesSection from '../components/sections/FeaturesSection'
 import PortfolioTeaser from '../components/sections/PortfolioTeaser'
+import TestimonialsSection from '../components/sections/TestimonialsSection'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../i18n/LanguageContext'
 import useTypingEffect from '../hooks/useTypingEffect'
@@ -161,13 +162,19 @@ export default function LandingPage() {
         <ScrollHint />
       </section>
 
-      {/* ── Section 5: Portfolio Teaser ──────────────────── */}
+      {/* ── Section 5: Testimonials ─────────────────────── */}
+      <section style={styles.snapSection}>
+        <TestimonialsSection />
+        <ScrollHint />
+      </section>
+
+      {/* ── Section 6: Portfolio Teaser ──────────────────── */}
       <section style={styles.snapSection}>
         <PortfolioTeaser />
         <ScrollHint />
       </section>
 
-      {/* ── Section 6: Final CTA ─────────────────────────── */}
+      {/* ── Section 7: Final CTA ─────────────────────────── */}
       <section style={styles.snapSection}>
         <RevealSection>
           <div style={styles.ctaSection}>
@@ -190,7 +197,21 @@ export default function LandingPage() {
           </div>
         </RevealSection>
         <footer style={styles.footer}>
-          <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
+          <div style={styles.footerInner}>
+            <div style={styles.footerBrand}>
+              <span style={styles.footerLogo}><span style={styles.typed}>Claude</span>.FO</span>
+              <p style={styles.footerTagline}>Premium Digital Agency</p>
+            </div>
+            <div style={styles.footerLinks}>
+              <a href="/store" style={styles.footerLink}>{t('nav.store')}</a>
+              <a href="/tools" style={styles.footerLink}>{t('nav.tools')}</a>
+              <a href="/prompts" style={styles.footerLink}>{t('nav.prompts')}</a>
+              <a href="/contact" style={styles.footerLink}>{t('nav.contact')}</a>
+            </div>
+          </div>
+          <div style={styles.footerBottom}>
+            <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
+          </div>
         </footer>
       </section>
     </div>
@@ -394,12 +415,50 @@ const styles = {
     transition: 'all 0.3s ease',
   },
   footer: {
-    textAlign: 'center',
-    padding: '2rem',
-    color: '#444',
-    fontSize: '0.85rem',
     borderTop: '1px solid rgba(255,255,255,0.06)',
     marginTop: 'auto',
+    padding: '2.5rem 2rem 1.5rem',
+  },
+  footerInner: {
+    maxWidth: '800px',
+    margin: '0 auto',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: '1.5rem',
+    marginBottom: '1.5rem',
+  },
+  footerBrand: {},
+  footerLogo: {
+    fontSize: '1.1rem',
+    fontWeight: 800,
+    color: '#fff',
+    display: 'block',
+    marginBottom: '0.2rem',
+  },
+  footerTagline: {
+    fontSize: '0.78rem',
+    color: '#555',
+    margin: 0,
+  },
+  footerLinks: {
+    display: 'flex',
+    gap: '1.5rem',
+    flexWrap: 'wrap',
+  },
+  footerLink: {
+    color: '#666',
+    textDecoration: 'none',
+    fontSize: '0.85rem',
+    transition: 'color 0.2s',
+  },
+  footerBottom: {
+    textAlign: 'center',
+    color: '#444',
+    fontSize: '0.78rem',
+    paddingTop: '1rem',
+    borderTop: '1px solid rgba(255,255,255,0.04)',
   },
 }
 

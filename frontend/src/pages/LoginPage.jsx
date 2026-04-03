@@ -34,8 +34,11 @@ export default function LoginPage() {
 
   return (
     <div style={styles.page}>
+      <div style={styles.glow} />
       <div style={styles.card}>
-        <Link to="/" style={styles.logo}>Claude.FO</Link>
+        <Link to="/" style={styles.logo}>
+          <span style={styles.logoAccent}>Claude</span>.FO
+        </Link>
         <h1 style={styles.heading}>{t('auth.loginHeading')}</h1>
         <p style={styles.sub}>{t('auth.loginSub')}</p>
 
@@ -89,23 +92,44 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '2rem',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  glow: {
+    position: 'absolute',
+    top: '20%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '600px',
+    height: '400px',
+    background: 'radial-gradient(ellipse, rgba(99,102,241,0.12) 0%, rgba(168,85,247,0.06) 40%, transparent 70%)',
+    pointerEvents: 'none',
   },
   card: {
     width: '100%',
     maxWidth: '420px',
     background: 'rgba(255,255,255,0.03)',
     border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '16px',
+    borderRadius: '20px',
     padding: '2.5rem',
     textAlign: 'center',
+    backdropFilter: 'blur(12px)',
+    position: 'relative',
+    zIndex: 1,
   },
   logo: {
     display: 'block',
-    fontWeight: 700,
-    fontSize: '1.1rem',
-    color: 'inherit',
+    fontWeight: 800,
+    fontSize: '1.3rem',
+    color: '#fff',
     textDecoration: 'none',
     marginBottom: '1.5rem',
+  },
+  logoAccent: {
+    background: 'linear-gradient(135deg, #6366f1, #c8a76b)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
   },
   heading: {
     fontSize: '1.6rem',

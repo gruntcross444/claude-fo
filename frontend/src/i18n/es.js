@@ -78,6 +78,12 @@ export default {
     ctaText: 'Registrate para acceder al portafolio completo',
   },
 
+  // Testimonials
+  testimonials: {
+    heading: 'Lo que dicen nuestros clientes',
+    sub: 'Resultados que hablan por si solos',
+  },
+
   // CTA
   cta: {
     heading: 'Listo para elevar tu marca?',

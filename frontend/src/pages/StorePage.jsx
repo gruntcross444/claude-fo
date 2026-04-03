@@ -203,7 +203,7 @@ const s = {
   cancelBanner: { padding: '1rem', borderRadius: '12px', background: 'rgba(248,113,113,0.1)', border: '1px solid rgba(248,113,113,0.3)', color: '#f87171', textAlign: 'center', marginBottom: '2rem', fontSize: '0.95rem' },
   tabs: { display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '2.5rem' },
   tab: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.5rem 1rem', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.08)', background: 'transparent', color: '#888', fontSize: '0.83rem', cursor: 'pointer', transition: 'all 0.2s' },
-  tabActive: { background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff', border: '1px solid transparent' },
+  tabActive: { background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', border: '1px solid transparent' },
   sectionTitle: { fontSize: '1.3rem', fontWeight: 700, marginBottom: '1.2rem', margin: '0 0 1.2rem' },
   paidGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(340px, 100%), 1fr))', gap: '1.2rem', marginBottom: '3rem' },
   paidCard: { borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column' },

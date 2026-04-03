@@ -98,8 +98,19 @@ function PromptCard({ prompt, onCopy, onUnlock, t }) {
       ) : (
         <>
           <div style={styles.lockedBlock}>
-            <span style={styles.lockIcon}>🔒</span>
-            <span>{t('prompts.unlock')}</span>
+            <div style={styles.lockedPreview}>
+              <div style={styles.lockedLine} />
+              <div style={{ ...styles.lockedLine, width: '85%' }} />
+              <div style={{ ...styles.lockedLine, width: '70%' }} />
+              <div style={{ ...styles.lockedLine, width: '90%' }} />
+              <div style={{ ...styles.lockedLine, width: '60%' }} />
+            </div>
+            <div style={styles.lockedOverlay}>
+              <div style={styles.lockBadge}>
+                <span style={{ fontSize: '1.1rem' }}>🔒</span>
+                <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#c8a76b' }}>{t('prompts.premium')}</span>
+              </div>
+            </div>
           </div>
           <button onClick={onUnlock} style={styles.unlockBtn}>
             {t('prompts.unlock')}
@@ -218,7 +229,7 @@ const styles = {
   searchInput: { width: '100%', padding: '0.8rem 1.2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)', color: '#fff', fontSize: '1rem', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box' },
   tabs: { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.4rem', marginBottom: '2rem' },
   tab: { padding: '0.4rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(255,255,255,0.08)', background: 'transparent', color: '#888', fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', gap: '0.4rem' },
-  tabActive: { background: 'linear-gradient(135deg, #f59e0b, #d97706)', color: '#fff', border: '1px solid transparent' },
+  tabActive: { background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', border: '1px solid transparent' },
   tabCount: { fontSize: '0.7rem', background: 'rgba(255,255,255,0.1)', padding: '0.1rem 0.4rem', borderRadius: '999px' },
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(320px, 100%), 1fr))', gap: '1.2rem' },
   card: { borderRadius: '14px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', transition: 'all 0.3s ease', display: 'flex', flexDirection: 'column' },
@@ -230,9 +241,12 @@ const styles = {
   cardDesc: { fontSize: '0.85rem', color: '#777', lineHeight: 1.5, margin: '0 0 1rem' },
   codeBlock: { background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px', padding: '1rem', fontSize: '0.78rem', color: '#ccc', lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-word', margin: '0 0 1rem', flex: 1, fontFamily: 'ui-monospace, Consolas, monospace', maxHeight: '200px', overflow: 'auto' },
   copyBtn: { padding: '0.6rem', borderRadius: '8px', border: '1px solid rgba(99,102,241,0.3)', color: '#a5b4fc', fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer', transition: 'all 0.2s', width: '100%' },
-  lockedBlock: { background: 'rgba(255,255,255,0.03)', border: '1px dashed rgba(255,255,255,0.1)', borderRadius: '10px', padding: '2rem', textAlign: 'center', color: '#555', fontSize: '0.85rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', flex: 1, justifyContent: 'center', marginBottom: '1rem' },
-  lockIcon: { fontSize: '1.5rem' },
-  unlockBtn: { padding: '0.6rem', borderRadius: '8px', border: 'none', background: 'linear-gradient(135deg, #f59e0b, #d97706)', color: '#fff', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s', width: '100%' },
+  lockedBlock: { position: 'relative', background: 'rgba(0,0,0,0.2)', borderRadius: '10px', padding: '1.2rem', flex: 1, marginBottom: '1rem', overflow: 'hidden', minHeight: '120px' },
+  lockedPreview: { display: 'flex', flexDirection: 'column', gap: '0.5rem' },
+  lockedLine: { height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,0.04)', width: '100%' },
+  lockedOverlay: { position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, rgba(10,11,15,0.95) 60%)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: '1rem' },
+  lockBadge: { display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 1rem', borderRadius: '999px', background: 'rgba(200,167,107,0.1)', border: '1px solid rgba(200,167,107,0.25)' },
+  unlockBtn: { padding: '0.6rem', borderRadius: '8px', border: 'none', background: 'linear-gradient(135deg, #c8a76b, #a88a4e)', color: '#fff', fontSize: '0.85rem', fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s', width: '100%' },
   empty: { textAlign: 'center', color: '#555', padding: '3rem', fontSize: '1rem' },
   ctaSection: { textAlign: 'center', padding: '4rem 0 2rem', borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '3rem' },
   ctaHeading: { fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.5rem' },
