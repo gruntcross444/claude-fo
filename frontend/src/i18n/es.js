@@ -11,6 +11,7 @@ export default {
     login: 'Iniciar sesion',
     logout: 'Cerrar sesion',
     getStarted: 'Comenzar',
+    switchLang: 'Switch to English',
   },
 
   // Hero
@@ -76,6 +77,7 @@ export default {
     cta: 'Crear Cuenta Gratis',
     ctaAuth: 'Ver Portafolio',
     ctaText: 'Registrate para acceder al portafolio completo',
+    more: '+18 proyectos mas',
   },
 
   // Testimonials
@@ -262,6 +264,9 @@ export default {
   // Auth extra
   authExtra: {
     backToLogin: 'Volver al inicio de sesion',
+    noCode: 'No se recibio codigo de autorizacion de',
+    loginFailed: 'inicio de sesion fallido',
+    loggingIn: 'Iniciando sesion con',
   },
 
   // Stats section CTAs

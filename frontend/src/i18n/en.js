@@ -11,6 +11,7 @@ export default {
     login: 'Log in',
     logout: 'Log out',
     getStarted: 'Get Started',
+    switchLang: 'Cambiar a Espanol',
   },
 
   // Hero
@@ -76,6 +77,7 @@ export default {
     cta: 'Create Free Account',
     ctaAuth: 'View Portfolio',
     ctaText: 'Sign up to access the full portfolio',
+    more: '+18 more projects',
   },
 
   // Testimonials
@@ -262,6 +264,9 @@ export default {
   // Auth extra
   authExtra: {
     backToLogin: 'Back to login',
+    noCode: 'No authorization code received from',
+    loginFailed: 'login failed',
+    loggingIn: 'Logging in with',
   },
 
   // Stats section CTAs

@@ -58,7 +58,7 @@ export default function PortfolioTeaser() {
           <TeaserCard key={p.title} project={p} delay={i * 0.15} />
         ))}
         <div style={styles.moreOverlay}>
-          <span style={styles.moreText}>+18 more projects</span>
+          <span style={styles.moreText}>{t('portfolioTeaser.more')}</span>
         </div>
       </div>
 

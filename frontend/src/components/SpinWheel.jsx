@@ -120,6 +120,10 @@ export default function SpinWheel() {
                 ref={wheelRef}
                 viewBox="0 0 300 300"
                 style={{
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '300px',
+                  maxHeight: '300px',
                   transform: `rotate(${rotation}deg)`,
                   transition: phase === 'spinning' && rotation > 0 ? 'transform 5s cubic-bezier(0.15, 0.60, 0.08, 1.00)' : 'none',
                   filter: phase === 'spinning' && rotation > 0 ? 'drop-shadow(0 0 20px rgba(200,167,107,0.3))' : 'none',

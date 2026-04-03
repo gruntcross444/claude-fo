@@ -74,7 +74,7 @@ export default function Navbar() {
           <Link to="/contact" style={styles.mobileLink} onClick={closeMenu}>{t('nav.contact')}</Link>
           <div style={styles.mobileDivider} />
           <button onClick={toggleLang} style={styles.mobileLangBtn}>
-            {lang === 'en' ? 'Cambiar a Espanol' : 'Switch to English'}
+            {t('nav.switchLang')}
           </button>
           {isAuthenticated ? (
             <button onClick={handleLogout} style={styles.mobileBtn}>{t('nav.logout')}</button>

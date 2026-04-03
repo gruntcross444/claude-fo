@@ -23,7 +23,7 @@ export default function OAuthCallback() {
   useEffect(() => {
     const code = searchParams.get('code')
     if (!code) {
-      setError(`No authorization code received from ${PROVIDER_LABELS[provider] || provider}`)
+      setError(`${t('authExtra.noCode')} ${PROVIDER_LABELS[provider] || provider}`)
       return
     }
 
@@ -33,7 +33,7 @@ export default function OAuthCallback() {
         navigate('/portfolio', { replace: true })
       })
       .catch((err) => {
-        setError(err.response?.data?.detail || `${PROVIDER_LABELS[provider] || provider} login failed`)
+        setError(err.response?.data?.detail || `${PROVIDER_LABELS[provider] || provider} ${t('authExtra.loginFailed')}`)
       })
   }, [provider, searchParams, login, navigate])
 
@@ -50,7 +50,7 @@ export default function OAuthCallback() {
 
   return (
     <div style={styles.page}>
-      <p style={styles.text}>Logging in with {PROVIDER_LABELS[provider] || provider}...</p>
+      <p style={styles.text}>{t('authExtra.loggingIn')} {PROVIDER_LABELS[provider] || provider}...</p>
     </div>
   )
 }
