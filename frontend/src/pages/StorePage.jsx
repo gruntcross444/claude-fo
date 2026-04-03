@@ -1,34 +1,16 @@
 import { useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
-import { Building2, Code2, Bot, Smartphone, Palette, Calculator, FileText, BarChart3, Home, Scale, ClipboardCheck, Wrench, Check, ArrowRight, Sparkles } from 'lucide-react'
+import { Bot, Calculator, BarChart3, Scale, ClipboardCheck, FileText, Check, ArrowRight, Sparkles } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 
-const STORE_CATEGORIES = ['All', 'Real Estate', 'Web Development', 'AI & Automation', 'Mobile Apps', 'Logo & Branding']
-
-const CATEGORY_ICONS = {
-  'Real Estate': Building2,
-  'Web Development': Code2,
-  'AI & Automation': Bot,
-  'Mobile Apps': Smartphone,
-  'Logo & Branding': Palette,
-}
-
 const paidProducts = [
-  { id: 'real-estate-template', title: 'Real Estate Landing Template', subtitle: 'Rental Community Page', description: 'High-converting landing page template designed for rental communities. Pricing tiers, amenity sections, WhatsApp integration, and bilingual support.', price: 24, originalPrice: 39, category: 'Real Estate', color: '#c8a76b', features: ['Luxury design', 'Pricing section', 'WhatsApp CTA', 'Bilingual ready', 'Mobile-first', 'Netlify deploy'], badge: 'New' },
-  { id: 'finance-tracker', title: 'Monthly Finance Tracker', subtitle: 'Personal & Business Budgeting', description: 'Track income, expenses, savings goals, and investments with automated dashboards. Includes 12-month overview, category breakdowns, and visual charts.', price: 19, originalPrice: 29, category: 'Web Development', color: '#10b981', features: ['Google Sheets + Excel', 'Auto-calculated dashboards', '12-month annual view', 'Expense categories', 'Savings goal tracker', 'Dark & light themes'], badge: 'Best Seller' },
-  { id: 'website-templates', title: 'Website Templates Pack', subtitle: 'React + Vite Ready-to-Deploy', description: 'Collection of 5 professionally designed landing pages and portfolio templates. Clean code, responsive, fast — just add your content and deploy.', price: 39, originalPrice: 69, category: 'Web Development', color: '#6366f1', features: ['5 unique designs', 'React + Vite', 'Fully responsive', 'Dark & light mode', 'SEO optimized', 'Deploy in minutes'], badge: null },
-  { id: 'prompts-real-estate', title: 'Real Estate Prompt Pack', subtitle: '50+ Ready-to-Use Prompts', description: 'Property listings, tenant emails, market analysis, investor reports, social posts for agents — just fill in your details and go.', price: 14, originalPrice: 29, category: 'AI & Automation', color: '#f59e0b', features: ['50+ prompts', 'Listing descriptions', 'Tenant comms', 'Market reports', 'Social captions', 'Fill-in-the-blank'], badge: 'Best Seller' },
+  { id: 'prompts-real-estate', title: 'Real Estate Prompt Pack', subtitle: '50+ Ready-to-Use Prompts', description: 'Property listings, tenant emails, market analysis, investor reports, social posts for agents — just fill in your details and go.', price: 14, originalPrice: 29, category: 'AI & Automation', color: '#c8a76b', features: ['50+ prompts', 'Listing descriptions', 'Tenant comms', 'Market reports', 'Social captions', 'Fill-in-the-blank'], badge: 'Best Seller' },
   { id: 'prompts-marketing', title: 'Marketing & Sales Prompts', subtitle: '75+ Plug-and-Play Prompts', description: 'Ad copy, email sequences, cold outreach, social media campaigns, and sales scripts — for any industry.', price: 19, originalPrice: 39, category: 'AI & Automation', color: '#f43f5e', features: ['75+ prompts', 'Ad copy generators', 'Email sequences', 'Cold DM scripts', 'Launch campaigns', 'A/B test variants'], badge: 'Popular' },
-  { id: 'prompts-business', title: 'Business & Productivity Pack', subtitle: '60+ Professional Prompts', description: 'SOPs, meeting agendas, project proposals, financial summaries, hiring templates, and workflow automations.', price: 14, originalPrice: 29, category: 'AI & Automation', color: '#10b981', features: ['60+ prompts', 'SOP generators', 'Proposal templates', 'Report writers', 'Hiring scripts', 'Process automations'], badge: null },
-  { id: 'prompts-content', title: 'Content Creator Toolkit', subtitle: '80+ Creative Prompts', description: 'Blog posts, YouTube scripts, newsletter intros, SEO articles, podcast outlines, and social media carousels.', price: 19, originalPrice: 34, category: 'AI & Automation', color: '#8b5cf6', features: ['80+ prompts', 'Blog post outlines', 'Video scripts', 'Newsletter hooks', 'SEO frameworks', 'Carousel templates'], badge: 'New' },
-  { id: 'lead-funnel-template', title: 'Lead Funnel Blueprint', subtitle: 'Complete Funnel Setup Guide', description: 'Step-by-step guide to building a high-converting lead funnel — landing page, lead magnet, email sequence, and CRM setup.', price: 34, originalPrice: 59, category: 'AI & Automation', color: '#8b5cf6', features: ['Funnel architecture', 'Email sequence templates', 'Lead magnet ideas', 'CRM setup guide', 'A/B testing tips', 'Conversion tracking'], badge: null },
-  { id: 'email-sms-playbook', title: 'Email & SMS Playbook', subtitle: 'Campaign Templates + Strategy', description: 'Ready-to-use email blast and SMS campaign templates with audience segmentation strategies and AI prompt templates for copy generation.', price: 24, originalPrice: 44, category: 'AI & Automation', color: '#6366f1', features: ['20+ email templates', '10+ SMS templates', 'AI copy prompts', 'Segmentation guide', 'Scheduling strategy', 'Compliance checklist'], badge: 'Popular' },
-  { id: 'automation-starter-kit', title: 'Automation Starter Kit', subtitle: 'Make.com + Zapier Workflows', description: 'Pre-built workflow automations for lead capture, follow-ups, social posting, and CRM updates. Just import and customize.', price: 19, originalPrice: 39, category: 'AI & Automation', color: '#14b8a6', features: ['15+ workflows', 'Make.com blueprints', 'Zapier templates', 'Lead nurture flows', 'Social auto-post', 'Setup video guide'], badge: null },
-  { id: 'social-media-kit', title: 'Social Media Kit', subtitle: '50+ Editable Templates', description: 'Professional templates for Instagram posts, stories, reels covers, carousels, and LinkedIn banners.', price: 29, originalPrice: 49, category: 'Logo & Branding', color: '#f43f5e', features: ['50+ templates', 'Instagram, TikTok, LinkedIn', 'Canva & Figma formats', 'Stories, posts, carousels', 'Brand color customization', 'Commercial license'], badge: 'Popular' },
-  { id: 'content-calendar', title: 'Content Calendar Planner', subtitle: '90-Day Social Strategy', description: 'Plan, schedule, and track your social media content across all platforms.', price: 14, originalPrice: 24, category: 'Logo & Branding', color: '#8b5cf6', features: ['90-day planner', 'Multi-platform', 'Content pillars', 'Post ideas bank', 'Analytics tracker', 'Notion + Sheets'], badge: null },
+  { id: 'prompts-business', title: 'Business & Productivity Pack', subtitle: '60+ Professional Prompts', description: 'SOPs, meeting agendas, project proposals, financial summaries, hiring templates, and workflow automations.', price: 14, originalPrice: 29, category: 'AI & Automation', color: '#6366f1', features: ['60+ prompts', 'SOP generators', 'Proposal templates', 'Report writers', 'Hiring scripts', 'Process automations'], badge: null },
+  { id: 'prompts-content', title: 'Content Creator Toolkit', subtitle: '80+ Creative Prompts', description: 'Blog posts, YouTube scripts, newsletter intros, SEO articles, podcast outlines, and social media carousels.', price: 19, originalPrice: 34, category: 'AI & Automation', color: '#a855f7', features: ['80+ prompts', 'Blog post outlines', 'Video scripts', 'Newsletter hooks', 'SEO frameworks', 'Carousel templates'], badge: 'New' },
 ]
 
 const freeTools = [
@@ -41,7 +23,6 @@ const freeTools = [
 
 export default function StorePage() {
   const { t } = useLang()
-  const [active, setActive] = useState('All')
   const [loading, setLoading] = useState(null)
   const [searchParams] = useSearchParams()
   const { isAuthenticated } = useAuth()
@@ -49,8 +30,8 @@ export default function StorePage() {
   const success = searchParams.get('success')
   const canceled = searchParams.get('canceled')
 
-  const filteredPaid = active === 'All' ? paidProducts : paidProducts.filter((p) => p.category === active)
-  const showFreeTools = active === 'All' || active === 'Real Estate'
+  const filteredPaid = paidProducts
+  const showFreeTools = true
 
   async function handleBuy(productId) {
     setLoading(productId)
@@ -78,25 +59,13 @@ export default function StorePage() {
         {success && <div style={s.successBanner}>{t('store.successBanner')}</div>}
         {canceled && <div style={s.cancelBanner}>{t('store.cancelBanner')}</div>}
 
-        {/* ── Category Tabs ───────────────────────────── */}
-        <div style={s.tabs}>
-          {STORE_CATEGORIES.map((cat) => {
-            const CatIcon = CATEGORY_ICONS[cat]
-            return (
-              <button key={cat} onClick={() => setActive(cat)} style={{ ...s.tab, ...(active === cat ? s.tabActive : {}) }}>
-                {CatIcon && <CatIcon size={14} />} {cat}
-              </button>
-            )
-          })}
-        </div>
-
         {/* ── Paid Products ──────────────────────────── */}
         {filteredPaid.length > 0 && (
           <>
             <h2 style={s.sectionTitle}>{t('store.premiumProducts')}</h2>
             <div style={s.paidGrid}>
               {filteredPaid.map((p) => {
-                const CatIcon = CATEGORY_ICONS[p.category] || Code2
+                const CatIcon = Bot
                 return (
                   <div
                     key={p.id}
