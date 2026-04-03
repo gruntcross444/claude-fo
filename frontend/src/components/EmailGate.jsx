@@ -71,7 +71,7 @@ const styles = {
   gate: { position: 'relative' },
   blurContent: { filter: 'blur(8px)', pointerEvents: 'none', userSelect: 'none' },
   overlay: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(10,11,15,0.6)', backdropFilter: 'blur(4px)', borderRadius: '12px' },
-  card: { textAlign: 'center', padding: '2.5rem', maxWidth: '380px' },
+  card: { textAlign: 'center', padding: 'clamp(1.5rem, 4vw, 2.5rem)', maxWidth: 'min(380px, calc(100vw - 2rem))' },
   iconWrap: { width: '56px', height: '56px', borderRadius: '16px', background: 'rgba(200,167,107,0.1)', border: '1px solid rgba(200,167,107,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' },
   heading: { fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.4rem' },
   sub: { color: '#888', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: 1.5 },

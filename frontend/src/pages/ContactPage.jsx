@@ -34,7 +34,7 @@ export default function ContactPage() {
           <p style={styles.sub}>{t('contact.sub')}</p>
         </div>
 
-        <div style={styles.grid}>
+        <div style={styles.grid} data-contact-grid>
           {/* ── Quick Contact Cards ─────────────────────── */}
           <div style={styles.sidebar}>
             <a

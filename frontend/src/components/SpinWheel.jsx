@@ -105,8 +105,6 @@ export default function SpinWheel() {
               {/* Wheel */}
               <svg
                 ref={wheelRef}
-                width="300"
-                height="300"
                 viewBox="0 0 300 300"
                 style={{
                   transform: `rotate(${rotation}deg)`,
@@ -181,7 +179,7 @@ export default function SpinWheel() {
 
 const s = {
   backdrop: { position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10000, padding: '1rem' },
-  modal: { background: '#13141a', border: '1px solid rgba(200,167,107,0.2)', borderRadius: '24px', padding: '2rem', maxWidth: '440px', width: '100%', textAlign: 'center', position: 'relative', overflow: 'hidden' },
+  modal: { background: '#13141a', border: '1px solid rgba(200,167,107,0.2)', borderRadius: '24px', padding: 'clamp(1rem, 4vw, 2rem)', maxWidth: 'min(440px, calc(100vw - 2rem))', width: '100%', textAlign: 'center', position: 'relative', overflow: 'hidden' },
   closeBtn: { position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', color: '#666', cursor: 'pointer', zIndex: 10 },
 
   emailPhase: { padding: '1rem 0' },
@@ -193,7 +191,7 @@ const s = {
   spinStartBtn: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', padding: '0.8rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #c8a76b, #a88a4e)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer' },
 
   wheelPhase: { padding: '0.5rem 0' },
-  wheelContainer: { position: 'relative', width: '300px', height: '300px', margin: '0 auto 1.5rem' },
+  wheelContainer: { position: 'relative', width: 'min(300px, 100%)', aspectRatio: '1', margin: '0 auto 1.5rem' },
   pointer: { position: 'absolute', top: '-8px', left: '50%', transform: 'translateX(-50%)', fontSize: '24px', color: '#c8a76b', zIndex: 5, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' },
 
   resultSection: { padding: '0.5rem 0', animation: 'fadeInUp 0.5s ease' },

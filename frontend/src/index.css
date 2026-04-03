@@ -119,6 +119,42 @@ html {
 /* ── Mobile ────────────────────────────────────────────── */
 @media (max-width: 768px) {
   :root {
-    font-size: 15px;
+    font-size: 14px;
+  }
+
+  /* Navbar: hide desktop links, show hamburger */
+  nav > div:nth-child(2),
+  nav > div:nth-child(3) {
+    display: none !important;
+  }
+  nav > button[aria-label="Toggle menu"] {
+    display: flex !important;
+  }
+
+  /* Tools page: stack sidebar */
+  [data-tools-layout] {
+    flex-direction: column !important;
+  }
+  [data-tools-sidebar] {
+    width: 100% !important;
+    position: static !important;
+    display: none !important;
+  }
+  [data-tools-sidebar].open {
+    display: flex !important;
+  }
+  [data-tools-toggle] {
+    display: flex !important;
+  }
+
+  /* Contact page: stack grid */
+  [data-contact-grid] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 13px;
   }
 }

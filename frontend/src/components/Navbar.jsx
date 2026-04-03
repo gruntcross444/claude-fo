@@ -237,19 +237,3 @@ const styles = {
   },
 }
 
-// Inject responsive CSS for hamburger visibility
-if (typeof document !== 'undefined') {
-  const id = 'navbar-responsive'
-  if (!document.getElementById(id)) {
-    const style = document.createElement('style')
-    style.id = id
-    style.textContent = `
-      @media (max-width: 768px) {
-        nav > div:nth-child(2) { display: none !important; }
-        nav > div:nth-child(3) { display: none !important; }
-        nav > button[aria-label="Toggle menu"] { display: flex !important; }
-      }
-    `
-    document.head.appendChild(style)
-  }
-}

@@ -83,7 +83,7 @@ const styles = {
   card: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', padding: '2rem' },
   title: { fontSize: '1.3rem', fontWeight: 700, margin: '0 0 0.3rem' },
   desc: { color: '#888', fontSize: '0.9rem', margin: '0 0 1.5rem' },
-  fields: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1.5rem' },
+  fields: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(140px, 100%), 1fr))', gap: '1rem', marginBottom: '1.5rem' },
   label: { display: 'flex', flexDirection: 'column', gap: '0.3rem', fontSize: '0.8rem', color: '#aaa' },
   input: { padding: '0.55rem 0.7rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.05)', color: 'inherit', fontSize: '0.95rem', outline: 'none' },
   comparison: { display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' },

@@ -93,7 +93,7 @@ export default function ExitIntentPopup() {
 
 const styles = {
   backdrop: { position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '1rem' },
-  modal: { background: '#13141a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '2.5rem', maxWidth: '420px', width: '100%', textAlign: 'center', position: 'relative' },
+  modal: { background: '#13141a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: 'clamp(1.5rem, 4vw, 2.5rem)', maxWidth: 'min(420px, calc(100vw - 2rem))', width: '100%', textAlign: 'center', position: 'relative' },
   closeBtn: { position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', color: '#666', cursor: 'pointer' },
   iconWrap: { width: '64px', height: '64px', borderRadius: '18px', background: 'rgba(200,167,107,0.1)', border: '1px solid rgba(200,167,107,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.2rem' },
   heading: { fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.5rem' },

@@ -28,15 +28,15 @@ export default function ToolsPage() {
   return (
     <div style={s.page}>
       <Navbar />
-      <div style={s.layout}>
+      <div style={s.layout} data-tools-layout>
 
         {/* ── Mobile toggle ─────────────────────────── */}
-        <button style={s.mobileToggle} onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <button style={s.mobileToggle} data-tools-toggle onClick={() => setSidebarOpen(!sidebarOpen)}>
           <Wrench size={16} /> {t('toolsExtra.menu')} <ChevronRight size={14} style={{ transform: sidebarOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
         </button>
 
         {/* ── Left Sidebar ──────────────────────────── */}
-        <aside style={{ ...s.sidebar, ...(sidebarOpen ? s.sidebarOpen : {}) }}>
+        <aside style={{ ...s.sidebar, ...(sidebarOpen ? s.sidebarOpen : {}) }} data-tools-sidebar className={sidebarOpen ? 'open' : ''}>
           <div style={s.sidebarHeader}>
             <Wrench size={18} color="#c8a76b" />
             <span style={s.sidebarTitle}>{t('tools.eyebrow')}</span>
@@ -124,20 +124,3 @@ const s = {
   footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }
 
-// Responsive CSS for mobile
-if (typeof document !== 'undefined') {
-  const id = 'tools-responsive'
-  if (!document.getElementById(id)) {
-    const style = document.createElement('style')
-    style.id = id
-    style.textContent = `
-      @media (max-width: 768px) {
-        [data-tools-layout] { flex-direction: column !important; }
-        [data-tools-sidebar] { width: 100% !important; position: static !important; display: none !important; }
-        [data-tools-sidebar].open { display: flex !important; }
-        [data-tools-toggle] { display: flex !important; }
-      }
-    `
-    document.head.appendChild(style)
-  }
-}
