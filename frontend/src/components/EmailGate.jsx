@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { Mail, ArrowRight } from 'lucide-react'
 import api from '../api'
 import { useLang } from '../i18n/LanguageContext'
+import { useAuth } from '../context/AuthContext'
 
 export default function EmailGate({ source, children }) {
-  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem('email_unlocked') === 'true')
+  const { isAuthenticated } = useAuth()
+  const [unlocked, setUnlocked] = useState(() => isAuthenticated || sessionStorage.getItem('email_unlocked') === 'true')
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
