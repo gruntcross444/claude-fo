@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import { ArrowDown, ArrowRight, ChevronDown } from 'lucide-react'
+import { ArrowRight, Zap, ShieldCheck, Sparkles, MessageCircle } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import ServicesSection from '../components/sections/ServicesSection'
-import FeaturesSection from '../components/sections/FeaturesSection'
 import PortfolioTeaser from '../components/sections/PortfolioTeaser'
 import TestimonialsSection from '../components/sections/TestimonialsSection'
 import { useAuth } from '../context/AuthContext'
@@ -21,26 +20,15 @@ function StatCounter({ label, value, suffix }) {
   )
 }
 
-function RevealSection({ children, delay = 0 }) {
+function Reveal({ children, delay = 0 }) {
   const [ref, visible] = useScrollReveal(0.1)
   return (
-    <div
-      ref={ref}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(40px)',
-        transition: `opacity 0.8s ease ${delay}s, transform 0.8s ease ${delay}s`,
-      }}
-    >
+    <div ref={ref} style={{
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'translateY(0)' : 'translateY(30px)',
+      transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
+    }}>
       {children}
-    </div>
-  )
-}
-
-function ScrollHint() {
-  return (
-    <div style={styles.scrollHint}>
-      <ChevronDown size={20} color="#555" style={{ animation: 'bounce 2s infinite' }} />
     </div>
   )
 }
@@ -49,9 +37,7 @@ export default function LandingPage() {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
   const { t } = useLang()
-
-  const typingWords = t('typingWords')
-  const typedText = useTypingEffect(typingWords, 90, 50, 1800)
+  const typedText = useTypingEffect(t('typingWords'), 90, 50, 1800)
 
   const STATS = [
     { label: t('stats.projects'), value: 50, suffix: '+' },
@@ -60,202 +46,195 @@ export default function LandingPage() {
     { label: t('stats.experience'), value: 5, suffix: '+' },
   ]
 
+  const FEATURES = [
+    { Icon: Zap, title: t('features.fast.title'), color: '#f59e0b' },
+    { Icon: ShieldCheck, title: t('features.secure.title'), color: '#10b981' },
+    { Icon: Sparkles, title: t('features.clean.title'), color: '#a855f7' },
+    { Icon: MessageCircle, title: t('features.comms.title'), color: '#6366f1' },
+  ]
+
   return (
-    <div style={styles.snapContainer}>
+    <div style={styles.page}>
       <Navbar />
 
-      {/* ── Section 1: Hero ──────────────────────────────── */}
-      <section style={styles.snapSection}>
-        <div style={styles.hero}>
-          <div style={styles.heroGlow} />
-          <RevealSection>
-            <p style={styles.eyebrow}>{t('hero.eyebrow')}</p>
-          </RevealSection>
-          <RevealSection delay={0.1}>
-            <h1 style={styles.heading}>
-              {t('hero.heading')}<br />
-              <span style={styles.typed}>{typedText}</span>
-              <span style={styles.cursor}>|</span>
-            </h1>
-          </RevealSection>
-          <RevealSection delay={0.2}>
-            <p style={styles.sub}>
-              {t('hero.sub')}<br />
-              {t('hero.sub2')}
-            </p>
-          </RevealSection>
-          <RevealSection delay={0.3}>
-            <div style={styles.actions}>
-              <button
-                style={styles.primaryBtn}
-                onClick={() => navigate(isAuthenticated ? '/portfolio' : '/register')}
-                onMouseEnter={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 30px rgba(99,102,241,0.4)' }}
-                onMouseLeave={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'none' }}
-              >
-                {isAuthenticated ? t('hero.ctaAuth') : t('hero.cta')}
-              </button>
-              <a
-                href="#stats"
-                style={styles.secondaryBtn}
-                onMouseEnter={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.4)'; e.target.style.color = '#fff' }}
-                onMouseLeave={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; e.target.style.color = '#aaa' }}
-              >
-                {t('hero.secondary')} <ArrowDown size={16} />
-              </a>
-            </div>
-          </RevealSection>
-          <ScrollHint />
-        </div>
-      </section>
-
-      {/* ── Section 2: Stats + Trust ─────────────────────── */}
-      <section id="stats" style={styles.snapSection}>
-        <div style={styles.statsPage}>
-          <RevealSection>
-            <section style={statStyles.bar}>
-              {STATS.map((s) => (
-                <StatCounter key={s.label} {...s} />
-              ))}
-            </section>
-          </RevealSection>
-          <RevealSection delay={0.2}>
-            <div style={styles.trustedSection}>
-              <p style={styles.trustedLabel}>{t('trust.label')}</p>
-              <div style={styles.trustedLogos}>
-                {['Miami', 'New York', 'Los Angeles', 'Dubai', 'London'].map((city) => (
-                  <span key={city} style={styles.trustedItem}>{city}</span>
-                ))}
+      {/* ── Hero ──────────────────────────────────────────── */}
+      <section style={styles.hero}>
+        <div style={styles.heroGlow} />
+        <div style={styles.heroGlow2} />
+        <div style={styles.heroContent} data-hero-content>
+          <div style={styles.heroLeft} data-hero-left>
+            <Reveal>
+              <p style={styles.eyebrow}>{t('hero.eyebrow')}</p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h1 style={styles.heading}>
+                {t('hero.heading')}<br />
+                <span style={styles.typed}>{typedText}</span>
+                <span style={styles.cursor}>|</span>
+              </h1>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p style={styles.sub}>{t('hero.sub')}</p>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <div style={styles.heroActions} data-hero-actions>
+                <button
+                  style={styles.primaryBtn}
+                  onClick={() => navigate(isAuthenticated ? '/portfolio' : '/register')}
+                >
+                  {isAuthenticated ? t('hero.ctaAuth') : t('hero.cta')} <ArrowRight size={16} />
+                </button>
+                <button style={styles.ghostBtn} onClick={() => navigate('/store')}>
+                  {t('statsCta.store')}
+                </button>
               </div>
-            </div>
-          </RevealSection>
-          <RevealSection delay={0.4}>
-            <div style={styles.statsActions}>
-              <button
-                style={styles.primaryBtn}
-                onClick={() => navigate('/store')}
-                onMouseEnter={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 30px rgba(99,102,241,0.4)' }}
-                onMouseLeave={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'none' }}
-              >
-                {t('statsCta.store')} <ArrowRight size={16} />
-              </button>
-              <button
-                style={styles.ghostBtn}
-                onClick={() => navigate('/tools')}
-              >
-                {t('statsCta.tools')}
-              </button>
-            </div>
-          </RevealSection>
-          <ScrollHint />
+            </Reveal>
+          </div>
+          <div style={styles.heroRight} data-hero-right>
+            <Reveal delay={0.2}>
+              <div style={styles.heroCard}>
+                <div style={styles.heroCardHeader}>
+                  <span style={styles.heroCardDot1} />
+                  <span style={styles.heroCardDot2} />
+                  <span style={styles.heroCardDot3} />
+                </div>
+                <div style={styles.heroCardBody}>
+                  <div style={styles.heroCardLine1} />
+                  <div style={styles.heroCardLine2} />
+                  <div style={styles.heroCardLine3} />
+                  <div style={styles.heroCardBtn}>{t('hero.secondary')}</div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      {/* ── Section 3: Services ──────────────────────────── */}
-      <section style={styles.snapSection}>
-        <ServicesSection />
-        <ScrollHint />
-      </section>
-
-      {/* ── Section 4: Features ──────────────────────────── */}
-      <section style={styles.snapSection}>
-        <FeaturesSection />
-        <ScrollHint />
-      </section>
-
-      {/* ── Section 5: Testimonials ─────────────────────── */}
-      <section style={styles.snapSection}>
-        <TestimonialsSection />
-        <ScrollHint />
-      </section>
-
-      {/* ── Section 6: Portfolio Teaser ──────────────────── */}
-      <section style={styles.snapSection}>
-        <PortfolioTeaser />
-        <ScrollHint />
-      </section>
-
-      {/* ── Section 7: Final CTA ─────────────────────────── */}
-      <section style={styles.snapSection}>
-        <RevealSection>
-          <div style={styles.ctaSection}>
-            <div style={styles.ctaGlow} />
-            <h2 style={styles.ctaHeading}>{t('cta.heading')}</h2>
-            <p style={styles.ctaSub}>{t('cta.sub')}</p>
-            <div style={styles.ctaActions}>
-              <button
-                style={styles.ctaBtn}
-                onClick={() => navigate(isAuthenticated ? '/contact' : '/register')}
-                onMouseEnter={(e) => { e.target.style.transform = 'scale(1.05)'; e.target.style.boxShadow = '0 8px 30px rgba(200,167,107,0.3)' }}
-                onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; e.target.style.boxShadow = 'none' }}
-              >
-                {isAuthenticated ? t('cta.btnAuth') : t('cta.btn')}
-              </button>
-              <button style={styles.ghostBtn} onClick={() => navigate('/prompts')}>
-                {t('cta.prompts')}
-              </button>
-            </div>
+      {/* ── Stats Strip ──────────────────────────────────── */}
+      <section style={styles.statsStrip}>
+        <Reveal>
+          <div style={statStyles.bar}>
+            {STATS.map((s) => <StatCounter key={s.label} {...s} />)}
           </div>
-        </RevealSection>
-        <footer style={styles.footer}>
-          <div style={styles.footerInner}>
-            <div style={styles.footerBrand}>
-              <span style={styles.footerLogo}><span style={styles.typed}>Claude</span>.FO</span>
-              <p style={styles.footerTagline}>Premium Digital Agency</p>
-            </div>
-            <div style={styles.footerLinks}>
-              <a href="/store" style={styles.footerLink}>{t('nav.store')}</a>
-              <a href="/tools" style={styles.footerLink}>{t('nav.tools')}</a>
-              <a href="/prompts" style={styles.footerLink}>{t('nav.prompts')}</a>
-              <a href="/contact" style={styles.footerLink}>{t('nav.contact')}</a>
-            </div>
-          </div>
-          <div style={styles.footerBottom}>
-            <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-          </div>
-        </footer>
+        </Reveal>
       </section>
+
+      {/* ── Services (Bento Grid) ────────────────────────── */}
+      <ServicesSection />
+
+      {/* ── Features (Compact Row) ───────────────────────── */}
+      <section style={styles.featuresSection}>
+        <Reveal>
+          <h2 style={styles.sectionHeading}>{t('features.heading')}</h2>
+        </Reveal>
+        <div style={styles.featuresGrid}>
+          {FEATURES.map((f, i) => (
+            <Reveal key={f.title} delay={i * 0.1}>
+              <div style={styles.featureItem}>
+                <div style={{ ...styles.featureIcon, background: `${f.color}12`, border: `1px solid ${f.color}25` }}>
+                  <f.Icon size={20} color={f.color} strokeWidth={1.5} />
+                </div>
+                <span style={styles.featureTitle}>{f.title}</span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Testimonials ─────────────────────────────────── */}
+      <TestimonialsSection />
+
+      {/* ── Portfolio Teaser ──────────────────────────────── */}
+      <PortfolioTeaser />
+
+      {/* ── Final CTA ────────────────────────────────────── */}
+      <section style={styles.ctaSection}>
+        <div style={styles.ctaGlow} />
+        <Reveal>
+          <h2 style={styles.ctaHeading}>{t('cta.heading')}</h2>
+          <p style={styles.ctaSub}>{t('cta.sub')}</p>
+          <div style={styles.ctaActions}>
+            <button
+              style={styles.ctaBtn}
+              onClick={() => navigate(isAuthenticated ? '/contact' : '/register')}
+            >
+              {isAuthenticated ? t('cta.btnAuth') : t('cta.btn')} <ArrowRight size={16} />
+            </button>
+            <button style={styles.ghostBtn} onClick={() => navigate('/prompts')}>
+              {t('cta.prompts')}
+            </button>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ── Footer ───────────────────────────────────────── */}
+      <footer style={styles.footer}>
+        <div style={styles.footerInner}>
+          <div>
+            <span style={styles.footerLogo}><span style={styles.typed}>Claude</span>.FO</span>
+            <p style={styles.footerTagline}>Premium Digital Agency</p>
+          </div>
+          <div style={styles.footerLinks}>
+            <a href="/store" style={styles.footerLink}>{t('nav.store')}</a>
+            <a href="/tools" style={styles.footerLink}>{t('nav.tools')}</a>
+            <a href="/prompts" style={styles.footerLink}>{t('nav.prompts')}</a>
+            <a href="/contact" style={styles.footerLink}>{t('nav.contact')}</a>
+          </div>
+        </div>
+        <div style={styles.footerBottom}>
+          <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
+        </div>
+      </footer>
     </div>
   )
 }
 
 const styles = {
-  snapContainer: {
-    height: '100vh',
-    overflowY: 'auto',
-    scrollSnapType: 'y mandatory',
-    scrollBehavior: 'smooth',
-  },
-  snapSection: {
-    scrollSnapAlign: 'start',
+  page: {
     minHeight: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    position: 'relative',
   },
-  scrollHint: {
-    position: 'absolute',
-    bottom: '2rem',
-    left: '50%',
-    transform: 'translateX(-50%)',
-  },
+
+  // ── Hero ─────────────────────────────────────────────
   hero: {
-    maxWidth: '1000px',
-    margin: '0 auto',
-    padding: '2rem',
-    textAlign: 'center',
     position: 'relative',
+    overflow: 'hidden',
+    padding: 'clamp(4rem, 10vh, 8rem) 2rem clamp(3rem, 8vh, 6rem)',
   },
   heroGlow: {
     position: 'absolute',
-    top: '-120px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: 'min(700px, 120vw)',
-    height: 'min(500px, 70vh)',
-    background: 'radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, rgba(200,167,107,0.06) 30%, rgba(168,85,247,0.04) 50%, transparent 70%)',
+    top: '-20%',
+    left: '20%',
+    width: '600px',
+    height: '500px',
+    background: 'radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, transparent 70%)',
     pointerEvents: 'none',
     animation: 'float 8s ease-in-out infinite',
+  },
+  heroGlow2: {
+    position: 'absolute',
+    bottom: '-10%',
+    right: '10%',
+    width: '400px',
+    height: '400px',
+    background: 'radial-gradient(ellipse, rgba(200,167,107,0.08) 0%, transparent 70%)',
+    pointerEvents: 'none',
+    animation: 'float 10s ease-in-out infinite reverse',
+  },
+  heroContent: {
+    maxWidth: '1100px',
+    margin: '0 auto',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 'clamp(2rem, 5vw, 4rem)',
+    position: 'relative',
+  },
+  heroLeft: {
+    flex: '1 1 55%',
+  },
+  heroRight: {
+    flex: '1 1 40%',
+    display: 'flex',
+    justifyContent: 'center',
   },
   eyebrow: {
     display: 'inline-block',
@@ -264,17 +243,17 @@ const styles = {
     border: '1px solid rgba(200,167,107,0.3)',
     background: 'rgba(200,167,107,0.05)',
     color: '#c8a76b',
-    fontSize: '0.82rem',
-    marginBottom: '2rem',
-    letterSpacing: '0.1em',
+    fontSize: '0.78rem',
+    marginBottom: '1.5rem',
+    letterSpacing: '0.12em',
     textTransform: 'uppercase',
     fontWeight: 600,
   },
   heading: {
-    fontSize: 'clamp(2.2rem, 6vw, 4.2rem)',
+    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
     fontWeight: 800,
-    lineHeight: 1.08,
-    marginBottom: '1.5rem',
+    lineHeight: 1.1,
+    marginBottom: '1.2rem',
     letterSpacing: '-0.03em',
   },
   typed: {
@@ -291,49 +270,75 @@ const styles = {
     animation: 'blink 1s step-end infinite',
   },
   sub: {
-    color: '#777',
-    fontSize: '1.15rem',
-    maxWidth: '540px',
-    margin: '0 auto 3rem',
+    color: '#888',
+    fontSize: '1.05rem',
+    maxWidth: '480px',
     lineHeight: 1.7,
+    marginBottom: '2rem',
   },
-  actions: {
+  heroActions: {
     display: 'flex',
-    gap: '1rem',
-    justifyContent: 'center',
+    gap: '0.8rem',
     flexWrap: 'wrap',
   },
+
+  // Hero visual card mockup
+  heroCard: {
+    width: 'min(320px, 100%)',
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    backdropFilter: 'blur(8px)',
+  },
+  heroCardHeader: {
+    padding: '0.8rem 1rem',
+    borderBottom: '1px solid rgba(255,255,255,0.06)',
+    display: 'flex',
+    gap: '6px',
+  },
+  heroCardDot1: { width: '10px', height: '10px', borderRadius: '50%', background: '#f43f5e' },
+  heroCardDot2: { width: '10px', height: '10px', borderRadius: '50%', background: '#f59e0b' },
+  heroCardDot3: { width: '10px', height: '10px', borderRadius: '50%', background: '#10b981' },
+  heroCardBody: {
+    padding: '1.5rem',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.8rem',
+  },
+  heroCardLine1: { height: '10px', width: '80%', borderRadius: '6px', background: 'rgba(99,102,241,0.15)' },
+  heroCardLine2: { height: '10px', width: '60%', borderRadius: '6px', background: 'rgba(200,167,107,0.12)' },
+  heroCardLine3: { height: '10px', width: '90%', borderRadius: '6px', background: 'rgba(168,85,247,0.1)' },
+  heroCardBtn: {
+    marginTop: '0.5rem',
+    padding: '0.6rem 1.2rem',
+    borderRadius: '8px',
+    background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+    color: '#fff',
+    fontSize: '0.8rem',
+    fontWeight: 600,
+    textAlign: 'center',
+    width: 'fit-content',
+  },
+
+  // ── Buttons ──────────────────────────────────────────
   primaryBtn: {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '0.5rem',
-    padding: '1rem 2.8rem',
+    padding: '0.9rem 2.2rem',
     borderRadius: '12px',
     border: 'none',
     background: 'linear-gradient(135deg, #6366f1, #a855f7)',
     color: '#fff',
     fontWeight: 700,
-    fontSize: '1rem',
+    fontSize: '0.95rem',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
-    boxShadow: '0 4px 15px rgba(99,102,241,0.25)',
-  },
-  secondaryBtn: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    padding: '1rem 2.8rem',
-    borderRadius: '12px',
-    border: '1px solid rgba(255,255,255,0.15)',
-    background: 'rgba(255,255,255,0.03)',
-    backdropFilter: 'blur(8px)',
-    color: '#ccc',
-    fontSize: '1rem',
-    textDecoration: 'none',
-    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 20px rgba(99,102,241,0.3)',
   },
   ghostBtn: {
-    padding: '0.85rem 2.2rem',
+    padding: '0.9rem 2.2rem',
     borderRadius: '12px',
     border: '1px solid rgba(255,255,255,0.1)',
     background: 'rgba(255,255,255,0.02)',
@@ -342,45 +347,63 @@ const styles = {
     cursor: 'pointer',
     transition: 'all 0.3s ease',
   },
-  statsPage: {
-    maxWidth: '1000px',
+
+  // ── Stats Strip ──────────────────────────────────────
+  statsStrip: {
+    padding: '0 2rem 4rem',
+    maxWidth: '900px',
     margin: '0 auto',
-    padding: '2rem',
+  },
+
+  // ── Features (Compact) ───────────────────────────────
+  featuresSection: {
+    padding: '2rem 2rem 5rem',
+    maxWidth: '900px',
+    margin: '0 auto',
     textAlign: 'center',
   },
-  statsActions: {
+  sectionHeading: {
+    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+    fontWeight: 800,
+    marginBottom: '2rem',
+    letterSpacing: '-0.02em',
+  },
+  featuresGrid: {
     display: 'flex',
+    justifyContent: 'center',
     gap: '1rem',
-    justifyContent: 'center',
     flexWrap: 'wrap',
-    marginTop: '3rem',
   },
-  trustedSection: {
-    textAlign: 'center',
-    padding: '3rem 2rem',
-  },
-  trustedLabel: {
-    fontSize: '0.8rem',
-    color: '#555',
-    textTransform: 'uppercase',
-    letterSpacing: '0.15em',
-    marginBottom: '1rem',
-  },
-  trustedLogos: {
+  featureItem: {
     display: 'flex',
+    alignItems: 'center',
+    gap: '0.7rem',
+    padding: '0.8rem 1.4rem',
+    borderRadius: '14px',
+    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(255,255,255,0.02)',
+    backdropFilter: 'blur(4px)',
+  },
+  featureIcon: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '10px',
+    display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
-    gap: '2.5rem',
-    flexWrap: 'wrap',
+    flexShrink: 0,
   },
-  trustedItem: {
-    fontSize: '1rem',
+  featureTitle: {
+    fontSize: '0.88rem',
     fontWeight: 600,
-    color: '#444',
-    letterSpacing: '0.02em',
+    color: '#ccc',
+    whiteSpace: 'nowrap',
   },
+
+  // ── CTA ──────────────────────────────────────────────
   ctaSection: {
     textAlign: 'center',
-    padding: '4rem 2rem',
+    padding: '5rem 2rem',
     position: 'relative',
   },
   ctaGlow: {
@@ -396,35 +419,42 @@ const styles = {
   ctaHeading: {
     fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
     fontWeight: 800,
-    marginBottom: '1rem',
+    marginBottom: '0.8rem',
     letterSpacing: '-0.02em',
+    position: 'relative',
   },
   ctaSub: {
     color: '#777',
-    fontSize: '1.1rem',
-    marginBottom: '2.5rem',
+    fontSize: '1.05rem',
+    marginBottom: '2rem',
+    position: 'relative',
   },
   ctaActions: {
     display: 'flex',
-    gap: '1rem',
+    gap: '0.8rem',
     justifyContent: 'center',
     flexWrap: 'wrap',
+    position: 'relative',
   },
   ctaBtn: {
-    padding: '1.1rem 3.5rem',
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    padding: '1rem 3rem',
     borderRadius: '12px',
     border: 'none',
     background: 'linear-gradient(135deg, #c8a76b, #a88a4e)',
     boxShadow: '0 4px 20px rgba(200,167,107,0.3)',
     color: '#fff',
     fontWeight: 700,
-    fontSize: '1.05rem',
+    fontSize: '1rem',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
   },
+
+  // ── Footer ───────────────────────────────────────────
   footer: {
     borderTop: '1px solid rgba(255,255,255,0.06)',
-    marginTop: 'auto',
     padding: '2.5rem 2rem 1.5rem',
   },
   footerInner: {
@@ -437,7 +467,6 @@ const styles = {
     gap: '1.5rem',
     marginBottom: '1.5rem',
   },
-  footerBrand: {},
   footerLogo: {
     fontSize: '1.1rem',
     fontWeight: 800,
@@ -476,18 +505,16 @@ const statStyles = {
     justifyContent: 'center',
     gap: 'clamp(2rem, 5vw, 3.5rem)',
     flexWrap: 'wrap',
-    padding: '3rem 2rem',
-    maxWidth: '800px',
-    margin: '0 auto',
+    padding: '2.5rem 2rem',
     background: 'rgba(255,255,255,0.02)',
     border: '1px solid rgba(255,255,255,0.06)',
     borderRadius: '20px',
     backdropFilter: 'blur(8px)',
   },
-  item: { textAlign: 'center', minWidth: '120px' },
+  item: { textAlign: 'center', minWidth: '100px' },
   number: {
     display: 'block',
-    fontSize: 'clamp(2rem, 5vw, 2.8rem)',
+    fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
     fontWeight: 800,
     background: 'linear-gradient(135deg, #c8a76b, #f0d89c)',
     WebkitBackgroundClip: 'text',
@@ -496,9 +523,38 @@ const statStyles = {
     lineHeight: 1.2,
   },
   label: {
-    fontSize: '0.8rem',
+    fontSize: '0.75rem',
     color: '#666',
     textTransform: 'uppercase',
     letterSpacing: '0.08em',
   },
+}
+
+// Responsive: hero stacks on mobile
+if (typeof document !== 'undefined') {
+  const id = 'landing-responsive'
+  if (!document.getElementById(id)) {
+    const style = document.createElement('style')
+    style.id = id
+    style.textContent = `
+      @media (max-width: 768px) {
+        [data-hero-content] {
+          flex-direction: column !important;
+          text-align: center !important;
+        }
+        [data-hero-left] {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+        }
+        [data-hero-right] {
+          display: none !important;
+        }
+        [data-hero-actions] {
+          justify-content: center !important;
+        }
+      }
+    `
+    document.head.appendChild(style)
+  }
 }
