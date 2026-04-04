@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Gift, X, ArrowRight } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import api from '../api'
@@ -30,11 +30,16 @@ function getWeightedIndex() {
 }
 
 export default function SpinWheel() {
-  const [show, setShow] = useState(() => {
-    if (sessionStorage.getItem('wheel_shown')) return false
-    sessionStorage.setItem('wheel_shown', 'true')
-    return true
-  })
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    if (sessionStorage.getItem('wheel_shown')) return
+    const timer = setTimeout(() => {
+      setShow(true)
+      sessionStorage.setItem('wheel_shown', 'true')
+    }, 30000)
+    return () => clearTimeout(timer)
+  }, [])
   const [email, setEmail] = useState('')
   const [phase, setPhase] = useState('email') // email → spinning → result
   const [rotation, setRotation] = useState(0)
