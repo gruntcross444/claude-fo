@@ -39,10 +39,10 @@ export default function DealOfTheWeek() {
             &nbsp; DEAL OF THE WEEK
           </div>
           <h2 style={s.heading}>
-            Exclusive <span style={s.gold}>FSBO</span> Listing in Doral
+            Exclusive <span style={s.gold}>Owner-Listed</span> Property in Doral
           </h2>
           <p style={s.sub}>
-            No agent fees. Buy direct from the owner and save thousands at closing.
+            Listed directly by the owner. Agent commissions negotiable and contingent on offer received.
           </p>
         </Reveal>
 
@@ -70,8 +70,8 @@ export default function DealOfTheWeek() {
               <p style={s.description}>
                 Stunning 4-bedroom townhouse in the heart of Doral — one of Miami's most sought-after
                 communities. Built in 2009, this 2,277 sqft home features a private pool, 2-car garage,
-                tile roof, and modern finishes throughout. Sold directly by the owner — no commissions,
-                no middleman.
+                tile roof, and modern finishes throughout. Listed directly by the owner. Agent
+                commissions are negotiable and will be determined based on the offer received.
               </p>
 
               {/* Stats grid */}
@@ -89,7 +89,7 @@ export default function DealOfTheWeek() {
 
               {/* Highlights */}
               <div style={s.highlights}>
-                {['Private Pool', '2-Car Garage', 'Tile Roof', 'Gated Community', 'No Agent Fees'].map(h => (
+                {['Private Pool', '2-Car Garage', 'Tile Roof', 'Gated Community', 'Commission Negotiable'].map(h => (
                   <span key={h} style={s.highlight}>{h}</span>
                 ))}
               </div>
