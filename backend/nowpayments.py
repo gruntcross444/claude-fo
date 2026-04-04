@@ -58,6 +58,34 @@ async def create_payment(product_id: str, product_name: str, amount_usd: float, 
         return resp.json()
 
 
+async def create_topup_payment(telegram_user_id: int, amount_cents: int, currency: str) -> dict:
+    """Create a NOWPayments invoice for a wallet top-up."""
+    import time
+    pay_currency = CURRENCY_MAP.get(currency)
+    if not pay_currency:
+        raise ValueError(f"Unsupported currency: {currency}")
+    ts = int(time.time())
+    order_id = f"bal_{telegram_user_id}_{amount_cents}_{ts}"
+    payload = {
+        "price_amount": amount_cents / 100.0,
+        "price_currency": "usd",
+        "pay_currency": pay_currency,
+        "order_id": order_id,
+        "order_description": f"CLAUDE.FO Wallet Top-up ${amount_cents/100:.2f}",
+        "is_fixed_rate": False,
+        "is_fee_paid_by_user": False,
+    }
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(
+            f"{BASE_URL}/payment",
+            headers={"x-api-key": NOWPAYMENTS_API_KEY, "Content-Type": "application/json"},
+            json=payload,
+            timeout=15,
+        )
+        resp.raise_for_status()
+        return resp.json()
+
+
 async def get_payment_status(payment_id: str) -> dict:
     """Check payment status by payment ID."""
     async with httpx.AsyncClient() as client:
@@ -74,9 +102,14 @@ def verify_ipn_signature(payload: bytes, sig_header: str) -> bool:
     """Verify NOWPayments IPN webhook signature."""
     if not NOWPAYMENTS_IPN_SECRET:
         return True  # Skip verification if secret not set
+    # NOWPayments signs a JSON string with keys sorted alphabetically
+    try:
+        sorted_payload = json.dumps(json.loads(payload), sort_keys=True).encode()
+    except Exception:
+        return False
     expected = hmac.new(
         NOWPAYMENTS_IPN_SECRET.encode(),
-        payload,
+        sorted_payload,
         hashlib.sha512,
     ).hexdigest()
     return hmac.compare_digest(expected, sig_header)

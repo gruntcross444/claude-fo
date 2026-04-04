@@ -3,6 +3,8 @@ from fastapi import APIRouter, Request, HTTPException
 from telegram import Update
 from bot import build_application, deliver_product
 from nowpayments import verify_ipn_signature
+from database import SessionLocal
+from models import TgUser, TgTopup
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/telegram", tags=["telegram"])
@@ -55,5 +57,45 @@ async def nowpayments_ipn(request: Request):
             logger.info(f"Delivered {product_id} to Telegram user {telegram_user_id}")
         except Exception as e:
             logger.error(f"Delivery failed: {e}")
+
+    elif status in ("finished", "confirmed") and order_id.startswith("bal_"):
+        try:
+            parts = order_id.split("_")  # ["bal", tg_id, amount_cents, ts]
+            telegram_id = int(parts[1])
+            amount_cents = int(parts[2])
+
+            db = SessionLocal()
+            try:
+                topup = db.query(TgTopup).filter(TgTopup.order_id == order_id).first()
+                if topup and topup.status == "credited":
+                    logger.info(f"Top-up {order_id} already credited, skipping")
+                    return {"ok": True}
+
+                user = db.query(TgUser).filter(TgUser.telegram_id == telegram_id).first()
+                if not user:
+                    user = TgUser(telegram_id=telegram_id, balance_cents=0)
+                    db.add(user)
+                    db.flush()
+
+                user.balance_cents += amount_cents
+                if topup:
+                    topup.status = "credited"
+                db.commit()
+            finally:
+                db.close()
+
+            app = await _get_app()
+            await app.bot.send_message(
+                chat_id=telegram_id,
+                text=(
+                    f"✅ *Funds Added!*\n\n"
+                    f"${amount_cents/100:.2f} has been credited to your CLAUDE.FO wallet.\n\n"
+                    f"Use 💳 *My Dashboard* to spend it instantly."
+                ),
+                parse_mode="Markdown",
+            )
+            logger.info(f"Credited ${amount_cents/100:.2f} to Telegram user {telegram_id}")
+        except Exception as e:
+            logger.error(f"Wallet top-up crediting failed: {e}")
 
     return {"ok": True}

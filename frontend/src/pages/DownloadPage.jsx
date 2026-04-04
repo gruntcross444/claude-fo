@@ -10,14 +10,14 @@ const PRODUCT_FILES = {
   'prompts-marketing': { name: 'Marketing & Sales Prompts', file: '/downloads/Marketing-Sales-Prompts-ClaudeFO.pdf' },
   'prompts-business': { name: 'Business & Productivity Pack', file: '/downloads/Business-Productivity-Prompts-ClaudeFO.pdf' },
   'prompts-content': { name: 'Content Creator Toolkit', file: '/downloads/Content-Creator-Toolkit-ClaudeFO.pdf' },
-  'finance-tracker': { name: 'Monthly Finance Tracker', file: null },
-  'website-templates': { name: 'Website Templates Pack', file: null },
-  'real-estate-template': { name: 'Real Estate Landing Template', file: null },
-  'social-media-kit': { name: 'Social Media Kit', file: null },
-  'content-calendar': { name: 'Content Calendar Planner', file: null },
-  'lead-funnel-template': { name: 'Lead Funnel Blueprint', file: null },
-  'email-sms-playbook': { name: 'Email & SMS Playbook', file: null },
-  'automation-starter-kit': { name: 'Automation Starter Kit', file: null },
+  'finance-tracker': { name: 'Monthly Finance Tracker', file: '/downloads/Monthly-Finance-Tracker-ClaudeFO.pdf' },
+  'website-templates': { name: 'Website Templates Pack', file: '/downloads/Website-Templates-Pack-ClaudeFO.pdf' },
+  'real-estate-template': { name: 'Real Estate Landing Template', file: '/downloads/Real-Estate-Landing-Template-ClaudeFO.pdf' },
+  'social-media-kit': { name: 'Social Media Kit', file: '/downloads/Social-Media-Kit-ClaudeFO.pdf' },
+  'content-calendar': { name: 'Content Calendar Planner', file: '/downloads/Content-Calendar-Planner-ClaudeFO.pdf' },
+  'lead-funnel-template': { name: 'Lead Funnel Blueprint', file: '/downloads/Lead-Funnel-Blueprint-ClaudeFO.pdf' },
+  'email-sms-playbook': { name: 'Email & SMS Playbook', file: '/downloads/Email-SMS-Playbook-ClaudeFO.pdf' },
+  'automation-starter-kit': { name: 'Automation Starter Kit', file: '/downloads/Automation-Starter-Kit-ClaudeFO.pdf' },
 }
 
 export default function DownloadPage() {

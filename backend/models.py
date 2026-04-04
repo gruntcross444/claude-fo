@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import Column, Integer, String, Text, DateTime, Index
+from sqlalchemy import Column, Integer, BigInteger, String, Text, DateTime, Index
 from database import Base
 
 
@@ -16,8 +16,6 @@ class User(Base):
     hashed_password = Column(String, nullable=True)
     discord_id = Column(String, nullable=True)
     google_id = Column(String, nullable=True)
-    facebook_id = Column(String, nullable=True)
-    apple_id = Column(String, nullable=True)
     telegram_id = Column(String, nullable=True)
     created_at = Column(DateTime, default=_utcnow)
 
@@ -82,3 +80,38 @@ class Order(Base):
     stripe_payment_intent = Column(String, nullable=True)
     amount_cents = Column(Integer, nullable=True)
     created_at = Column(DateTime, default=_utcnow)
+
+
+class TgUser(Base):
+    __tablename__ = "tg_users"
+
+    id            = Column(Integer, primary_key=True, index=True)
+    telegram_id   = Column(BigInteger, unique=True, index=True, nullable=False)
+    username      = Column(String, nullable=True)
+    first_name    = Column(String, nullable=True)
+    balance_cents = Column(Integer, default=0, nullable=False)
+    created_at    = Column(DateTime, default=_utcnow)
+
+
+class TgPurchase(Base):
+    __tablename__ = "tg_purchases"
+
+    id             = Column(Integer, primary_key=True, index=True)
+    telegram_id    = Column(BigInteger, index=True, nullable=False)
+    product_id     = Column(String, nullable=False)
+    amount_cents   = Column(Integer, nullable=False)
+    payment_method = Column(String, nullable=False)  # "btc","usdt","ltc","trx","balance"
+    order_id       = Column(String, nullable=True)
+    created_at     = Column(DateTime, default=_utcnow)
+
+
+class TgTopup(Base):
+    __tablename__ = "tg_topups"
+
+    id            = Column(Integer, primary_key=True, index=True)
+    telegram_id   = Column(BigInteger, index=True, nullable=False)
+    order_id      = Column(String, unique=True, index=True, nullable=False)
+    amount_cents  = Column(Integer, nullable=False)
+    currency      = Column(String, nullable=False)
+    status        = Column(String, default="pending")  # "pending","credited"
+    created_at    = Column(DateTime, default=_utcnow)

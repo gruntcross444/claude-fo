@@ -7,9 +7,6 @@ import api from '../api'
 const PROVIDER_LABELS = {
   discord: 'Discord',
   google: 'Google',
-  facebook: 'Facebook',
-  apple: 'iCloud',
-  telegram: 'Telegram',
 }
 
 export default function OAuthCallback() {
