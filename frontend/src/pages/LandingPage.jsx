@@ -3,6 +3,7 @@ import { ArrowRight, Zap, ShieldCheck, Sparkles, MessageCircle } from 'lucide-re
 import Navbar from '../components/Navbar'
 import ServicesSection from '../components/sections/ServicesSection'
 import PortfolioTeaser from '../components/sections/PortfolioTeaser'
+import DealOfTheWeek from '../components/sections/DealOfTheWeek'
 import TestimonialsSection from '../components/sections/TestimonialsSection'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../i18n/LanguageContext'
@@ -146,6 +147,9 @@ export default function LandingPage() {
 
       {/* ── Portfolio Teaser ──────────────────────────────── */}
       <PortfolioTeaser />
+
+      {/* ── Deal of the Week ─────────────────────────────── */}
+      <DealOfTheWeek />
 
       {/* ── Final CTA ────────────────────────────────────── */}
       <section style={styles.ctaSection}>
