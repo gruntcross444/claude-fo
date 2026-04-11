@@ -83,12 +83,48 @@ CLAUDE.FO/
 ```
 
 ## Design System
-- Dark theme throughout: `#0A0E27` (deep navy), `#0d1117` (near-black)
-- Primary green: `#22D68A` / `#00ff88`
-- Gold accent: `#D4A853`
-- Purple/indigo accents for some sections
-- All styling via inline style objects — NO Tailwind, NO CSS modules
-- Glassmorphism cards: `rgba(255,255,255,0.03)` background + blur
+Canonical source: `frontend/src/index.css` (CSS custom properties on `:root`). Inline `style={}` objects in components should reference these hex values directly — there is no theme provider.
+
+**Base surfaces**
+- `--bg`: `#0a0b0f` — page background (near-black)
+- `--bg-card`: `rgba(255,255,255,0.03)` — glassmorphism card background
+- `--border`: `rgba(255,255,255,0.06)` — default card border
+- `--border-hover`: `rgba(255,255,255,0.15)` — hover/focus border
+
+**Text**
+- `--text`: `#9ca3af` — body copy
+- `--text-h`: `#f3f4f6` — headings (h1/h2/h3 override in index.css)
+
+**Accents**
+- `--accent`: `#6366f1` — primary indigo (links, focus rings, gradient start)
+- `--accent-purple`: `#a855f7` — secondary purple (gradient end)
+- `--accent-gold`: `#c8a76b` — tan/gold (real estate, premium CTAs)
+- `--accent-gold-light`: `#f0d89c` — gold highlight
+- Success green: `#10b981` (→ `#059669` darker) — used in SpinWheel, success states
+
+**Category colors** (used in PortfolioPage filters / tags)
+- `--cat-web`: `#6366f1` (indigo)
+- `--cat-realestate`: `#c8a76b` (gold)
+- `--cat-ai`: `#f59e0b` (amber)
+- `--cat-mobile`: `#ec4899` (pink)
+- `--cat-branding`: `#a855f7` (purple)
+
+**Signature gradients**
+- Primary CTA: `linear-gradient(135deg, #6366f1, #a855f7)`
+- Premium rainbow: `linear-gradient(135deg, #6366f1, #a855f7, #c8a76b, #6366f1)`
+- Gold button: `linear-gradient(135deg, #c8a76b, #a88a4e)`
+- Success button: `linear-gradient(135deg, #10b981, #059669)`
+
+**Typography**
+- Font stack: `'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif` (both sans and headings)
+- Monospace: `ui-monospace, 'Cascadia Code', Consolas, monospace`
+- Letter spacing: `-0.01em` body, `-0.02em` headings
+- Scale: `--text-xs` 0.72rem, `--text-sm` 0.82rem, `--text-base` 0.95rem, `--text-lg` 1.05rem, `--text-xl` 1.3rem
+
+**Rules**
+- All component styling via inline JS `style={}` objects — NO Tailwind, NO CSS modules, NO styled-components
+- Glassmorphism cards: `--bg-card` background + `backdrop-filter: blur()` + `--border`
+- `color-scheme: dark` is set at `:root` — dark mode is the only mode
 
 ## Key Business Logic
 - **Auth**: JWT tokens, protected routes via ProtectedRoute component
@@ -103,7 +139,9 @@ CLAUDE.FO/
 - Admin token goes in `X-Admin-Token` header, never in the URL
 - useTypingEffect uses `textsRef` (not texts in dep array) to prevent infinite re-renders
 - StickyCtaBar uses RAF throttling for scroll events (not raw scroll listener)
-- Favicon is a custom branded SVG (dark square, indigo "C", gold dot)
+- Favicon is a custom branded SVG at `frontend/public/favicon.svg` — rounded-rect background (`#0d0d14`→`#13131f` gradient), indigo-purple "C" (`#6366f1`→`#a855f7` gradient), gold dot accent (`#c8a76b`)
+- There is NO admin frontend page — admin surface is backend-only at `backend/routers/admin.py`, hit with an `X-Admin-Token` header from curl / Postman / a future dashboard
+- Path alias `@/` is NOT configured — all frontend imports use relative paths (`../components/...`)
 
 ## Owner
 Elias Karam — real estate agent (Miami/Brickell focus), AI automation consultant, digital product seller.

@@ -3,7 +3,7 @@
 You are helping build and maintain CLAUDE.FO, a full-stack personal brand and service business platform for Elias Karam — real estate agent, AI consultant, and digital product seller based in Miami.
 
 ## Project Overview
-A full-stack web app with a React frontend and FastAPI backend. Users can browse services, buy digital products, use free real estate tools, book strategy calls, and submit rental applications. There's also a Brickell rentals listing page and an admin dashboard.
+A full-stack web app with a React frontend and FastAPI backend. Users can browse services, buy digital products, use free real estate tools, book strategy calls, and submit rental applications. There's also a Brickell rentals listing page. Admin surface is backend-only (FastAPI endpoints in `backend/routers/admin.py`), not a frontend page.
 
 ## Tech Stack
 - **Frontend**: React 18 (JSX), Vite, React Router v6, inline CSS style objects (NO Tailwind)
@@ -15,22 +15,57 @@ A full-stack web app with a React frontend and FastAPI backend. Users can browse
 - **Backend hosting**: Railway or Render
 
 ## Design System
-- Dark navy background: #0A0E27
-- Primary accent: #22D68A (green)
-- Gold accent: #D4A853
-- All styles are inline JS objects — never suggest Tailwind classes or CSS modules
-- Glassmorphism cards: rgba(255,255,255,0.03) + backdrop blur
+Canonical source: `frontend/src/index.css` CSS custom properties. Reference these hex values directly in inline `style={}` objects — there is no theme provider.
+
+**Surfaces**
+- Background: `#0a0b0f` (near-black, `--bg`)
+- Card background: `rgba(255,255,255,0.03)` (glassmorphism, `--bg-card`)
+- Border: `rgba(255,255,255,0.06)` default, `rgba(255,255,255,0.15)` hover
+
+**Text**
+- Body: `#9ca3af`
+- Headings: `#f3f4f6`
+
+**Accents**
+- Indigo (primary): `#6366f1`
+- Purple: `#a855f7`
+- Gold: `#c8a76b` (light variant `#f0d89c`)
+- Success green: `#10b981` / `#059669`
+
+**Category colors** (portfolio filters)
+- Web `#6366f1`, Real Estate `#c8a76b`, AI `#f59e0b`, Mobile `#ec4899`, Branding `#a855f7`
+
+**Signature gradients**
+- Primary CTA: `linear-gradient(135deg, #6366f1, #a855f7)`
+- Gold: `linear-gradient(135deg, #c8a76b, #a88a4e)`
+- Success: `linear-gradient(135deg, #10b981, #059669)`
+
+**Typography**: Inter for body and headings, -0.01em letter-spacing body, -0.02em headings.
+
+**Hard rules**
+- All styles are inline JS `style={}` objects — never suggest Tailwind classes, CSS modules, or styled-components
+- Dark mode only (`color-scheme: dark` set at `:root`)
+- Glassmorphism cards = `rgba(255,255,255,0.03)` + `backdrop-filter: blur()` + `rgba(255,255,255,0.06)` border
 
 ## Key Pages & Components
+All under `frontend/src/pages/` (JSX, not TSX):
 - `LandingPage.jsx` — hero with typing effect, services, FAQ, sticky CTA bar
 - `PortfolioPage.jsx` — filterable project cards, featured hero card
 - `ContactPage.jsx` — Calendly booking, Instagram (@eliaskaramrealtor)
 - `StorePage.jsx` — digital products
 - `ToolsPage.jsx` — free real estate tools (mortgage calc, rent vs buy, etc.)
+- `PromptsPage.jsx` — AI prompt library
 - `BrickellPage.jsx` — Brickell rentals listing
 - `RentalApplicationPage.jsx` — multi-step rental application form
+- `ApplicationConfirmationPage.jsx`, `DownloadPage.jsx`, `LoginPage.jsx`, `RegisterPage.jsx`, `OAuthCallback.jsx`
+
+Components under `frontend/src/components/`:
 - `StickyCtaBar.jsx` — scroll-triggered fixed bottom CTA, RAF-throttled, dismissible
-- `Admin.tsx` — admin dashboard, uses X-Admin-Token header (never query param)
+- `Navbar.jsx`, `ExitIntentPopup.jsx`, `SpinWheel.jsx`, `EmailGate.jsx`, `SocialAuth.jsx`, `ProtectedRoute.jsx`
+- `sections/` — HeroSection, FeaturesSection, ServicesSection, TestimonialsSection, ProcessSection, PortfolioTeaser, DealOfTheWeek
+- `tools/` — MortgageCalculator, RecastCalculator, RentVsBuy, PreQualQuiz, FirstHomeChecklist
+
+**No admin frontend page exists.** Admin is backend-only at `backend/routers/admin.py`, called with the `X-Admin-Token` header (never a `?token=` query param). If asked to build an admin UI, create a new `AdminPage.jsx` — don't look for an existing `Admin.tsx`.
 
 ## Backend Rules
 - JWT_SECRET env var is required — app raises RuntimeError on startup if missing
