@@ -9,6 +9,7 @@ import ProcessSection from '../components/sections/ProcessSection'
 import TestimonialsSection from '../components/sections/TestimonialsSection'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../i18n/LanguageContext'
+import StickyCtaBar from '../components/StickyCtaBar'
 import useTypingEffect from '../hooks/useTypingEffect'
 import useCounter from '../hooks/useCounter'
 import useScrollReveal from '../hooks/useScrollReveal'
@@ -68,6 +69,7 @@ export default function LandingPage() {
   return (
     <div style={styles.page}>
       <Navbar />
+      <StickyCtaBar />
 
       {/* ── Hero ──────────────────────────────────────────── */}
       <section style={styles.hero}>
