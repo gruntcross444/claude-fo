@@ -356,7 +356,8 @@ def send_application_to_owner(applicant_name: str, applicant_email: str, applica
     for key, label in field_labels.items():
         value = data.get(key, "")
         if value:
-            rows += f'<tr><td style="padding:6px 12px;color:#888;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);">{label}</td><td style="padding:6px 12px;color:#f3f4f6;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);">{value}</td></tr>'
+            safe_value = _html.escape(str(value))
+            rows += f'<tr><td style="padding:6px 12px;color:#888;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);">{label}</td><td style="padding:6px 12px;color:#f3f4f6;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);">{safe_value}</td></tr>'
 
     applicant_name  = _html.escape(applicant_name)
     applicant_email = _html.escape(applicant_email)

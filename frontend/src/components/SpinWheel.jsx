@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import api from '../api'
 import { useLang } from '../i18n/LanguageContext'
 
-export default function FreePdfOffer() {
+export default function SpinWheel() {
   const [show, setShow] = useState(false)
   const [email, setEmail] = useState('')
   const [phase, setPhase] = useState('offer') // offer → success
