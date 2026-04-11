@@ -115,3 +115,21 @@ class TgTopup(Base):
     currency      = Column(String, nullable=False)
     status        = Column(String, default="pending")  # "pending","credited"
     created_at    = Column(DateTime, default=_utcnow)
+
+
+class Deal(Base):
+    __tablename__ = "deals"
+
+    id = Column(Integer, primary_key=True, index=True)
+    buyer_name = Column(String, nullable=False)
+    buyer_email = Column(String, nullable=False, index=True)
+    property_name = Column(String, nullable=False)
+    property_type = Column(String, nullable=False)
+    stage = Column(String, default="prospectando", index=True)
+    source = Column(String, nullable=False, index=True)
+    deal_value = Column(Integer, nullable=False)  # in cents
+    days_to_close = Column(Integer, nullable=True)
+    conversion = Column(Integer, default=0, index=True)
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=_utcnow, index=True)
+    updated_at = Column(DateTime, default=_utcnow)
