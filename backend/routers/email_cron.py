@@ -31,16 +31,22 @@ def process_email_queue(token: str = Query("")):
         ).limit(50).all()
 
         sent_count = 0
+        failed_count = 0
         for item in due:
             if item.email_type == "welcome_2":
-                send_welcome_email(item.email, sequence_num=2)
+                ok = send_welcome_email(item.email, sequence_num=2)
             elif item.email_type == "welcome_3":
-                send_welcome_email(item.email, sequence_num=3)
+                ok = send_welcome_email(item.email, sequence_num=3)
+            else:
+                ok = False
 
-            item.sent = 1
-            sent_count += 1
+            if ok:
+                item.sent = 1
+                sent_count += 1
+            else:
+                failed_count += 1
 
         db.commit()
-        return {"status": "ok", "processed": sent_count}
+        return {"status": "ok", "processed": sent_count, "failed": failed_count}
     finally:
         db.close()

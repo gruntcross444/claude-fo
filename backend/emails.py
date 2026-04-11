@@ -130,9 +130,12 @@ def send_exit_discount(to: str):
 
 # ── 3. Post-purchase confirmation ─────────────────────────────────
 
-def send_purchase_confirmation(to: str, product_name: str, product_id: str, amount_cents: int):
+def send_purchase_confirmation(to: str, product_name: str, product_id: str, amount_cents: int, session_id: str = ""):
     """Send purchase confirmation with download link."""
-    download_url = f"{FRONTEND_URL}/download?product={product_id}"
+    if session_id:
+        download_url = f"{FRONTEND_URL}/download?product={product_id}&session_id={session_id}"
+    else:
+        download_url = f"{FRONTEND_URL}/download?product={product_id}"
     amount = f"${amount_cents / 100:.2f}" if amount_cents else ""
 
     body = f"""
@@ -162,7 +165,7 @@ def send_purchase_confirmation(to: str, product_name: str, product_id: str, amou
 
 # ── 4. Welcome sequence (3 emails) ───────────────────────────────
 
-def send_welcome_email(to: str, sequence_num: int = 1):
+def send_welcome_email(to: str, sequence_num: int = 1) -> bool:
     """Send one email from the 3-part welcome sequence.
 
     sequence_num 1: Immediate — welcome + free tools
@@ -254,9 +257,9 @@ def send_welcome_email(to: str, sequence_num: int = 1):
         </div>
         """
     else:
-        return
+        return False
 
-    send_email(to, subject, _wrap(body))
+    return send_email(to, subject, _wrap(body))
 
 
 # ── 5. Rental application confirmation (to applicant) ─────────

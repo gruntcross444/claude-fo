@@ -134,6 +134,7 @@ async def stripe_webhook(request: Request):
                     product_name=product_info["name"],
                     product_id=product_id,
                     amount_cents=amount,
+                    session_id=session_data.get("id", ""),
                 )
     return {"status": "ok"}
 
