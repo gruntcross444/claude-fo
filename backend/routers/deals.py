@@ -143,40 +143,24 @@ async def run_pipeline_audit(db: Session = Depends(get_db)):
             "revenue": round(stats["revenue"], 0)
         }
     
-    # Llamar a Claude API para análisis inteligente
-    prompt = f"""Analiza este pipeline de ventas inmobiliarias:
-
-DATOS:
-- Total deals: {total}
-- Cierre: {conversiones} ({close_rate:.1f}%)
-- Revenue: ${revenue:,.0f}
-- Ciclo promedio: {(sum(d['ciclo_dias'] for d in data if d['ciclo_dias'] > 0) / max(1, len([d for d in data if d['ciclo_dias'] > 0])))}d
-
-POR ORIGEN:
-{json.dumps(source_analysis, indent=2)}
-
-TAREA:
-1. Identifica 2-3 problemas críticos
-2. Para cada uno: acción específica + impacto en $
-3. Timeline realista (semana/mes)
-4. Incluye puntos positivos (qué funciona bien)
-
-Sé directo y cuantificable. Formato:
-P1: [Acción] → [Detalle] = $[Impacto estimado]"""
-
-    try:
-        client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-        message = client.messages.create(
-            model="claude-opus-4-20250805",
-            max_tokens=1024,
-            system=SYSTEM_PROMPT,
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
-        )
-        ai_recommendations = message.content[0].text
-    except Exception as e:
-        ai_recommendations = f"Error calling Claude API: {str(e)}"
+    # Llamar a Claude API para análisis inteligente (opcional)
+    ai_recommendations = None
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    
+    if api_key:
+        try:
+            client = anthropic.Anthropic(api_key=api_key)
+            message = client.messages.create(
+                model="claude-opus-4-20250805",
+                max_tokens=1024,
+                system=SYSTEM_PROMPT,
+                messages=[
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            ai_recommendations = message.content[0].text
+        except Exception as e:
+            ai_recommendations = f"Claude analysis skipped: {str(e)}"
     
     # Fallback: recomendaciones básicas si Claude falla
     recommendations = []
