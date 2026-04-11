@@ -66,6 +66,7 @@ def create_checkout(body: CheckoutRequest):
                 "quantity": 1,
             }],
             mode="payment",
+            allow_promotion_codes=True,
             success_url=success,
             cancel_url=cancel,
             metadata=metadata,

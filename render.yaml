@@ -1,0 +1,20 @@
+services:
+  - type: cron
+    name: email-drip-cron
+    runtime: python
+    schedule: "*/30 * * * *"
+    rootDir: backend
+    buildCommand: pip install requests
+    startCommand: >-
+      python -c "
+      import requests, os;
+      r = requests.get(
+        'https://claude-fo-api.onrender.com/emails/process-queue',
+        params={'token': os.environ.get('CRON_SECRET', '')},
+        timeout=30
+      );
+      print(r.status_code, r.text)
+      "
+    envVars:
+      - key: CRON_SECRET
+        sync: false
