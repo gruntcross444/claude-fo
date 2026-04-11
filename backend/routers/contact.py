@@ -1,14 +1,17 @@
 import os
 import html
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel, field_validator
 from sqlalchemy.orm import Session
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from dependencies import get_db
 from models import ContactMessage
 from emails import send_email
 import re
 
 router = APIRouter(tags=["contact"])
+limiter = Limiter(key_func=get_remote_address)
 
 OWNER_EMAIL = os.getenv("OWNER_EMAIL", "lieskaram@gmail.com")
 
@@ -41,7 +44,8 @@ class ContactRequest(BaseModel):
 
 
 @router.post("/contact")
-def submit_contact(body: ContactRequest, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def submit_contact(request: Request, body: ContactRequest, db: Session = Depends(get_db)):
     msg = ContactMessage(name=body.name, email=body.email, message=body.message)
     db.add(msg)
     db.commit()

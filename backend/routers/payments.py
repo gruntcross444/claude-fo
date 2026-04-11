@@ -3,12 +3,15 @@ import logging
 import stripe
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from database import SessionLocal
 from models import Order, RentalApplication
 from emails import send_purchase_confirmation, send_application_confirmation, send_application_to_owner
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["payments"])
+limiter = Limiter(key_func=get_remote_address)
 
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
@@ -37,7 +40,8 @@ class CheckoutRequest(BaseModel):
 
 
 @router.post("/checkout")
-def create_checkout(body: CheckoutRequest):
+@limiter.limit("20/minute")
+def create_checkout(request: Request, body: CheckoutRequest):
     product = PRODUCTS.get(body.product_id)
     if not product:
         raise HTTPException(status_code=400, detail="Product not found")

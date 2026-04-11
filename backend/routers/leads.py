@@ -1,13 +1,16 @@
 from datetime import datetime, timedelta, timezone
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from pydantic import BaseModel, field_validator
 from sqlalchemy.orm import Session
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from dependencies import get_db
 from models import Lead, ScheduledEmail
 from emails import send_exit_discount, send_welcome_email, send_spin_wheel_prize, send_free_pdf
 import re
 
 router = APIRouter(tags=["leads"])
+limiter = Limiter(key_func=get_remote_address)
 
 
 class LeadRequest(BaseModel):
@@ -25,7 +28,8 @@ class LeadRequest(BaseModel):
 
 
 @router.post("/leads")
-def capture_lead(body: LeadRequest, db: Session = Depends(get_db)):
+@limiter.limit("10/minute")
+def capture_lead(request: Request, body: LeadRequest, db: Session = Depends(get_db)):
     existing = db.query(Lead).filter(Lead.email == body.email).first()
     is_new = existing is None
 
