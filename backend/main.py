@@ -10,6 +10,7 @@ from routers import leads as leads_router
 from routers import email_cron as email_cron_router
 from routers import applications as applications_router
 from routers import telegram_bot as telegram_bot_router
+from routers import admin as admin_router
 
 load_dotenv()
 
@@ -37,6 +38,7 @@ app.include_router(leads_router.router)
 app.include_router(email_cron_router.router)
 app.include_router(applications_router.router)
 app.include_router(telegram_bot_router.router)
+app.include_router(admin_router.router)
 
 
 @app.get("/")

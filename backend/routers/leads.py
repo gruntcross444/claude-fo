@@ -34,13 +34,14 @@ def capture_lead(body: LeadRequest, db: Session = Depends(get_db)):
         db.add(lead)
         db.commit()
 
-    # Trigger emails based on source
-    if body.source == "spin_wheel" and body.prize:
-        send_spin_wheel_prize(body.email, body.prize, body.prize_code or "SPIN10")
-    elif body.source == "exit_popup":
-        send_exit_discount(body.email)
-    elif body.source == "free_pdf_offer":
-        send_free_pdf(body.email)
+    # Trigger emails based on source — only send once per email address
+    if is_new or body.source in ("spin_wheel",):
+        if body.source == "spin_wheel" and body.prize:
+            send_spin_wheel_prize(body.email, body.prize, body.prize_code or "SPIN10")
+        elif body.source == "exit_popup":
+            send_exit_discount(body.email)
+        elif body.source == "free_pdf_offer":
+            send_free_pdf(body.email)
 
     # Schedule welcome drip for all new leads
     if is_new:

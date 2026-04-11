@@ -92,13 +92,19 @@ async def stripe_webhook(request: Request):
         product_id = session_data.get("metadata", {}).get("product_id", "unknown")
         payment_intent = session_data.get("payment_intent", "")
         amount = session_data.get("amount_total", 0)
-        logger.info(f"Payment confirmed: {customer_email} bought {product_id} (${amount/100:.2f})")
+        session_id = session_data.get("id")
+        logger.info(f"Payment confirmed: {customer_email} bought {product_id}")
         db = SessionLocal()
         try:
+            # Idempotency: skip if this session was already processed
+            existing_order = db.query(Order).filter(Order.stripe_session_id == session_id).first()
+            if existing_order:
+                logger.info(f"Webhook already processed for session {session_id}, skipping")
+                return {"status": "ok"}
             order = Order(
                 email=customer_email,
                 product_id=product_id,
-                stripe_session_id=session_data.get("id"),
+                stripe_session_id=session_id,
                 stripe_payment_intent=payment_intent,
                 amount_cents=amount,
             )

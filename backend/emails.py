@@ -333,7 +333,7 @@ def send_application_confirmation(to: str, applicant_name: str, building_name: s
 
 def send_application_to_owner(applicant_name: str, applicant_email: str, applicant_phone: str, building_name: str, wizard_data_json: str):
     """Send full application details to the business owner."""
-    import json
+    import json, html as _html
     try:
         data = json.loads(wizard_data_json) if wizard_data_json else {}
     except (json.JSONDecodeError, TypeError):
@@ -357,6 +357,11 @@ def send_application_to_owner(applicant_name: str, applicant_email: str, applica
         value = data.get(key, "")
         if value:
             rows += f'<tr><td style="padding:6px 12px;color:#888;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);">{label}</td><td style="padding:6px 12px;color:#f3f4f6;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);">{value}</td></tr>'
+
+    applicant_name  = _html.escape(applicant_name)
+    applicant_email = _html.escape(applicant_email)
+    applicant_phone = _html.escape(applicant_phone)
+    building_name   = _html.escape(building_name)
 
     body = f"""
     <h2 style="color:#f3f4f6;font-size:22px;text-align:center;margin:0 0 8px;">
