@@ -59,7 +59,7 @@ export default function ContactPage() {
 
 
             <a
-              href="https://calendly.com/REPLACE_WITH_YOUR_LINK"
+              href="https://calendly.com/lieskaram/30min"
               target="_blank"
               rel="noopener noreferrer"
               style={styles.contactCard}
