@@ -18,7 +18,7 @@ A full-stack personal brand website and service business platform for Elias Kara
 - **Frontend**: React 18 (JSX), Vite, vanilla CSS (inline styles + CSS-in-JS objects), React Router v6
 - **Backend**: FastAPI (Python), SQLAlchemy ORM, SQLite (`app.db`), JWT auth
 - **Payments**: NOWPayments (crypto), Stripe (cards)
-- **Email**: SendGrid
+- **Email**: Resend (`resend` Python SDK, `RESEND_API_KEY` env var)
 - **Hosting**: Vercel (frontend) + Railway/Render (backend)
 - **Booking**: Calendly — `https://calendly.com/lieskaram/30min`
 
@@ -38,16 +38,18 @@ CLAUDE.FO/
       ApplicationConfirmationPage.jsx
       LoginPage.jsx / RegisterPage.jsx
       DownloadPage.jsx
+      OAuthCallback.jsx
     components/
       Navbar.jsx
-      StickyCtaBar.jsx      — scroll-triggered fixed bottom bar, dismissible
+      StickyCTA.jsx         — global sticky CTA, rendered in App.jsx
+      StickyCtaBar.jsx      — landing-page-only scroll-triggered fixed bottom bar, RAF-throttled, dismissible
       ExitIntentPopup.jsx
       SpinWheel.jsx
       EmailGate.jsx
       SocialAuth.jsx
       ProtectedRoute.jsx
-      sections/
-        HeroSection.jsx, FeaturesSection.jsx, ServicesSection.jsx
+      sections/              — LandingPage's hero is inlined in LandingPage.jsx; no HeroSection.jsx
+        FeaturesSection.jsx, ServicesSection.jsx
         TestimonialsSection.jsx, ProcessSection.jsx, PortfolioTeaser.jsx
         DealOfTheWeek.jsx
       tools/
@@ -67,7 +69,7 @@ CLAUDE.FO/
     auth.py                 — JWT (raises RuntimeError if JWT_SECRET missing)
     models.py               — SQLAlchemy models
     schemas.py              — Pydantic validation (password: 8+ chars, letter + number)
-    emails.py               — SendGrid email (SSN redacted to last-4 before sending)
+    emails.py               — Resend email engine (SSN redacted to last-4 before sending)
     nowpayments.py          — crypto payment webhooks
     database.py
     dependencies.py
@@ -100,7 +102,7 @@ Canonical source: `frontend/src/index.css` (CSS custom properties on `:root`). I
 - `--accent-purple`: `#a855f7` — secondary purple (gradient end)
 - `--accent-gold`: `#c8a76b` — tan/gold (real estate, premium CTAs)
 - `--accent-gold-light`: `#f0d89c` — gold highlight
-- Success green: `#10b981` (→ `#059669` darker) — used in SpinWheel, success states
+- Success green: `#10b981` (→ `#059669` darker) — hardcoded in components (e.g. SpinWheel), NOT a CSS custom property
 
 **Category colors** (used in PortfolioPage filters / tags)
 - `--cat-web`: `#6366f1` (indigo)

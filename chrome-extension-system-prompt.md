@@ -9,7 +9,7 @@ A full-stack web app with a React frontend and FastAPI backend. Users can browse
 - **Frontend**: React 18 (JSX), Vite, React Router v6, inline CSS style objects (NO Tailwind)
 - **Backend**: FastAPI (Python 3), SQLAlchemy ORM, SQLite database, JWT authentication
 - **Payments**: Stripe (cards) + NOWPayments (crypto)
-- **Email**: SendGrid
+- **Email**: Resend (`resend` Python SDK, `RESEND_API_KEY` env var)
 - **Booking**: Calendly — https://calendly.com/lieskaram/30min ($97 strategy call)
 - **Frontend hosting**: Vercel
 - **Backend hosting**: Railway or Render
@@ -26,11 +26,11 @@ Canonical source: `frontend/src/index.css` CSS custom properties. Reference thes
 - Body: `#9ca3af`
 - Headings: `#f3f4f6`
 
-**Accents**
-- Indigo (primary): `#6366f1`
-- Purple: `#a855f7`
-- Gold: `#c8a76b` (light variant `#f0d89c`)
-- Success green: `#10b981` / `#059669`
+**Accents** (all in `:root` as CSS custom properties unless noted)
+- Indigo (primary): `#6366f1` (`--accent`)
+- Purple: `#a855f7` (`--accent-purple`)
+- Gold: `#c8a76b` (`--accent-gold`), light variant `#f0d89c` (`--accent-gold-light`)
+- Success green: `#10b981` / `#059669` — hardcoded in components (SpinWheel etc.), NOT a CSS var
 
 **Category colors** (portfolio filters)
 - Web `#6366f1`, Real Estate `#c8a76b`, AI `#f59e0b`, Mobile `#ec4899`, Branding `#a855f7`
@@ -60,9 +60,10 @@ All under `frontend/src/pages/` (JSX, not TSX):
 - `ApplicationConfirmationPage.jsx`, `DownloadPage.jsx`, `LoginPage.jsx`, `RegisterPage.jsx`, `OAuthCallback.jsx`
 
 Components under `frontend/src/components/`:
-- `StickyCtaBar.jsx` — scroll-triggered fixed bottom CTA, RAF-throttled, dismissible
+- `StickyCTA.jsx` — global sticky CTA, rendered once in `App.jsx`
+- `StickyCtaBar.jsx` — landing-page-only scroll-triggered fixed bottom CTA, RAF-throttled, dismissible
 - `Navbar.jsx`, `ExitIntentPopup.jsx`, `SpinWheel.jsx`, `EmailGate.jsx`, `SocialAuth.jsx`, `ProtectedRoute.jsx`
-- `sections/` — HeroSection, FeaturesSection, ServicesSection, TestimonialsSection, ProcessSection, PortfolioTeaser, DealOfTheWeek
+- `sections/` — FeaturesSection, ServicesSection, TestimonialsSection, ProcessSection, PortfolioTeaser, DealOfTheWeek (no HeroSection — LandingPage's hero is inlined in `LandingPage.jsx`)
 - `tools/` — MortgageCalculator, RecastCalculator, RentVsBuy, PreQualQuiz, FirstHomeChecklist
 
 **No admin frontend page exists.** Admin is backend-only at `backend/routers/admin.py`, called with the `X-Admin-Token` header (never a `?token=` query param). If asked to build an admin UI, create a new `AdminPage.jsx` — don't look for an existing `Admin.tsx`.
