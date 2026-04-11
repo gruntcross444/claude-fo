@@ -2,6 +2,7 @@ import os
 import logging
 import stripe
 from fastapi import APIRouter, HTTPException, Request
+from sqlalchemy.exc import IntegrityError
 from pydantic import BaseModel
 from slowapi import Limiter
 from slowapi.util import get_remote_address
@@ -113,7 +114,12 @@ async def stripe_webhook(request: Request):
                 amount_cents=amount,
             )
             db.add(order)
-            db.commit()
+            try:
+                db.commit()
+            except IntegrityError:
+                db.rollback()
+                logger.info(f"Duplicate webhook blocked by DB constraint for session {session_id}")
+                return {"status": "ok"}
         finally:
             db.close()
 

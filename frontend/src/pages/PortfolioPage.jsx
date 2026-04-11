@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Building2, Code2, Bot, Smartphone, Palette, ShoppingCart,
@@ -323,10 +323,12 @@ export default function PortfolioPage() {
   const { t } = useLang()
   const navigate = useNavigate()
 
-  const featured = projects.find((p) => p.featured)
-  const rest = projects.filter((p) => !p.featured)
-  const filtered = active === 'All' ? rest : rest.filter((p) => p.category === active)
-  const allFiltered = active === 'All' ? rest : rest.filter((p) => p.category === active)
+  const featured = useMemo(() => projects.find((p) => p.featured), [])
+  const rest = useMemo(() => projects.filter((p) => !p.featured), [])
+  const filteredProjects = useMemo(
+    () => active === 'All' ? rest : rest.filter((p) => p.category === active),
+    [active, rest]
+  )
 
   return (
     <div style={s.page}>
@@ -358,7 +360,7 @@ export default function PortfolioPage() {
         <div style={s.tabs}>
           {CATEGORIES.map((cat) => {
             const CatIcon = CATEGORY_ICONS[cat]
-            const count = cat === 'All' ? rest.length : rest.filter((p) => p.category === cat).length
+            const count = cat === 'All' ? rest.length : filteredProjects.filter((p) => p.category === cat).length
             return (
               <button
                 key={cat}
@@ -374,12 +376,12 @@ export default function PortfolioPage() {
 
         {/* ── Grid ─────────────────────────────────────── */}
         <div style={s.grid}>
-          {allFiltered.map((p, i) => (
+          {filteredProjects.map((p, i) => (
             <ProjectCard key={p.title} project={p} delay={(i % 3) * 0.08} t={t} />
           ))}
         </div>
 
-        {allFiltered.length === 0 && (
+        {filteredProjects.length === 0 && (
           <p style={s.empty}>{t('portfolio.empty')}</p>
         )}
 

@@ -10,7 +10,7 @@ GET /admin/applications — all rental applications
 """
 
 import os
-from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi import APIRouter, HTTPException, Depends, Request, Query
 from fastapi.params import Header
 from slowapi import Limiter
 from slowapi.util import get_remote_address
@@ -67,16 +67,28 @@ def admin_summary(
     }
 
 
+def _paginate(query, page, page_size):
+    total = query.count()
+    rows = query.offset((page - 1) * page_size).limit(page_size).all()
+    return rows, total
+
+
 @router.get("/leads")
 @limiter.limit("30/minute")
 def admin_leads(
     request: Request,
     x_admin_token: str = Header("", alias="X-Admin-Token"),
     db: Session = Depends(get_db),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
 ):
     _check(x_admin_token)
-    rows = db.query(Lead).order_by(Lead.created_at.desc()).all()
-    return [{"id": r.id, "email": r.email, "source": r.source, "created_at": r.created_at} for r in rows]
+    q = db.query(Lead).order_by(Lead.created_at.desc())
+    rows, total = _paginate(q, page, page_size)
+    return {
+        "data": [{"id": r.id, "email": r.email, "source": r.source, "created_at": r.created_at} for r in rows],
+        "page": page, "page_size": page_size, "total": total,
+    }
 
 
 @router.get("/orders")
@@ -85,15 +97,21 @@ def admin_orders(
     request: Request,
     x_admin_token: str = Header("", alias="X-Admin-Token"),
     db: Session = Depends(get_db),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
 ):
     _check(x_admin_token)
-    rows = db.query(Order).order_by(Order.created_at.desc()).all()
-    return [
-        {"id": r.id, "email": r.email, "product_id": r.product_id,
-         "amount": f"${r.amount_cents / 100:.2f}" if r.amount_cents else None,
-         "stripe_session_id": r.stripe_session_id, "created_at": r.created_at}
-        for r in rows
-    ]
+    q = db.query(Order).order_by(Order.created_at.desc())
+    rows, total = _paginate(q, page, page_size)
+    return {
+        "data": [
+            {"id": r.id, "email": r.email, "product_id": r.product_id,
+             "amount": f"${r.amount_cents / 100:.2f}" if r.amount_cents else None,
+             "stripe_session_id": r.stripe_session_id, "created_at": r.created_at}
+            for r in rows
+        ],
+        "page": page, "page_size": page_size, "total": total,
+    }
 
 
 @router.get("/contacts")
@@ -102,14 +120,20 @@ def admin_contacts(
     request: Request,
     x_admin_token: str = Header("", alias="X-Admin-Token"),
     db: Session = Depends(get_db),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
 ):
     _check(x_admin_token)
-    rows = db.query(ContactMessage).order_by(ContactMessage.created_at.desc()).all()
-    return [
-        {"id": r.id, "name": r.name, "email": r.email,
-         "message": r.message, "created_at": r.created_at}
-        for r in rows
-    ]
+    q = db.query(ContactMessage).order_by(ContactMessage.created_at.desc())
+    rows, total = _paginate(q, page, page_size)
+    return {
+        "data": [
+            {"id": r.id, "name": r.name, "email": r.email,
+             "message": r.message, "created_at": r.created_at}
+            for r in rows
+        ],
+        "page": page, "page_size": page_size, "total": total,
+    }
 
 
 @router.get("/applications")
@@ -118,13 +142,19 @@ def admin_applications(
     request: Request,
     x_admin_token: str = Header("", alias="X-Admin-Token"),
     db: Session = Depends(get_db),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
 ):
     _check(x_admin_token)
-    rows = db.query(RentalApplication).order_by(RentalApplication.created_at.desc()).all()
-    return [
-        {"id": r.id, "name": r.name, "email": r.email, "phone": r.phone,
-         "building_name": r.building_name, "status": r.status,
-         "amount": f"${r.amount_cents / 100:.2f}" if r.amount_cents else None,
-         "created_at": r.created_at}
-        for r in rows
-    ]
+    q = db.query(RentalApplication).order_by(RentalApplication.created_at.desc())
+    rows, total = _paginate(q, page, page_size)
+    return {
+        "data": [
+            {"id": r.id, "name": r.name, "email": r.email, "phone": r.phone,
+             "building_name": r.building_name, "status": r.status,
+             "amount": f"${r.amount_cents / 100:.2f}" if r.amount_cents else None,
+             "created_at": r.created_at}
+            for r in rows
+        ],
+        "page": page, "page_size": page_size, "total": total,
+    }

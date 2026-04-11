@@ -18,9 +18,19 @@ export default function StickyCtaBar() {
       return
     }
 
-    // Show after scrolling 500px
+    // Show after scrolling 500px — throttled via RAF to avoid firing 100x/sec
+    let rafId = null
+    let isVisible = false
     function onScroll() {
-      setVisible(window.scrollY > 500)
+      if (rafId) return
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        const shouldShow = window.scrollY > 500
+        if (shouldShow !== isVisible) {
+          isVisible = shouldShow
+          setVisible(shouldShow)
+        }
+      })
     }
     window.addEventListener('scroll', onScroll, { passive: true })
 
@@ -37,6 +47,7 @@ export default function StickyCtaBar() {
 
     return () => {
       window.removeEventListener('scroll', onScroll)
+      if (rafId) cancelAnimationFrame(rafId)
       observer?.disconnect()
     }
   }, [])
