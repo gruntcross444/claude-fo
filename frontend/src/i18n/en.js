@@ -208,6 +208,25 @@ export default {
     btnAuth: 'Get in Touch',
   },
 
+  // Free PDF offer modal
+  freePdf: {
+    badge: 'Free Download',
+    heading: 'Get the Real Estate Prompt Pack — Free',
+    sub: '50 fill-in-the-blank AI prompts for agents, investors & property managers. Normally $14.',
+    f1: 'Property listing descriptions in 30 seconds',
+    f2: 'Tenant & investor email templates',
+    f3: 'Market report and social media copy',
+    free: 'FREE',
+    placeholder: 'your@email.com',
+    cta: 'Send Me the PDF',
+    loading: 'Sending...',
+    privacy: 'No spam. Unsubscribe anytime.',
+    successHeading: "It's on its way!",
+    successSub: 'Check your inbox — the PDF is heading to you now. Or download it directly below.',
+    download: 'Download PDF',
+    continue: 'Continue Browsing',
+  },
+
   // Spin wheel
   spinWheel: {
     heading: 'Spin to Win!',

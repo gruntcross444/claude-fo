@@ -262,7 +262,41 @@ def send_welcome_email(to: str, sequence_num: int = 1) -> bool:
     return send_email(to, subject, _wrap(body))
 
 
-# ── 5. Rental application confirmation (to applicant) ─────────
+# ── 5. Free PDF lead magnet ───────────────────────────────────
+
+def send_free_pdf(to: str):
+    """Send the free Real Estate Prompt Pack PDF to a new lead."""
+    pdf_url = f"{FRONTEND_URL}/downloads/Real-Estate-Prompt-Pack-ClaudeFO.pdf"
+    body = f"""
+    <h2 style="color:#f3f4f6;font-size:22px;text-align:center;margin:0 0 8px;">
+      Your Free Prompt Pack is Ready!
+    </h2>
+    <p style="text-align:center;margin-bottom:24px;">
+      Here are <strong style="color:#f3f4f6;">50 fill-in-the-blank AI prompts</strong> for real estate
+      agents, investors, and property managers. Normally $14 — yours free.
+    </p>
+    <div style="background:rgba(200,167,107,0.08);border:1px solid rgba(200,167,107,0.2);border-radius:12px;padding:16px;margin-bottom:24px;">
+      <ul style="margin:0;padding-left:20px;color:#ccc;font-size:14px;line-height:2.2;">
+        <li>Property listing descriptions in 30 seconds</li>
+        <li>Tenant &amp; investor email templates</li>
+        <li>Market report and social media copy</li>
+        <li>Negotiation scripts and buyer outreach</li>
+      </ul>
+    </div>
+    <div style="text-align:center;margin-bottom:16px;">
+      <a href="{pdf_url}" download style="display:inline-block;padding:14px 40px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;text-decoration:none;border-radius:10px;font-weight:700;font-size:16px;">
+        Download PDF Now
+      </a>
+    </div>
+    <p style="text-align:center;font-size:13px;color:#666;margin-top:8px;">
+      Want the full 200-prompt library?
+      <a href="{FRONTEND_URL}/store" style="color:#c8a76b;text-decoration:none;font-weight:600;">Browse the Store</a>
+    </p>
+    """
+    return send_email(to, "Your Free Real Estate Prompt Pack — Claude.FO", _wrap(body))
+
+
+# ── 6. Rental application confirmation (to applicant) ─────────
 
 def send_application_confirmation(to: str, applicant_name: str, building_name: str):
     """Send application confirmation to the applicant."""

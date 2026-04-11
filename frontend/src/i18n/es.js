@@ -208,6 +208,25 @@ export default {
     btnAuth: 'Contactanos',
   },
 
+  // Free PDF offer modal
+  freePdf: {
+    badge: 'Descarga Gratis',
+    heading: 'Consigue el Pack de Prompts Inmobiliarios — Gratis',
+    sub: '50 prompts de IA listos para agentes, inversores y administradores. Normalmente $14.',
+    f1: 'Descripciones de propiedades en 30 segundos',
+    f2: 'Templates de email para inquilinos e inversores',
+    f3: 'Reportes de mercado y copia para redes sociales',
+    free: 'GRATIS',
+    placeholder: 'tu@email.com',
+    cta: 'Enviarme el PDF',
+    loading: 'Enviando...',
+    privacy: 'Sin spam. Date de baja cuando quieras.',
+    successHeading: 'En camino!',
+    successSub: 'Revisa tu inbox — el PDF ya va para alla. O descargalo directo aqui abajo.',
+    download: 'Descargar PDF',
+    continue: 'Seguir Navegando',
+  },
+
   // Spin wheel
   spinWheel: {
     heading: 'Gira y Gana!',

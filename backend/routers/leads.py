@@ -4,7 +4,7 @@ from pydantic import BaseModel, field_validator
 from sqlalchemy.orm import Session
 from dependencies import get_db
 from models import Lead, ScheduledEmail
-from emails import send_exit_discount, send_welcome_email, send_spin_wheel_prize
+from emails import send_exit_discount, send_welcome_email, send_spin_wheel_prize, send_free_pdf
 import re
 
 router = APIRouter(tags=["leads"])
@@ -39,6 +39,8 @@ def capture_lead(body: LeadRequest, db: Session = Depends(get_db)):
         send_spin_wheel_prize(body.email, body.prize, body.prize_code or "SPIN10")
     elif body.source == "exit_popup":
         send_exit_discount(body.email)
+    elif body.source == "free_pdf_offer":
+        send_free_pdf(body.email)
 
     # Schedule welcome drip for all new leads
     if is_new:
