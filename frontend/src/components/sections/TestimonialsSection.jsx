@@ -5,22 +5,22 @@ import { useLang } from '../../i18n/LanguageContext'
 const TESTIMONIALS = [
   {
     name: 'Maria G.',
-    role: 'Real Estate Agent, Miami',
-    text: 'The prompt pack alone saved me 10+ hours a week on listings and emails. Best $14 I ever spent.',
+    role: 'Real Estate Agent — Miami, FL',
+    text: 'The AI prompt pack changed how I run my entire business. Writing listings used to take me hours. Now it takes minutes, and my open rates doubled. This paid for itself in week one.',
     stars: 5,
     accent: '#c8a76b',
   },
   {
     name: 'Carlos R.',
-    role: 'Marketing Director',
-    text: 'Claude.FO built our lead funnel from scratch. We went from 0 to 200+ leads in the first month.',
+    role: 'Founder, Digital Growth Co.',
+    text: 'They built our lead funnel from scratch and delivered in under 6 weeks. We went from zero to 200+ qualified leads in month one. Best ROI of any vendor we have ever hired.',
     stars: 5,
     accent: '#6366f1',
   },
   {
     name: 'Jessica T.',
     role: 'E-Commerce Owner',
-    text: 'The website templates are clean, fast, and actually look premium. Deployed in under an hour.',
+    text: 'Launched my store in 5 days. Clean, fast, and it actually converts — 3 sales on day one without spending a dollar on ads. These guys know what they are doing.',
     stars: 5,
     accent: '#a855f7',
   },

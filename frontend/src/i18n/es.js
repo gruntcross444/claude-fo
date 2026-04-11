@@ -17,31 +17,31 @@ export default {
 
   // Hero
   hero: {
-    eyebrow: 'Agencia Digital Premium',
-    heading: 'Creamos',
-    sub: 'Desarrollo web, automatizacion con IA, branding y soluciones inmobiliarias.',
+    eyebrow: 'Agencia Digital Enfocada en Conversion',
+    heading: 'Construimos',
+    sub: 'Ayudamos a agentes inmobiliarios, emprendedores y fundadores a convertir mas visitantes en clientes. Hecho para ti, en semanas — no en meses.',
     sub2: 'Exclusivo. Premium. Enfocado en resultados.',
-    cta: 'Explora Nuestro Trabajo',
+    cta: 'Inicia Tu Proyecto',
     ctaAuth: 'Ver Portafolio',
     secondary: 'Nuestros Servicios',
   },
 
   // Typing words
   typingWords: [
-    'sitios web increibles',
-    'automatizaciones con IA',
-    'identidades de marca',
-    'embudos de ventas',
-    'prompts magicos',
-    'apps moviles',
+    'sitios que generan ingresos',
+    'embudos con IA',
+    'identidades de marca premium',
+    'plataformas inmobiliarias',
+    'sistemas de captacion de leads',
+    'experiencias moviles',
     'productos digitales',
   ],
 
   // Stats
   stats: {
-    projects: 'Proyectos Entregados',
-    clients: 'Clientes Satisfechos',
-    tools: 'Herramientas Creadas',
+    projects: 'Proyectos Lanzados',
+    clients: 'Marcas Atendidas',
+    tools: 'Herramientas Gratis',
     experience: 'Anos de Experiencia',
   },
 
@@ -53,22 +53,22 @@ export default {
   // Services
   services: {
     heading: 'Servicios',
-    sub: 'Lo que traemos a la mesa',
-    webDev: { title: 'Desarrollo Web', desc: 'Aplicaciones completas con tecnologia moderna. Rapido, escalable y codigo de calidad.' },
-    realEstate: { title: 'Bienes Raices', desc: 'Plataformas para comunidades de alquiler, landing pages inmobiliarias y herramientas de captacion de leads.' },
-    branding: { title: 'Logo y Marca', desc: 'Logos vectoriales, logos animados, sistemas de identidad visual y kits para redes sociales que te hacen destacar.' },
-    ai: { title: 'IA y Automatizacion', desc: 'Automatizaciones, embudos con IA, lead magnets, email marketing y campanas SMS que trabajan en piloto automatico.' },
-    mobile: { title: 'Apps Moviles', desc: 'Experiencias moviles multiplataforma que se sienten nativas. Llega a tus usuarios donde esten.' },
+    sub: 'Todo lo que necesitas para crecer — bajo un mismo techo',
+    webDev: { title: 'Desarrollo Web', desc: 'Sitios web personalizados disenados para convertir. Desde landing pages hasta apps completas — rapido, bien hecho y listo para escalar.' },
+    realEstate: { title: 'Tecnologia Inmobiliaria', desc: 'Plataformas de alquiler, paginas de captacion y herramientas que convierten visitantes en inquilinos y compradores.' },
+    branding: { title: 'Logo y Marca', desc: 'Identidad de marca que justifica precios premium. Logos, sistemas visuales y kits para redes que te hacen inolvidable.' },
+    ai: { title: 'IA y Automatizacion', desc: 'Embudos, secuencias de email y flujos de trabajo que funcionan 24/7 sin ti. Tu mejor vendedor — y nunca duerme.' },
+    mobile: { title: 'Apps Moviles', desc: 'Experiencias moviles de calidad nativa que hacen volver a tus clientes. Rapidas, intuitivas y construidas para retener.' },
   },
 
   // Features
   features: {
-    heading: 'Por que trabajar con nosotros',
-    sub: 'Los valores que impulsan cada proyecto',
-    fast: { title: 'Entrega Rapida', desc: 'Flujo de trabajo agil — recibes software funcional rapidamente, con actualizaciones constantes.' },
-    secure: { title: 'Seguridad Integrada', desc: 'La seguridad se construye desde el dia uno — no se agrega despues.' },
-    clean: { title: 'Codigo Limpio', desc: 'Codigo legible y mantenible que tu equipo puede desarrollar por anos.' },
-    comms: { title: 'Comunicacion Clara', desc: 'Actualizaciones transparentes y sin sorpresas. Siempre sabes donde esta tu proyecto.' },
+    heading: 'Por que Claude.FO',
+    sub: 'Lo que nos diferencia de cualquier otra agencia',
+    fast: { title: 'Lanzamos en Semanas, No en Meses', desc: 'La mayoria de los proyectos salen en 4 a 8 semanas. Flujos probados, cero retrasos y sin idas y venidas interminables.' },
+    secure: { title: 'Construido para Generar Ingresos', desc: 'Cada decision se toma pensando en tu negocio. Optimizamos para conversion, retencion y crecimiento — no solo estetica.' },
+    clean: { title: 'Estandar de Calidad Premium', desc: 'Lighthouse 95+, carga en menos de 2 segundos, arquitectura limpia. Tu producto refleja tu marca — tiene que ser impecable.' },
+    comms: { title: 'Verdadera Alianza', desc: 'Actualizaciones transparentes, comunicacion directa y 3 meses de soporte post-lanzamiento incluidos. Tu exito es nuestro exito.' },
   },
 
   // Portfolio teaser
@@ -83,14 +83,37 @@ export default {
 
   // Testimonials
   testimonials: {
-    heading: 'Lo que dicen nuestros clientes',
-    sub: 'Resultados que hablan por si solos',
+    heading: 'Lo que dicen nuestros clientes de verdad',
+    sub: 'Resultados reales de personas reales',
+  },
+
+  // Process section
+  process: {
+    eyebrow: 'Como Funciona',
+    heading: 'De idea a ingresos en 3 pasos',
+    sub: 'Sin burocracia de agencia. Sin idas y venidas eternas. Solo resultados.',
+    step1: { num: '01', title: 'Brief y Estrategia', desc: 'Cuentanos tu objetivo. Auditamos tu situacion actual, identificamos los gaps y trazamos un plan claro. Sin relleno, sin ventas de mas.' },
+    step2: { num: '02', title: 'Construccion y Entrega', desc: 'Ejecutamos rapido. La mayoria de proyectos se lanzan en 4 a 8 semanas con check-ins regulares y previsualizaciones en vivo. Tu tienes el control.' },
+    step3: { num: '03', title: 'Lanzamiento y Crecimiento', desc: 'Sal en vivo con confianza. 3 meses de soporte gratuito, monitoreo y optimizacion incluidos. No terminamos hasta que estes ganando.' },
+  },
+
+  // FAQ
+  faq: {
+    heading: 'Preguntas Frecuentes',
+    sub: 'Todo lo que necesitas saber antes de empezar',
+    items: [
+      { q: 'Cuanto tiempo tarda un proyecto?', a: 'La mayoria de sitios web y embudos salen en 4 a 8 semanas. Proyectos complejos pueden tomar 10 a 12 semanas. Recibes un cronograma claro desde el inicio.' },
+      { q: 'Que necesito para empezar?', a: 'Solo una conversacion. Nosotros manejamos estrategia, diseno, desarrollo y lanzamiento. Tu das la direccion y el feedback. Nosotros nos encargamos del resto.' },
+      { q: 'Ofrecen soporte despues del lanzamiento?', a: 'Si. Cada proyecto incluye 3 meses de soporte gratuito post-lanzamiento. Despues, hay planes de mantenimiento disponibles.' },
+      { q: 'Y si solo necesito algo pequeno?', a: 'Revisa nuestra Tienda — plantillas, paquetes de prompts y herramientas desde $14. Sin necesidad de contratar una agencia.' },
+      { q: 'Trabajan en espanol?', a: 'Por supuesto. Nuestro equipo es completamente bilingue. Todos los entregables disponibles en ingles y espanol.' },
+    ],
   },
 
   // CTA
   cta: {
-    heading: 'Listo para elevar tu marca?',
-    sub: 'Construyamos algo extraordinario juntos.',
+    heading: 'Listo para convertir visitantes en clientes?',
+    sub: 'Unete a mas de 30 marcas que han crecido con Claude.FO. Construyamos algo que realmente funcione.',
     btn: 'Inicia Tu Proyecto',
     btnAuth: 'Contactanos',
     prompts: 'Explora Prompts Gratis',
@@ -203,8 +226,8 @@ export default {
 
   // Sticky CTA
   stickyCta: {
-    text: 'Listo para iniciar tu proyecto?',
-    btn: 'Obtene una Consulta Gratis',
+    text: 'Disponibilidad limitada — 3 cupos abiertos este mes.',
+    btn: 'Reserva Tu Lugar',
     btnAuth: 'Contactanos',
   },
 

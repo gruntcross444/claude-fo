@@ -17,32 +17,32 @@ export default {
 
   // Hero
   hero: {
-    eyebrow: 'Premium Digital Agency',
-    heading: 'We craft',
-    sub: 'Full-stack development, AI automation, branding & real estate solutions.',
+    eyebrow: 'Conversion-First Digital Agency',
+    heading: 'We build',
+    sub: 'We help real estate agents, e-commerce founders, and entrepreneurs convert more visitors into customers. Done-for-you, in weeks — not months.',
     sub2: 'Exclusive. Premium. Results-driven.',
-    cta: 'Explore Our Work',
+    cta: 'Start Your Project',
     ctaAuth: 'View Portfolio',
     secondary: 'Our Services',
   },
 
   // Typing words
   typingWords: [
-    'stunning websites',
-    'AI automations',
-    'brand identities',
-    'lead funnels',
-    'magic prompts',
-    'mobile apps',
+    'revenue-generating sites',
+    'AI-powered funnels',
+    'premium brand identities',
+    'real estate platforms',
+    'lead generation systems',
+    'mobile experiences',
     'digital products',
   ],
 
   // Stats
   stats: {
-    projects: 'Projects Delivered',
-    clients: 'Happy Clients',
-    tools: 'Tools Built',
-    experience: 'Years Experience',
+    projects: 'Projects Shipped',
+    clients: 'Brands Served',
+    tools: 'Free Tools Available',
+    experience: 'Years of Expertise',
   },
 
   // Trust
@@ -53,22 +53,22 @@ export default {
   // Services
   services: {
     heading: 'Services',
-    sub: 'What we bring to the table',
-    webDev: { title: 'Web Development', desc: 'Full-stack applications built with modern technologies. Fast, scalable, and maintainable code.' },
-    realEstate: { title: 'Real Estate', desc: 'Rental community platforms, property landing pages, and lead-generating tools for the real estate industry.' },
-    branding: { title: 'Logo & Branding', desc: 'Vector logos, animated logos, brand identity systems, and social media kits that make you stand out.' },
-    ai: { title: 'AI & Automation', desc: 'Workflow automations, AI-powered funnels, lead magnets, email blasts, and SMS campaigns that run on autopilot.' },
-    mobile: { title: 'Mobile Apps', desc: 'Cross-platform mobile experiences that feel native. Reach your users wherever they are.' },
+    sub: 'Everything you need to grow — under one roof',
+    webDev: { title: 'Web Development', desc: 'Custom websites engineered to convert. From landing pages to full-stack apps — built fast, built right, built to scale.' },
+    realEstate: { title: 'Real Estate Tech', desc: 'Rental platforms, lead capture pages, and property tools that turn lookers into tenants and buyers. Built for agents who want results.' },
+    branding: { title: 'Logo & Branding', desc: 'Brand identity that commands premium pricing. Logos, visual systems, and social kits that make you impossible to ignore.' },
+    ai: { title: 'AI & Automation', desc: 'Lead funnels, email sequences, and workflows that run 24/7 without you. Your best salesperson — and it never sleeps.' },
+    mobile: { title: 'Mobile Apps', desc: 'Native-quality mobile experiences that keep customers coming back. Fast, intuitive, and built to retain.' },
   },
 
   // Features
   features: {
-    heading: 'Why work with us',
-    sub: 'The values that drive every project',
-    fast: { title: 'Fast Delivery', desc: 'Agile workflow means you get working software quickly, with regular updates along the way.' },
-    secure: { title: 'Secure by Default', desc: 'Security is built in from day one — not bolted on after the fact.' },
-    clean: { title: 'Clean Code', desc: 'Readable, maintainable code that your team can build on for years to come.' },
-    comms: { title: 'Clear Communication', desc: 'Transparent updates and no surprises. You always know where your project stands.' },
+    heading: 'Why Claude.FO',
+    sub: 'What separates us from every other agency',
+    fast: { title: 'Ship in Weeks, Not Months', desc: 'Most projects go live in 4–8 weeks. Proven workflows, battle-tested templates, and zero back-and-forth delays.' },
+    secure: { title: 'Built for Revenue', desc: 'Every decision is made with your bottom line in mind. We optimize for conversion, retention, and growth — not just aesthetics.' },
+    clean: { title: 'Premium Quality Standard', desc: 'Lighthouse 95+, sub-2s load times, clean architecture. Your product reflects your brand — so it has to be flawless.' },
+    comms: { title: 'True Partnership', desc: 'Transparent updates, dedicated communication, and 3 months post-launch support included. We are invested in your success.' },
   },
 
   // Portfolio teaser
@@ -83,17 +83,40 @@ export default {
 
   // Testimonials
   testimonials: {
-    heading: 'What people are saying',
-    sub: 'Results that speak for themselves',
+    heading: 'What our clients actually say',
+    sub: 'Real results from real people',
+  },
+
+  // Process section
+  process: {
+    eyebrow: 'How It Works',
+    heading: 'From idea to revenue in 3 steps',
+    sub: 'No agency bloat. No endless back-and-forth. Just results.',
+    step1: { num: '01', title: 'Brief & Strategy', desc: 'Tell us your goal. We audit your current setup, identify the gaps, and map a clear execution plan. No fluff, no upsell — just honest direction.' },
+    step2: { num: '02', title: 'Build & Deliver', desc: 'We execute fast. Most projects ship in 4–8 weeks with regular check-ins and live previews. You stay in control the entire time.' },
+    step3: { num: '03', title: 'Launch & Grow', desc: 'Go live with confidence. 3 months of free support, performance monitoring, and optimization included. We are not done until you are winning.' },
+  },
+
+  // FAQ
+  faq: {
+    heading: 'Common Questions',
+    sub: 'Everything you need to know before we start',
+    items: [
+      { q: 'How long does a project take?', a: 'Most websites and funnels go live in 4–8 weeks. Complex builds may take 10–12 weeks. You get a clear timeline before we start — no surprises.' },
+      { q: 'What do I need to get started?', a: 'Just a conversation. We handle strategy, design, development, and launch. You provide direction and feedback. We handle the rest.' },
+      { q: 'Do you offer ongoing support?', a: 'Yes. Every project includes 3 months of free post-launch support. After that, flexible retainer plans are available.' },
+      { q: 'What if I only need something small?', a: 'Check our Store — templates, prompt packs, and tools start at $14. No agency engagement needed for smaller needs.' },
+      { q: 'Do you work in Spanish?', a: 'Absolutely. Our team is fully bilingual. All deliverables are available in English and Spanish.' },
+    ],
   },
 
   // CTA
   cta: {
-    heading: 'Ready to elevate your brand?',
-    sub: "Let's build something extraordinary together.",
+    heading: 'Ready to turn visitors into customers?',
+    sub: 'Join 30+ brands that have grown with Claude.FO. Let\'s build something that actually works.',
     btn: 'Start Your Project',
     btnAuth: 'Get in Touch',
-    prompts: 'Browse Free Prompts',
+    prompts: 'Explore Free Prompts',
   },
 
   // Store
@@ -203,8 +226,8 @@ export default {
 
   // Sticky CTA
   stickyCta: {
-    text: 'Ready to start your project?',
-    btn: 'Get a Free Consultation',
+    text: 'Limited availability — 3 project slots open this month.',
+    btn: 'Reserve Your Spot',
     btnAuth: 'Get in Touch',
   },
 

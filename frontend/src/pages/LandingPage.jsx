@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowRight, Zap, ShieldCheck, Sparkles, MessageCircle } from 'lucide-react'
+import { ArrowRight, ChevronDown } from 'lucide-react'
 import Navbar from '../components/Navbar'
 import ServicesSection from '../components/sections/ServicesSection'
+import FeaturesSection from '../components/sections/FeaturesSection'
 import PortfolioTeaser from '../components/sections/PortfolioTeaser'
-import DealOfTheWeek from '../components/sections/DealOfTheWeek'
+import ProcessSection from '../components/sections/ProcessSection'
 import TestimonialsSection from '../components/sections/TestimonialsSection'
 import { useAuth } from '../context/AuthContext'
 import { useLang } from '../i18n/LanguageContext'
@@ -34,6 +36,22 @@ function Reveal({ children, delay = 0 }) {
   )
 }
 
+function FAQItem({ item, index }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div
+      style={{ ...faqStyles.item, borderColor: open ? 'rgba(200,167,107,0.25)' : 'rgba(255,255,255,0.06)' }}
+      onClick={() => setOpen(!open)}
+    >
+      <div style={faqStyles.question}>
+        <span style={faqStyles.qText}>{item.q}</span>
+        <ChevronDown size={18} color="#666" style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s', flexShrink: 0 }} />
+      </div>
+      {open && <p style={faqStyles.answer}>{item.a}</p>}
+    </div>
+  )
+}
+
 export default function LandingPage() {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
@@ -45,13 +63,6 @@ export default function LandingPage() {
     { label: t('stats.clients'), value: 30, suffix: '+' },
     { label: t('stats.tools'), value: 12, suffix: '' },
     { label: t('stats.experience'), value: 5, suffix: '+' },
-  ]
-
-  const FEATURES = [
-    { Icon: Zap, title: t('features.fast.title'), color: '#f59e0b' },
-    { Icon: ShieldCheck, title: t('features.secure.title'), color: '#10b981' },
-    { Icon: Sparkles, title: t('features.clean.title'), color: '#a855f7' },
-    { Icon: MessageCircle, title: t('features.comms.title'), color: '#6366f1' },
   ]
 
   return (
@@ -123,24 +134,8 @@ export default function LandingPage() {
       {/* ── Services (Bento Grid) ────────────────────────── */}
       <ServicesSection />
 
-      {/* ── Features (Compact Row) ───────────────────────── */}
-      <section style={styles.featuresSection}>
-        <Reveal>
-          <h2 style={styles.sectionHeading}>{t('features.heading')}</h2>
-        </Reveal>
-        <div style={styles.featuresGrid}>
-          {FEATURES.map((f, i) => (
-            <Reveal key={f.title} delay={i * 0.1}>
-              <div style={styles.featureItem}>
-                <div style={{ ...styles.featureIcon, background: `${f.color}12`, border: `1px solid ${f.color}25` }}>
-                  <f.Icon size={20} color={f.color} strokeWidth={1.5} />
-                </div>
-                <span style={styles.featureTitle}>{f.title}</span>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      {/* ── Features ─────────────────────────────────────── */}
+      <FeaturesSection />
 
       {/* ── Testimonials ─────────────────────────────────── */}
       <TestimonialsSection />
@@ -148,8 +143,23 @@ export default function LandingPage() {
       {/* ── Portfolio Teaser ──────────────────────────────── */}
       <PortfolioTeaser />
 
-      {/* ── Deal of the Week ─────────────────────────────── */}
-      <DealOfTheWeek />
+      {/* ── How It Works ─────────────────────────────────── */}
+      <ProcessSection />
+
+      {/* ── FAQ ──────────────────────────────────────────── */}
+      <section style={styles.faqSection}>
+        <Reveal>
+          <h2 style={styles.sectionHeading}>{t('faq.heading')}</h2>
+          <p style={styles.faqSub}>{t('faq.sub')}</p>
+        </Reveal>
+        <div style={styles.faqList}>
+          {t('faq.items').map((item, i) => (
+            <Reveal key={i} delay={i * 0.05}>
+              <FAQItem item={item} index={i} />
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       {/* ── Final CTA ────────────────────────────────────── */}
       <section style={styles.ctaSection}>
@@ -359,49 +369,31 @@ const styles = {
     margin: '0 auto',
   },
 
-  // ── Features (Compact) ───────────────────────────────
-  featuresSection: {
-    padding: '2rem 2rem 5rem',
-    maxWidth: '900px',
-    margin: '0 auto',
-    textAlign: 'center',
-  },
+  // ── Section headings ─────────────────────────────────
   sectionHeading: {
     fontSize: 'clamp(1.5rem, 3vw, 2rem)',
     fontWeight: 800,
-    marginBottom: '2rem',
+    marginBottom: '0.5rem',
     letterSpacing: '-0.02em',
+    textAlign: 'center',
   },
-  featuresGrid: {
+
+  // ── FAQ ──────────────────────────────────────────────
+  faqSection: {
+    padding: '5rem 2rem',
+    maxWidth: '720px',
+    margin: '0 auto',
+  },
+  faqSub: {
+    color: '#666',
+    fontSize: '1rem',
+    textAlign: 'center',
+    marginBottom: '2.5rem',
+  },
+  faqList: {
     display: 'flex',
-    justifyContent: 'center',
-    gap: '1rem',
-    flexWrap: 'wrap',
-  },
-  featureItem: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.7rem',
-    padding: '0.8rem 1.4rem',
-    borderRadius: '14px',
-    border: '1px solid rgba(255,255,255,0.06)',
-    background: 'rgba(255,255,255,0.02)',
-    backdropFilter: 'blur(4px)',
-  },
-  featureIcon: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '10px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-  },
-  featureTitle: {
-    fontSize: '0.88rem',
-    fontWeight: 600,
-    color: '#ccc',
-    whiteSpace: 'nowrap',
+    flexDirection: 'column',
+    gap: '0.6rem',
   },
 
   // ── CTA ──────────────────────────────────────────────
@@ -500,6 +492,36 @@ const styles = {
     fontSize: '0.78rem',
     paddingTop: '1rem',
     borderTop: '1px solid rgba(255,255,255,0.04)',
+  },
+}
+
+const faqStyles = {
+  item: {
+    padding: '1.2rem 1.5rem',
+    borderRadius: '14px',
+    border: '1px solid',
+    background: 'rgba(255,255,255,0.02)',
+    cursor: 'pointer',
+    transition: 'border-color 0.3s',
+  },
+  question: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '1rem',
+  },
+  qText: {
+    fontSize: '0.95rem',
+    fontWeight: 600,
+    color: '#e0e0e0',
+  },
+  answer: {
+    color: '#888',
+    fontSize: '0.88rem',
+    lineHeight: 1.7,
+    margin: '0.8rem 0 0',
+    paddingTop: '0.8rem',
+    borderTop: '1px solid rgba(255,255,255,0.06)',
   },
 }
 
