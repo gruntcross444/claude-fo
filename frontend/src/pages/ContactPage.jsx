@@ -79,16 +79,25 @@ export default function ContactPage() {
               <span style={styles.arrow}>&rarr;</span>
             </a>
 
-            {/* Social links — uncomment when real URLs are ready
             <div style={styles.socialSection}>
               <p style={styles.socialTitle}>{t('contact.follow')}</p>
               <div style={styles.socialLinks}>
-                <a href="https://instagram.com/claudefo" style={styles.socialBtn} title="Instagram">...</a>
-                <a href="https://linkedin.com/company/claudefo" style={styles.socialBtn} title="LinkedIn">...</a>
-                <a href="https://x.com/claudefo" style={styles.socialBtn} title="X">...</a>
+                <a
+                  href="https://www.instagram.com/eliaskaramrealtor/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={styles.socialBtn}
+                  title="Instagram"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+                  </svg>
+                  Instagram
+                </a>
               </div>
             </div>
-            */}
           </div>
 
           {/* ── Contact Form ───────────────────────────── */}
@@ -148,7 +157,7 @@ const styles = {
   socialSection: { padding: '1.2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' },
   socialTitle: { fontSize: '0.85rem', color: '#888', margin: '0 0 0.8rem' },
   socialLinks: { display: 'flex', gap: '0.6rem' },
-  socialBtn: { width: '40px', height: '40px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#aaa', textDecoration: 'none', transition: 'border-color 0.2s' },
+  socialBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.03)', color: '#aaa', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500, transition: 'border-color 0.2s, color 0.2s' },
   formCard: { padding: '2rem', borderRadius: '20px', border: '1px solid rgba(99,102,241,0.15)', background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(8px)' },
   formTitle: { fontSize: '1.2rem', fontWeight: 700, margin: '0 0 1.5rem' },
   success: { padding: '0.8rem 1rem', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', fontSize: '0.9rem', marginBottom: '1rem' },
