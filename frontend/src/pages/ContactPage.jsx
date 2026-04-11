@@ -57,17 +57,6 @@ export default function ContactPage() {
               <span style={styles.arrow}>&rarr;</span>
             </a>
 
-            <div style={styles.contactCard}>
-              <div style={{ ...styles.iconWrap, background: 'rgba(0,107,255,0.1)', borderColor: 'rgba(0,107,255,0.3)' }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#006BFF">
-                  <path d="M19 4H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V7a3 3 0 00-3-3zm0 2l-7 4.5L5 6h14zm0 12H5a1 1 0 01-1-1V8.37l7.43 4.78a1 1 0 001.14 0L20 8.37V17a1 1 0 01-1 1z"/>
-                </svg>
-              </div>
-              <div>
-                <strong style={styles.cardTitle}>{t('contact.calendly')}</strong>
-                <span style={styles.cardSub}>{t('contact.calendlySub')}</span>
-              </div>
-            </div>
 
             {/* Social links — uncomment when real URLs are ready
             <div style={styles.socialSection}>
