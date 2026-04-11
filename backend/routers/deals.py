@@ -54,48 +54,71 @@ async def create_deal(deal: DealCreate, db: Session = Depends(get_db)):
 
 @router.get("/metrics")
 async def get_pipeline_metrics(db: Session = Depends(get_db)):
-    """Métricas pipeline en vivo"""
+    """Métricas pipeline en vivo (con timeout)"""
     from models import Deal
+    import signal
     
-    total = db.query(func.count(Deal.id)).scalar() or 0
-    closed = db.query(func.count(Deal.id)).filter(Deal.conversion == 1).scalar() or 0
-    close_rate = (closed / total * 100) if total > 0 else 0
-    revenue = db.query(func.sum(Deal.deal_value)).filter(Deal.conversion == 1).scalar() or 0
+    def timeout_handler(signum, frame):
+        raise TimeoutError("Database query timeout")
     
-    by_stage = db.query(
-        Deal.stage,
-        func.count(Deal.id).label('count'),
-        func.avg(Deal.deal_value).label('avg_value')
-    ).group_by(Deal.stage).all()
-    
-    by_source = db.query(
-        Deal.source,
-        func.count(Deal.id).label('count'),
-        func.sum(Deal.conversion).label('conversions')
-    ).group_by(Deal.source).all()
-    
-    avg_cycle = db.query(func.avg(Deal.days_to_close)).filter(Deal.conversion == 1).scalar()
-    
-    return {
-        "total_deals": total,
-        "closed_deals": closed,
-        "close_rate": round(close_rate, 1),
-        "total_revenue": float(revenue or 0),
-        "avg_cycle_days": round(avg_cycle, 1) if avg_cycle else 0,
-        "by_stage": [
-            {"stage": s[0], "count": s[1], "avg_value": float(s[2] or 0)}
-            for s in by_stage
-        ],
-        "by_source": [
-            {
-                "source": s[0],
-                "leads": s[1],
-                "conversions": s[2] or 0,
-                "conversion_rate": round((s[2] / s[1] * 100) if s[1] > 0 else 0, 1)
-            }
-            for s in by_source
-        ]
-    }
+    try:
+        # Set 8 second timeout
+        signal.signal(signal.SIGALRM, timeout_handler)
+        signal.alarm(8)
+        
+        total = db.query(func.count(Deal.id)).scalar() or 0
+        closed = db.query(func.count(Deal.id)).filter(Deal.conversion == 1).scalar() or 0
+        close_rate = (closed / total * 100) if total > 0 else 0
+        revenue = db.query(func.sum(Deal.deal_value)).filter(Deal.conversion == 1).scalar() or 0
+        
+        by_stage = db.query(
+            Deal.stage,
+            func.count(Deal.id).label('count'),
+            func.avg(Deal.deal_value).label('avg_value')
+        ).group_by(Deal.stage).all()
+        
+        by_source = db.query(
+            Deal.source,
+            func.count(Deal.id).label('count'),
+            func.sum(Deal.conversion).label('conversions')
+        ).group_by(Deal.source).all()
+        
+        avg_cycle = db.query(func.avg(Deal.days_to_close)).filter(Deal.conversion == 1).scalar()
+        
+        signal.alarm(0)  # Cancel alarm
+        
+        return {
+            "total_deals": total,
+            "closed_deals": closed,
+            "close_rate": round(close_rate, 1),
+            "total_revenue": float(revenue or 0),
+            "avg_cycle_days": round(avg_cycle, 1) if avg_cycle else 0,
+            "by_stage": [
+                {"stage": s[0], "count": s[1], "avg_value": float(s[2] or 0)}
+                for s in by_stage
+            ],
+            "by_source": [
+                {
+                    "source": s[0],
+                    "leads": s[1],
+                    "conversions": s[2] or 0,
+                    "conversion_rate": round((s[2] / s[1] * 100) if s[1] > 0 else 0, 1)
+                }
+                for s in by_source
+            ]
+        }
+    except (TimeoutError, Exception) as e:
+        signal.alarm(0)  # Cancel alarm
+        return {
+            "total_deals": 0,
+            "closed_deals": 0,
+            "close_rate": 0,
+            "total_revenue": 0,
+            "avg_cycle_days": 0,
+            "by_stage": [],
+            "by_source": [],
+            "error": "Database timeout or connection error"
+        }
 
 @router.post("/analyze")
 async def run_pipeline_audit(db: Session = Depends(get_db)):
