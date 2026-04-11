@@ -126,7 +126,7 @@ async def stripe_webhook(request: Request):
                 db2 = SessionLocal()
                 try:
                     rental_app = db2.query(RentalApplication).filter(RentalApplication.id == int(app_id)).first()
-                    if rental_app:
+                    if rental_app and rental_app.email == customer_email:
                         rental_app.status = "paid"
                         rental_app.stripe_session_id = session_data.get("id")
                         rental_app.stripe_payment_intent = payment_intent

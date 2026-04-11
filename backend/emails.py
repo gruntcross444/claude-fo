@@ -353,6 +353,11 @@ def send_application_to_owner(applicant_name: str, applicant_email: str, applica
         "maxBudget": "Max Budget", "specialRequirements": "Special Requirements",
     }
 
+    # Redact SSN — never send full SSN via email
+    if "ssn" in data and data["ssn"]:
+        raw = str(data["ssn"])
+        data["ssn"] = f"***-**-{raw[-4:]}" if len(raw) >= 4 else "***-**-****"
+
     for key, label in field_labels.items():
         value = data.get(key, "")
         if value:

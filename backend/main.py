@@ -31,12 +31,20 @@ app = FastAPI(lifespan=lifespan)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+import os as _os
+_IS_DEV = _os.getenv("ENVIRONMENT", "production") == "development"
+_ALLOWED_ORIGINS = (
+    ["http://localhost:5173", "https://claude-fo.vercel.app", "https://claudefo.com"]
+    if _IS_DEV
+    else ["https://claude-fo.vercel.app", "https://claudefo.com"]
+)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://claude-fo.vercel.app", "https://claudefo.com"],
+    allow_origins=_ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "X-Admin-Token"],
 )
 
 app.include_router(auth_router.router)

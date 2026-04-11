@@ -1,18 +1,25 @@
 """Read-only admin dashboard. Protected by ADMIN_SECRET env var.
 
-GET /admin/summary?token=<ADMIN_SECRET>   — counts + recent activity
-GET /admin/leads?token=<ADMIN_SECRET>      — all leads
-GET /admin/orders?token=<ADMIN_SECRET>     — all orders
-GET /admin/contacts?token=<ADMIN_SECRET>   — all contact messages
+Pass secret via header:  X-Admin-Token: <ADMIN_SECRET>
+
+GET /admin/summary    — counts + recent activity
+GET /admin/leads      — all leads
+GET /admin/orders     — all orders
+GET /admin/contacts   — all contact messages
+GET /admin/applications — all rental applications
 """
 
 import os
-from fastapi import APIRouter, HTTPException, Query, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
+from fastapi.params import Header
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from sqlalchemy.orm import Session
 from dependencies import get_db
 from models import Lead, Order, ContactMessage, RentalApplication
 
 router = APIRouter(prefix="/admin", tags=["admin"])
+limiter = Limiter(key_func=get_remote_address)
 
 ADMIN_SECRET = os.getenv("ADMIN_SECRET", "")
 
@@ -23,8 +30,13 @@ def _check(token: str):
 
 
 @router.get("/summary")
-def admin_summary(token: str = Query(""), db: Session = Depends(get_db)):
-    _check(token)
+@limiter.limit("30/minute")
+def admin_summary(
+    request: Request,
+    x_admin_token: str = Header("", alias="X-Admin-Token"),
+    db: Session = Depends(get_db),
+):
+    _check(x_admin_token)
     leads         = db.query(Lead).count()
     orders        = db.query(Order).count()
     contacts      = db.query(ContactMessage).count()
@@ -56,15 +68,25 @@ def admin_summary(token: str = Query(""), db: Session = Depends(get_db)):
 
 
 @router.get("/leads")
-def admin_leads(token: str = Query(""), db: Session = Depends(get_db)):
-    _check(token)
+@limiter.limit("30/minute")
+def admin_leads(
+    request: Request,
+    x_admin_token: str = Header("", alias="X-Admin-Token"),
+    db: Session = Depends(get_db),
+):
+    _check(x_admin_token)
     rows = db.query(Lead).order_by(Lead.created_at.desc()).all()
     return [{"id": r.id, "email": r.email, "source": r.source, "created_at": r.created_at} for r in rows]
 
 
 @router.get("/orders")
-def admin_orders(token: str = Query(""), db: Session = Depends(get_db)):
-    _check(token)
+@limiter.limit("30/minute")
+def admin_orders(
+    request: Request,
+    x_admin_token: str = Header("", alias="X-Admin-Token"),
+    db: Session = Depends(get_db),
+):
+    _check(x_admin_token)
     rows = db.query(Order).order_by(Order.created_at.desc()).all()
     return [
         {"id": r.id, "email": r.email, "product_id": r.product_id,
@@ -75,8 +97,13 @@ def admin_orders(token: str = Query(""), db: Session = Depends(get_db)):
 
 
 @router.get("/contacts")
-def admin_contacts(token: str = Query(""), db: Session = Depends(get_db)):
-    _check(token)
+@limiter.limit("30/minute")
+def admin_contacts(
+    request: Request,
+    x_admin_token: str = Header("", alias="X-Admin-Token"),
+    db: Session = Depends(get_db),
+):
+    _check(x_admin_token)
     rows = db.query(ContactMessage).order_by(ContactMessage.created_at.desc()).all()
     return [
         {"id": r.id, "name": r.name, "email": r.email,
@@ -86,8 +113,13 @@ def admin_contacts(token: str = Query(""), db: Session = Depends(get_db)):
 
 
 @router.get("/applications")
-def admin_applications(token: str = Query(""), db: Session = Depends(get_db)):
-    _check(token)
+@limiter.limit("30/minute")
+def admin_applications(
+    request: Request,
+    x_admin_token: str = Header("", alias="X-Admin-Token"),
+    db: Session = Depends(get_db),
+):
+    _check(x_admin_token)
     rows = db.query(RentalApplication).order_by(RentalApplication.created_at.desc()).all()
     return [
         {"id": r.id, "name": r.name, "email": r.email, "phone": r.phone,

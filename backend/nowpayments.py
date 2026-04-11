@@ -101,7 +101,7 @@ async def get_payment_status(payment_id: str) -> dict:
 def verify_ipn_signature(payload: bytes, sig_header: str) -> bool:
     """Verify NOWPayments IPN webhook signature."""
     if not NOWPAYMENTS_IPN_SECRET:
-        return True  # Skip verification if secret not set
+        return False  # Reject if secret not configured — never skip verification
     # NOWPayments signs a JSON string with keys sorted alphabetically
     try:
         sorted_payload = json.dumps(json.loads(payload), sort_keys=True).encode()
