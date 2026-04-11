@@ -11,3 +11,4 @@ stripe
 resend
 python-telegram-bot==21.6
 slowapi
+anthropic

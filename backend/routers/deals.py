@@ -4,7 +4,9 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from pydantic import BaseModel
 from database import SessionLocal
-from models import Base
+import anthropic
+import os
+import json
 
 router = APIRouter(prefix="/api/deals", tags=["deals"])
 
@@ -24,6 +26,21 @@ def get_db():
         yield db
     finally:
         db.close()
+
+SYSTEM_PROMPT = """You are Claude.FO Agent, an expert real estate sales analyst for Doral Service Realty. 
+Your role is to analyze pipeline data and provide actionable recommendations to improve close rates and revenue.
+
+You have access to live deal data and must:
+1. Identify critical issues (stalled deals, weak channels, lost deals)
+2. Provide recommendations with revenue impact
+3. Suggest next steps with timeline
+4. Be direct and action-oriented
+
+Format recommendations as:
+P1: [Action] — [Detail] = $[Revenue Impact]
+P2: [Action] — [Detail] = $[Revenue Impact]
+
+Always quantify impact. Never be generic."""
 
 @router.post("")
 async def create_deal(deal: DealCreate, db: Session = Depends(get_db)):
@@ -82,13 +99,14 @@ async def get_pipeline_metrics(db: Session = Depends(get_db)):
 
 @router.post("/analyze")
 async def run_pipeline_audit(db: Session = Depends(get_db)):
-    """Audit automático (estilo graphify)"""
+    """Audit con Claude API — recomendaciones inteligentes"""
     from models import Deal
     
     deals = db.query(Deal).all()
     if not deals:
         raise HTTPException(status_code=400, detail="No deals found")
     
+    # Preparar data para análisis
     data = [
         {
             "fecha": d.created_at.isoformat(),
@@ -125,6 +143,42 @@ async def run_pipeline_audit(db: Session = Depends(get_db)):
             "revenue": round(stats["revenue"], 0)
         }
     
+    # Llamar a Claude API para análisis inteligente
+    prompt = f"""Analiza este pipeline de ventas inmobiliarias:
+
+DATOS:
+- Total deals: {total}
+- Cierre: {conversiones} ({close_rate:.1f}%)
+- Revenue: ${revenue:,.0f}
+- Ciclo promedio: {(sum(d['ciclo_dias'] for d in data if d['ciclo_dias'] > 0) / max(1, len([d for d in data if d['ciclo_dias'] > 0])))}d
+
+POR ORIGEN:
+{json.dumps(source_analysis, indent=2)}
+
+TAREA:
+1. Identifica 2-3 problemas críticos
+2. Para cada uno: acción específica + impacto en $
+3. Timeline realista (semana/mes)
+4. Incluye puntos positivos (qué funciona bien)
+
+Sé directo y cuantificable. Formato:
+P1: [Acción] → [Detalle] = $[Impacto estimado]"""
+
+    try:
+        client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        message = client.messages.create(
+            model="claude-opus-4-20250805",
+            max_tokens=1024,
+            system=SYSTEM_PROMPT,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+        ai_recommendations = message.content[0].text
+    except Exception as e:
+        ai_recommendations = f"Error calling Claude API: {str(e)}"
+    
+    # Fallback: recomendaciones básicas si Claude falla
     recommendations = []
     
     prospectando = sum(1 for d in data if d["etapa"] == "prospectando")
@@ -151,12 +205,13 @@ async def run_pipeline_audit(db: Session = Depends(get_db)):
         "total_revenue": round(revenue, 0),
         "by_source": source_analysis,
         "recommendations": recommendations,
+        "ai_analysis": ai_recommendations,
         "timestamp": datetime.now().isoformat()
     }
 
 @router.put("/{deal_id}")
 async def update_deal_stage(deal_id: int, new_stage: str, db: Session = Depends(get_db)):
-    """Actualizar etapa"""
+    """Actualizar etapa + audit trail"""
     from models import Deal
     
     deal = db.query(Deal).filter(Deal.id == deal_id).first()
