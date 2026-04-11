@@ -54,18 +54,13 @@ async def create_deal(deal: DealCreate, db: Session = Depends(get_db)):
 
 @router.get("/metrics")
 async def get_pipeline_metrics(db: Session = Depends(get_db)):
-    """Métricas pipeline en vivo (con timeout)"""
+    """Métricas pipeline en vivo"""
     from models import Deal
-    import signal
+    from database import ensure_db_connection
     
-    def timeout_handler(signum, frame):
-        raise TimeoutError("Database query timeout")
+    ensure_db_connection()
     
     try:
-        # Set 8 second timeout
-        signal.signal(signal.SIGALRM, timeout_handler)
-        signal.alarm(8)
-        
         total = db.query(func.count(Deal.id)).scalar() or 0
         closed = db.query(func.count(Deal.id)).filter(Deal.conversion == 1).scalar() or 0
         close_rate = (closed / total * 100) if total > 0 else 0
@@ -84,8 +79,6 @@ async def get_pipeline_metrics(db: Session = Depends(get_db)):
         ).group_by(Deal.source).all()
         
         avg_cycle = db.query(func.avg(Deal.days_to_close)).filter(Deal.conversion == 1).scalar()
-        
-        signal.alarm(0)  # Cancel alarm
         
         return {
             "total_deals": total,
@@ -107,8 +100,8 @@ async def get_pipeline_metrics(db: Session = Depends(get_db)):
                 for s in by_source
             ]
         }
-    except (TimeoutError, Exception) as e:
-        signal.alarm(0)  # Cancel alarm
+    except Exception as e:
+        print(f"Metrics error: {e}")
         return {
             "total_deals": 0,
             "closed_deals": 0,
@@ -117,7 +110,7 @@ async def get_pipeline_metrics(db: Session = Depends(get_db)):
             "avg_cycle_days": 0,
             "by_stage": [],
             "by_source": [],
-            "error": "Database timeout or connection error"
+            "error": str(e)
         }
 
 @router.post("/analyze")
