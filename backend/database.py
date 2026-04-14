@@ -17,8 +17,7 @@ current_db_url = PRIMARY_DATABASE_URL
 
 def _create_engine(url: str):
     connect_args = {"check_same_thread": False} if url.startswith("sqlite") else {
-        "connect_timeout": 5,
-        "timeout": 5
+        "connect_timeout": 5
     }
     return create_engine(
         url,
