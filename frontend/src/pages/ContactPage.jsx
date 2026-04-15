@@ -162,5 +162,4 @@ const styles = {
   label: { display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.9rem', color: '#ccc' },
   input: { padding: '0.65rem 0.9rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.05)', color: 'inherit', fontSize: '0.95rem', outline: 'none', fontFamily: 'inherit' },
   submitBtn: { padding: '0.85rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', marginTop: '0.5rem', boxShadow: '0 4px 15px rgba(99,102,241,0.25)', transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  footer: { textAlign: 'center', padding: '2rem', color: '#555', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }

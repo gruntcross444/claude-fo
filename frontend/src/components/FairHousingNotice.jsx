@@ -3,7 +3,15 @@ import { Home } from 'lucide-react'
 /**
  * Fair Housing Act + Florida fair housing compliance notice.
  * Required anywhere the site advertises rentals or processes applications.
+ *
+ * FL license number is pulled from VITE_FL_LICENSE_NUMBER so we can set it
+ * once in env and keep it out of source. Florida F.A.C. Rule 61J2-10.025
+ * requires a licensee's registered name + license number in real estate
+ * advertising. Leave the env unset → the license-number line is suppressed
+ * rather than rendering a placeholder (we'd rather show nothing than a lie).
  */
+const FL_LICENSE_NUMBER = import.meta.env?.VITE_FL_LICENSE_NUMBER || ''
+
 export default function FairHousingNotice({ compact = false }) {
   if (compact) {
     return (
@@ -12,6 +20,7 @@ export default function FairHousingNotice({ compact = false }) {
         <span>
           Equal Housing Opportunity. We comply with the federal Fair Housing
           Act and Florida fair housing laws.
+          {FL_LICENSE_NUMBER && ` FL RE License #${FL_LICENSE_NUMBER}.`}
         </span>
       </div>
     )
@@ -24,12 +33,14 @@ export default function FairHousingNotice({ compact = false }) {
         <span style={s.title}>Equal Housing Opportunity</span>
       </div>
       <p style={s.body}>
-        Elias Karam is a licensed Florida real estate agent and complies with
-        the federal Fair Housing Act and Florida fair housing laws. We do not
-        discriminate based on race, color, religion, sex, national origin,
-        familial status, disability, sexual orientation, gender identity, or
-        any other class protected by law. All advertised rentals are subject
-        to landlord approval, availability, and credit / background screening.
+        Elias Karam is a licensed Florida real estate agent
+        {FL_LICENSE_NUMBER && ` (FL RE License #${FL_LICENSE_NUMBER})`} and
+        complies with the federal Fair Housing Act and Florida fair housing
+        laws. We do not discriminate based on race, color, religion, sex,
+        national origin, familial status, disability, sexual orientation,
+        gender identity, or any other class protected by law. All advertised
+        rentals are subject to landlord approval, availability, and credit /
+        background screening.
       </p>
     </aside>
   )

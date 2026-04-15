@@ -116,7 +116,5 @@ const s = {
   activeIcon: { width: '52px', height: '52px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   heading: { fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.2rem', letterSpacing: '-0.02em' },
   sub: { color: '#777', fontSize: '0.9rem', margin: 0 },
-
-  footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }
 

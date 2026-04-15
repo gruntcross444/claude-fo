@@ -436,51 +436,6 @@ const styles = {
     transition: 'all 0.3s ease',
   },
 
-  // ── Footer ───────────────────────────────────────────
-  footer: {
-    borderTop: '1px solid rgba(255,255,255,0.06)',
-    padding: '2.5rem 2rem 1.5rem',
-  },
-  footerInner: {
-    maxWidth: '800px',
-    margin: '0 auto',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: '1.5rem',
-    marginBottom: '1.5rem',
-  },
-  footerLogo: {
-    fontSize: '1.1rem',
-    fontWeight: 800,
-    color: '#fff',
-    display: 'block',
-    marginBottom: '0.2rem',
-  },
-  footerTagline: {
-    fontSize: '0.78rem',
-    color: '#555',
-    margin: 0,
-  },
-  footerLinks: {
-    display: 'flex',
-    gap: '1.5rem',
-    flexWrap: 'wrap',
-  },
-  footerLink: {
-    color: '#666',
-    textDecoration: 'none',
-    fontSize: '0.85rem',
-    transition: 'color 0.2s',
-  },
-  footerBottom: {
-    textAlign: 'center',
-    color: '#444',
-    fontSize: '0.78rem',
-    paddingTop: '1rem',
-    borderTop: '1px solid rgba(255,255,255,0.04)',
-  },
 }
 
 const faqStyles = {

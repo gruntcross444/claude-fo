@@ -113,7 +113,7 @@ const s = {
     background: 'rgba(0,0,0,0.75)',
     backdropFilter: 'blur(6px)',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    zIndex: 10000, padding: '1rem',
+    zIndex: 9998, padding: '1rem',
   },
   modal: {
     background: '#0f1015',
