@@ -1,0 +1,18 @@
+{
+  "name": "Claude.FO",
+  "short_name": "Claude.FO",
+  "description": "Premium real estate, AI automation and digital products by Elias Karam.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0b0f",
+  "theme_color": "#0a0b0f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -403,10 +403,6 @@ export default function PortfolioPage() {
 
       </div>
 
-      <footer style={s.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-      </footer>
-
       <style>{`
         @keyframes pulse-avail {
           0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }

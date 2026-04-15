@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# No public admin surface — backend-only at /api/admin, token-gated.
+Disallow: /auth/
+Disallow: /download
+Disallow: /application-confirmation
+
+Sitemap: https://claudefo.com/sitemap.xml

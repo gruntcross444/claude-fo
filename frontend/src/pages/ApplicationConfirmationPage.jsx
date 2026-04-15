@@ -72,10 +72,6 @@ export default function ApplicationConfirmationPage() {
           {t('application.confirmBack')} <ArrowRight size={14} />
         </a>
       </div>
-
-      <footer style={s.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-      </footer>
     </div>
   )
 }

@@ -187,24 +187,6 @@ export default function LandingPage() {
         </Reveal>
       </section>
 
-      {/* ── Footer ───────────────────────────────────────── */}
-      <footer style={styles.footer}>
-        <div style={styles.footerInner}>
-          <div>
-            <span style={styles.footerLogo}><span style={styles.typed}>Claude</span>.FO</span>
-            <p style={styles.footerTagline}>Premium Digital Agency</p>
-          </div>
-          <div style={styles.footerLinks}>
-            <a href="/store" style={styles.footerLink}>{t('nav.store')}</a>
-            <a href="/tools" style={styles.footerLink}>{t('nav.tools')}</a>
-            <a href="/prompts" style={styles.footerLink}>{t('nav.prompts')}</a>
-            <a href="/contact" style={styles.footerLink}>{t('nav.contact')}</a>
-          </div>
-        </div>
-        <div style={styles.footerBottom}>
-          <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-        </div>
-      </footer>
     </div>
   )
 }

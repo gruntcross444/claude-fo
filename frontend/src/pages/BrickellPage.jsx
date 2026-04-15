@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight, Loader2, Building2, Utensils, Music, ShoppingBag, Train, MapPin, FileText } from 'lucide-react'
 import Navbar from '../components/Navbar'
+import FairHousingNotice from '../components/FairHousingNotice'
 import { useLang } from '../i18n/LanguageContext'
 import useScrollReveal from '../hooks/useScrollReveal'
 import api from '../api'
@@ -328,10 +329,11 @@ export default function BrickellPage() {
         </Reveal>
       </section>
 
-      {/* ── Footer ────────────────────────────────────────── */}
-      <footer style={s.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-      </footer>
+      {/* ── Fair Housing notice (required on rental advertising) ── */}
+      <section style={{ padding: '0 2rem', maxWidth: '1200px', margin: '0 auto' }}>
+        <FairHousingNotice />
+      </section>
+
     </div>
   )
 }

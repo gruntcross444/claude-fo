@@ -84,10 +84,6 @@ export default function ToolsPage() {
           </EmailGate>
         </main>
       </div>
-
-      <footer style={s.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-      </footer>
     </div>
   )
 }

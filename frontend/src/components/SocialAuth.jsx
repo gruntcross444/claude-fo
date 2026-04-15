@@ -1,11 +1,19 @@
 import { useLang } from '../i18n/LanguageContext'
 
 // ── OAuth URL builders ─────────────────────────────────────────
+// Redirect URIs are derived from window.location.origin so frontend and
+// backend always agree on the exact value (prevents the classic
+// redirect_uri_mismatch failure when the two env vars drift).
+
+function redirectUriFor(provider) {
+  if (typeof window === 'undefined') return ''
+  return `${window.location.origin}/auth/${provider}/callback`
+}
 
 function discordUrl() {
   const params = new URLSearchParams({
     client_id: import.meta.env.VITE_DISCORD_CLIENT_ID || '',
-    redirect_uri: import.meta.env.VITE_DISCORD_REDIRECT_URI || 'http://localhost:5173/auth/discord/callback',
+    redirect_uri: redirectUriFor('discord'),
     response_type: 'code',
     scope: 'identify email',
   })
@@ -15,7 +23,7 @@ function discordUrl() {
 function googleUrl() {
   const params = new URLSearchParams({
     client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || '',
-    redirect_uri: import.meta.env.VITE_GOOGLE_REDIRECT_URI || 'http://localhost:5173/auth/google/callback',
+    redirect_uri: redirectUriFor('google'),
     response_type: 'code',
     scope: 'openid email profile',
     access_type: 'offline',

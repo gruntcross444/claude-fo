@@ -62,6 +62,9 @@ def login(body: LoginRequest, db: Session = Depends(get_db)):
 
 @router.post("/discord", response_model=TokenResponse)
 def discord_auth(body: OAuthCodeRequest, db: Session = Depends(get_db)):
+    # Prefer the redirect_uri the frontend used so it matches exactly; fall
+    # back to the env var for backwards compat.
+    redirect_uri = body.redirect_uri or DISCORD_REDIRECT_URI
     with httpx.Client() as client:
         token_resp = client.post(
             "https://discord.com/api/oauth2/token",
@@ -70,7 +73,7 @@ def discord_auth(body: OAuthCodeRequest, db: Session = Depends(get_db)):
                 "client_secret": DISCORD_CLIENT_SECRET,
                 "grant_type": "authorization_code",
                 "code": body.code,
-                "redirect_uri": DISCORD_REDIRECT_URI,
+                "redirect_uri": redirect_uri,
             },
             headers={"Content-Type": "application/x-www-form-urlencoded"},
         )
@@ -101,6 +104,10 @@ def discord_auth(body: OAuthCodeRequest, db: Session = Depends(get_db)):
 
 @router.post("/google", response_model=TokenResponse)
 def google_auth(body: OAuthCodeRequest, db: Session = Depends(get_db)):
+    # Use the exact redirect_uri the frontend sent — it must match the one
+    # Google received in the initial /o/oauth2/v2/auth call, otherwise the
+    # token exchange fails with redirect_uri_mismatch.
+    redirect_uri = body.redirect_uri or GOOGLE_REDIRECT_URI
     with httpx.Client() as client:
         token_resp = client.post(
             "https://oauth2.googleapis.com/token",
@@ -109,7 +116,7 @@ def google_auth(body: OAuthCodeRequest, db: Session = Depends(get_db)):
                 "client_secret": GOOGLE_CLIENT_SECRET,
                 "code": body.code,
                 "grant_type": "authorization_code",
-                "redirect_uri": GOOGLE_REDIRECT_URI,
+                "redirect_uri": redirect_uri,
             },
         )
     if token_resp.status_code != 200:

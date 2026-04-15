@@ -24,7 +24,12 @@ export default function OAuthCallback() {
       return
     }
 
-    api.post(`/auth/${provider}`, { code })
+    // Echo back the exact redirect_uri we used in the initial auth request,
+    // otherwise the OAuth token exchange will be rejected with
+    // redirect_uri_mismatch. Must match SocialAuth.redirectUriFor(provider).
+    const redirect_uri = `${window.location.origin}/auth/${provider}/callback`
+
+    api.post(`/auth/${provider}`, { code, redirect_uri })
       .then((res) => {
         login(res.data.access_token)
         navigate('/portfolio', { replace: true })

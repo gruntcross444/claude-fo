@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
@@ -12,9 +12,13 @@ import DownloadPage from './pages/DownloadPage'
 import BrickellPage from './pages/BrickellPage'
 import RentalApplicationPage from './pages/RentalApplicationPage'
 import ApplicationConfirmationPage from './pages/ApplicationConfirmationPage'
+import NotFoundPage from './pages/NotFoundPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import TermsPage from './pages/TermsPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import ExitIntentPopup from './components/ExitIntentPopup'
 import SpinWheel from './components/SpinWheel'
+import Footer from './components/Footer'
 
 export default function App() {
   return (
@@ -32,11 +36,14 @@ export default function App() {
         <Route path="/brickell" element={<BrickellPage />} />
         <Route path="/apply" element={<RentalApplicationPage />} />
         <Route path="/application-confirmation" element={<ApplicationConfirmationPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/portfolio" element={<PortfolioPage />} />
         </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer />
       <SpinWheel />
       <ExitIntentPopup />
     </>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ArrowRight, ArrowLeft, Loader2, Shield, CheckCircle2 } from 'lucide-react'
 import Navbar from '../components/Navbar'
+import FairHousingNotice from '../components/FairHousingNotice'
 import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 
@@ -290,11 +291,12 @@ export default function RentalApplicationPage() {
             )}
           </div>
         </div>
-      </div>
 
-      <footer style={s.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-      </footer>
+        {/* Fair Housing notice — required on rental applications */}
+        <div style={{ marginTop: '1.5rem' }}>
+          <FairHousingNotice />
+        </div>
+      </div>
     </div>
   )
 }

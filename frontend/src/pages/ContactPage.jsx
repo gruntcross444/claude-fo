@@ -131,10 +131,6 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
-
-      <footer style={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-      </footer>
     </div>
   )
 }
