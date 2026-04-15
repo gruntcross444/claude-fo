@@ -12,10 +12,8 @@ import DownloadPage from './pages/DownloadPage'
 import BrickellPage from './pages/BrickellPage'
 import RentalApplicationPage from './pages/RentalApplicationPage'
 import ApplicationConfirmationPage from './pages/ApplicationConfirmationPage'
-import DealsPage from './pages/DealsPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import ExitIntentPopup from './components/ExitIntentPopup'
-import StickyCTA from './components/StickyCTA'
 import SpinWheel from './components/SpinWheel'
 
 export default function App() {
@@ -34,7 +32,6 @@ export default function App() {
         <Route path="/brickell" element={<BrickellPage />} />
         <Route path="/apply" element={<RentalApplicationPage />} />
         <Route path="/application-confirmation" element={<ApplicationConfirmationPage />} />
-        <Route path="/deals" element={<DealsPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/portfolio" element={<PortfolioPage />} />
         </Route>
@@ -42,7 +39,6 @@ export default function App() {
       </Routes>
       <SpinWheel />
       <ExitIntentPopup />
-      <StickyCTA />
     </>
   )
 }
