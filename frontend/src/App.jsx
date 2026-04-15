@@ -5,6 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import ExitIntentPopup from './components/ExitIntentPopup'
 import SpinWheel from './components/SpinWheel'
 import Footer from './components/Footer'
+import CookieNotice from './components/CookieNotice'
 
 // Landing is eager-loaded (home page, first paint matters).
 // Every other route is code-split so the main bundle stays lean.
@@ -78,6 +79,7 @@ export default function App() {
       <Footer />
       <SpinWheel />
       <ExitIntentPopup />
+      <CookieNotice />
     </>
   )
 }

@@ -264,6 +264,12 @@ export default {
     lostBtn: 'Registrarme',
   },
 
+  // Cookies
+  cookies: {
+    body: 'Solo usamos cookies esenciales — un token de sesion y preferencias de banner. Sin seguimiento entre sitios.',
+    link: 'Lee nuestra politica de privacidad',
+  },
+
   // Footer
   footer: {
     rights: 'Todos los derechos reservados',

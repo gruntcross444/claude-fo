@@ -264,6 +264,12 @@ export default {
     lostBtn: 'Sign Up Anyway',
   },
 
+  // Cookies
+  cookies: {
+    body: 'We use essential cookies only — a session token and banner preferences. No cross-site tracking.',
+    link: 'Read our privacy policy',
+  },
+
   // Footer
   footer: {
     rights: 'All rights reserved',
