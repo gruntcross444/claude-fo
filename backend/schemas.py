@@ -39,6 +39,11 @@ class LoginRequest(BaseModel):
 
 class OAuthCodeRequest(BaseModel):
     code: str
+    # Redirect URI used by the frontend when initiating the auth flow.
+    # Must be echoed back to the provider on code exchange or Google/Discord
+    # will reject with 401. Making it part of the request eliminates the
+    # frontend/backend env-var drift bug.
+    redirect_uri: str | None = None
 
 
 

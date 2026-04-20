@@ -1,14 +1,25 @@
-from fastapi import APIRouter, HTTPException, Depends
-from sqlalchemy import func
-from sqlalchemy.orm import Session
-from datetime import datetime
-from pydantic import BaseModel
-from database import SessionLocal
-import anthropic
 import os
 import json
+from datetime import datetime
+
+from fastapi import APIRouter, HTTPException, Depends, Header
+from sqlalchemy import func
+from sqlalchemy.orm import Session
+from pydantic import BaseModel
+import anthropic
+
+from dependencies import get_db
 
 router = APIRouter(prefix="/api/deals", tags=["deals"])
+
+ADMIN_SECRET = os.getenv("ADMIN_SECRET", "")
+
+
+def require_admin(x_admin_token: str = Header("", alias="X-Admin-Token")):
+    """Internal-only guard. Matches the X-Admin-Token pattern used in routers/admin.py."""
+    if not ADMIN_SECRET or x_admin_token != ADMIN_SECRET:
+        raise HTTPException(status_code=403, detail="Forbidden")
+
 
 class DealCreate(BaseModel):
     buyer_name: str
@@ -19,13 +30,6 @@ class DealCreate(BaseModel):
     source: str
     stage: str = "prospectando"
     notes: str = ""
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 SYSTEM_PROMPT = """You are Claude.FO Agent, an expert real estate sales analyst for Doral Service Realty. 
 Your role is to analyze pipeline data and provide actionable recommendations to improve close rates and revenue.
@@ -42,9 +46,9 @@ P2: [Action] — [Detail] = $[Revenue Impact]
 
 Always quantify impact. Never be generic."""
 
-@router.post("")
+@router.post("", dependencies=[Depends(require_admin)])
 async def create_deal(deal: DealCreate, db: Session = Depends(get_db)):
-    """Crear nuevo deal Doral"""
+    """Create a new Doral deal. Internal-only."""
     from models import Deal
     new_deal = Deal(**deal.dict())
     db.add(new_deal)
@@ -52,9 +56,9 @@ async def create_deal(deal: DealCreate, db: Session = Depends(get_db)):
     db.refresh(new_deal)
     return {"id": new_deal.id, "status": "created"}
 
-@router.get("/metrics")
+@router.get("/metrics", dependencies=[Depends(require_admin)])
 async def get_pipeline_metrics(db: Session = Depends(get_db)):
-    """Métricas pipeline en vivo"""
+    """Live pipeline metrics. Internal-only."""
     from models import Deal
     from database import ensure_db_connection
     
@@ -113,9 +117,9 @@ async def get_pipeline_metrics(db: Session = Depends(get_db)):
             "error": str(e)
         }
 
-@router.post("/analyze")
+@router.post("/analyze", dependencies=[Depends(require_admin)])
 async def run_pipeline_audit(db: Session = Depends(get_db)):
-    """Audit con Claude API — recomendaciones inteligentes"""
+    """Claude-powered pipeline audit. Internal-only."""
     from models import Deal
     
     deals = db.query(Deal).all()
@@ -159,20 +163,36 @@ async def run_pipeline_audit(db: Session = Depends(get_db)):
             "revenue": round(stats["revenue"], 0)
         }
     
-    # Llamar a Claude API para análisis inteligente (opcional)
+    # Call Claude API for intelligent recommendations (optional)
     ai_recommendations = None
     api_key = os.getenv("ANTHROPIC_API_KEY")
-    
+
     if api_key:
         try:
+            stage_counts = {}
+            for d in data:
+                stage_counts[d["etapa"]] = stage_counts.get(d["etapa"], 0) + 1
+
+            prompt = (
+                "Pipeline snapshot for Doral Service Realty:\n\n"
+                f"- Total deals: {total}\n"
+                f"- Conversions: {conversiones}\n"
+                f"- Close rate: {round(close_rate, 1)}%\n"
+                f"- Revenue (closed): ${round(revenue, 0):,.0f}\n"
+                f"- Deals by stage: {json.dumps(stage_counts)}\n"
+                f"- Deals by source: {json.dumps(source_analysis)}\n\n"
+                "Return the top 3 prioritized recommendations in this exact format:\n"
+                "P1: [Action] — [Detail] = $[Revenue Impact]\n"
+                "P2: [Action] — [Detail] = $[Revenue Impact]\n"
+                "P3: [Action] — [Detail] = $[Revenue Impact]\n"
+            )
+
             client = anthropic.Anthropic(api_key=api_key)
             message = client.messages.create(
-                model="claude-opus-4-20250805",
+                model="claude-sonnet-4-6",
                 max_tokens=1024,
                 system=SYSTEM_PROMPT,
-                messages=[
-                    {"role": "user", "content": prompt}
-                ]
+                messages=[{"role": "user", "content": prompt}],
             )
             ai_recommendations = message.content[0].text
         except Exception as e:
@@ -209,9 +229,9 @@ async def run_pipeline_audit(db: Session = Depends(get_db)):
         "timestamp": datetime.now().isoformat()
     }
 
-@router.put("/{deal_id}")
+@router.put("/{deal_id}", dependencies=[Depends(require_admin)])
 async def update_deal_stage(deal_id: int, new_stage: str, db: Session = Depends(get_db)):
-    """Actualizar etapa + audit trail"""
+    """Update deal stage. Internal-only."""
     from models import Deal
     
     deal = db.query(Deal).filter(Deal.id == deal_id).first()

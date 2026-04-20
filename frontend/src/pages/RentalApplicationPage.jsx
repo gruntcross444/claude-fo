@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { ArrowRight, ArrowLeft, Loader2, Shield, CheckCircle2 } from 'lucide-react'
 import Navbar from '../components/Navbar'
+import FairHousingNotice from '../components/FairHousingNotice'
 import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 
@@ -290,11 +291,12 @@ export default function RentalApplicationPage() {
             )}
           </div>
         </div>
-      </div>
 
-      <footer style={s.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-      </footer>
+        {/* Fair Housing notice — required on rental applications */}
+        <div style={{ marginTop: '1.5rem' }}>
+          <FairHousingNotice />
+        </div>
+      </div>
     </div>
   )
 }
@@ -406,6 +408,4 @@ const s = {
   backBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.75rem 1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: '#aaa', fontSize: '0.9rem', cursor: 'pointer', transition: 'all 0.2s' },
   nextBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.75rem 2rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer', boxShadow: '0 4px 15px rgba(99,102,241,0.25)', transition: 'all 0.3s' },
   payBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.85rem 2.5rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #c8a76b, #a88a4e)', color: '#fff', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer', boxShadow: '0 4px 20px rgba(200,167,107,0.3)', transition: 'all 0.3s' },
-
-  footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }

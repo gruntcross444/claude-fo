@@ -29,7 +29,68 @@
     <!-- Extra SEO -->
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0a0b0f" />
-    <meta name="author" content="Claude.FO" />
+    <meta name="author" content="Elias Karam" />
+
+    <!-- PWA / iOS -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- JSON-LD: Person + LocalBusiness (Florida real estate agent) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://claudefo.com/#elias",
+          "name": "Elias Karam",
+          "url": "https://claudefo.com",
+          "jobTitle": "Real Estate Agent & AI Automation Consultant",
+          "email": "elias@claudefo.com",
+          "sameAs": [
+            "https://instagram.com/eliaskaramrealtor"
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Miami",
+            "addressRegion": "FL",
+            "addressCountry": "US"
+          }
+        },
+        {
+          "@type": "RealEstateAgent",
+          "@id": "https://claudefo.com/#agent",
+          "name": "Elias Karam — Miami Real Estate",
+          "url": "https://claudefo.com/brickell",
+          "image": "https://claudefo.com/og-image.png",
+          "telephone": "+1-305-000-0000",
+          "priceRange": "$$",
+          "areaServed": [
+            { "@type": "City", "name": "Miami" },
+            { "@type": "AdministrativeArea", "name": "Miami-Dade County" },
+            { "@type": "Neighborhood", "name": "Brickell" },
+            { "@type": "Neighborhood", "name": "Downtown Miami" },
+            { "@type": "City", "name": "Doral" }
+          ],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Miami",
+            "addressRegion": "FL",
+            "addressCountry": "US"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://claudefo.com/#website",
+          "url": "https://claudefo.com",
+          "name": "Claude.FO",
+          "description": "Premium real estate, AI automation and digital products.",
+          "inLanguage": ["en", "es"],
+          "publisher": { "@id": "https://claudefo.com/#elias" }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

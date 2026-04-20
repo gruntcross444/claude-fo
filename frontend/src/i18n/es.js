@@ -68,7 +68,7 @@ export default {
     fast: { title: 'Lanzamos en Semanas, No en Meses', desc: 'La mayoria de los proyectos salen en 4 a 8 semanas. Flujos probados, cero retrasos y sin idas y venidas interminables.' },
     secure: { title: 'Construido para Generar Ingresos', desc: 'Cada decision se toma pensando en tu negocio. Optimizamos para conversion, retencion y crecimiento — no solo estetica.' },
     clean: { title: 'Estandar de Calidad Premium', desc: 'Lighthouse 95+, carga en menos de 2 segundos, arquitectura limpia. Tu producto refleja tu marca — tiene que ser impecable.' },
-    comms: { title: 'Verdadera Alianza', desc: 'Actualizaciones transparentes, comunicacion directa y 3 meses de soporte post-lanzamiento incluidos. Tu exito es nuestro exito.' },
+    comms: { title: 'Verdadera Alianza', desc: 'Actualizaciones transparentes, linea directa con Elias, y soporte post-lanzamiento incluido en cada proyecto. Tu exito es nuestro exito.' },
   },
 
   // Portfolio teaser
@@ -94,7 +94,7 @@ export default {
     sub: 'Sin burocracia de agencia. Sin idas y venidas eternas. Solo resultados.',
     step1: { num: '01', title: 'Brief y Estrategia', desc: 'Cuentanos tu objetivo. Auditamos tu situacion actual, identificamos los gaps y trazamos un plan claro. Sin relleno, sin ventas de mas.' },
     step2: { num: '02', title: 'Construccion y Entrega', desc: 'Ejecutamos rapido. La mayoria de proyectos se lanzan en 4 a 8 semanas con check-ins regulares y previsualizaciones en vivo. Tu tienes el control.' },
-    step3: { num: '03', title: 'Lanzamiento y Crecimiento', desc: 'Sal en vivo con confianza. 3 meses de soporte gratuito, monitoreo y optimizacion incluidos. No terminamos hasta que estes ganando.' },
+    step3: { num: '03', title: 'Lanzamiento y Crecimiento', desc: 'Sal en vivo con confianza. Soporte post-lanzamiento, monitoreo de rendimiento y optimizacion incluidos en cada proyecto. No terminamos hasta que estes ganando.' },
   },
 
   // FAQ
@@ -104,7 +104,7 @@ export default {
     items: [
       { q: 'Cuanto tiempo tarda un proyecto?', a: 'La mayoria de sitios web y embudos salen en 4 a 8 semanas. Proyectos complejos pueden tomar 10 a 12 semanas. Recibes un cronograma claro desde el inicio.' },
       { q: 'Que necesito para empezar?', a: 'Solo una conversacion. Nosotros manejamos estrategia, diseno, desarrollo y lanzamiento. Tu das la direccion y el feedback. Nosotros nos encargamos del resto.' },
-      { q: 'Ofrecen soporte despues del lanzamiento?', a: 'Si. Cada proyecto incluye 3 meses de soporte gratuito post-lanzamiento. Despues, hay planes de mantenimiento disponibles.' },
+      { q: 'Ofrecen soporte despues del lanzamiento?', a: 'Si. El soporte post-lanzamiento se define al inicio de cada proyecto — la ventana exacta se acuerda por adelantado sin sorpresas. Despues hay planes de mantenimiento flexibles disponibles.' },
       { q: 'Y si solo necesito algo pequeno?', a: 'Revisa nuestra Tienda — plantillas, paquetes de prompts y herramientas desde $14. Sin necesidad de contratar una agencia.' },
       { q: 'Trabajan en espanol?', a: 'Por supuesto. Nuestro equipo es completamente bilingue. Todos los entregables disponibles en ingles y espanol.' },
     ],
@@ -264,9 +264,23 @@ export default {
     lostBtn: 'Registrarme',
   },
 
+  // Cookies
+  cookies: {
+    body: 'Solo usamos cookies esenciales — un token de sesion y preferencias de banner. Sin seguimiento entre sitios.',
+    link: 'Lee nuestra politica de privacidad',
+  },
+
   // Footer
   footer: {
     rights: 'Todos los derechos reservados',
+    tagline: 'Bienes raíces premium, automatización con IA y productos digitales.',
+    explore: 'Explorar',
+    legal: 'Legal',
+    connect: 'Conectar',
+    privacy: 'Política de Privacidad',
+    terms: 'Términos de Servicio',
+    fairHousing: 'Igualdad de Oportunidad de Vivienda — cumplimos con Fair Housing.',
+    license: 'Elias Karam — agente de bienes raíces licenciado en Florida.',
   },
 
   // Download

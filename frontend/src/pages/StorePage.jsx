@@ -156,8 +156,6 @@ export default function StorePage() {
           </button>
         </div>
       </div>
-
-      <footer style={s.footer}><p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p></footer>
     </div>
   )
 }
@@ -205,5 +203,4 @@ const s = {
   ctaHeading: { fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.5rem' },
   ctaSub: { color: '#777', marginBottom: '2rem', fontSize: '1rem', maxWidth: '500px', margin: '0 auto 2rem' },
   ctaBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.9rem 2.5rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #c8a76b, #a88a4e)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 4px 20px rgba(200,167,107,0.3)' },
-  footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }

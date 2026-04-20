@@ -72,10 +72,6 @@ export default function ApplicationConfirmationPage() {
           {t('application.confirmBack')} <ArrowRight size={14} />
         </a>
       </div>
-
-      <footer style={s.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-      </footer>
     </div>
   )
 }
@@ -92,5 +88,4 @@ const s = {
   nextStepsTitle: { color: '#6ee7b7', fontSize: '1rem', lineHeight: 1.7, margin: 0 },
   backBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.85rem 2.2rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #c8a76b, #a88a4e)', color: '#fff', fontWeight: 700, fontSize: '0.95rem', textDecoration: 'none', boxShadow: '0 4px 20px rgba(200,167,107,0.3)', transition: 'all 0.3s', position: 'relative' },
   backLink: { display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#a5b4fc', textDecoration: 'none', fontSize: '0.95rem' },
-  footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }

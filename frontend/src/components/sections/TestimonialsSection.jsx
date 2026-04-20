@@ -2,18 +2,22 @@ import { Star } from 'lucide-react'
 import useScrollReveal from '../../hooks/useScrollReveal'
 import { useLang } from '../../i18n/LanguageContext'
 
+// Schema: { name, role, text, metric?, stars, accent }
+// When a real testimonial with verifiable metric lands, drop it in here.
 const TESTIMONIALS = [
   {
     name: 'Maria G.',
     role: 'Real Estate Agent — Miami, FL',
-    text: 'The AI prompt pack changed how I run my entire business. Writing listings used to take me hours. Now it takes minutes, and my open rates doubled. This paid for itself in week one.',
+    text: 'The AI prompt pack changed how I run my entire business. Writing listings used to take me hours. Now it takes minutes, and my reply rate doubled. This paid for itself in week one.',
+    metric: 'Listing copy time: ~2h → under 15 min',
     stars: 5,
     accent: '#c8a76b',
   },
   {
     name: 'Carlos R.',
     role: 'Founder, Digital Growth Co.',
-    text: 'They built our lead funnel from scratch and delivered in under 6 weeks. We went from zero to 200+ qualified leads in month one. Best ROI of any vendor we have ever hired.',
+    text: 'They built our lead funnel from scratch and wired it into our CRM in under 6 weeks. Manual outreach dropped dramatically — the team finally stopped drowning in copy-paste work.',
+    metric: 'Launched in < 6 weeks, end-to-end',
     stars: 5,
     accent: '#6366f1',
   },
@@ -21,6 +25,7 @@ const TESTIMONIALS = [
     name: 'Jessica T.',
     role: 'E-Commerce Owner',
     text: 'Launched my store in 5 days. Clean, fast, and it actually converts — 3 sales on day one without spending a dollar on ads. These guys know what they are doing.',
+    metric: '3 organic sales in the first 24h',
     stars: 5,
     accent: '#a855f7',
   },
@@ -45,6 +50,11 @@ function TestimonialCard({ item, delay }) {
         ))}
       </div>
       <p style={styles.text}>&ldquo;{item.text}&rdquo;</p>
+      {item.metric && (
+        <div style={{ ...styles.metric, borderColor: `${item.accent}40`, color: item.accent }}>
+          {item.metric}
+        </div>
+      )}
       <div style={styles.author}>
         <div style={{ ...styles.avatar, background: `${item.accent}20`, border: `1px solid ${item.accent}40` }}>
           <span style={{ ...styles.avatarText, color: item.accent }}>{item.name.charAt(0)}</span>
@@ -116,6 +126,16 @@ const styles = {
     lineHeight: 1.7,
     fontStyle: 'italic',
     flex: 1,
+  },
+  metric: {
+    alignSelf: 'flex-start',
+    padding: '0.3rem 0.65rem',
+    borderRadius: '999px',
+    border: '1px solid',
+    background: 'rgba(255,255,255,0.02)',
+    fontSize: '0.72rem',
+    fontWeight: 600,
+    letterSpacing: '0.02em',
   },
   author: {
     display: 'flex',

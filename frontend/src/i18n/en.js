@@ -68,7 +68,7 @@ export default {
     fast: { title: 'Ship in Weeks, Not Months', desc: 'Most projects go live in 4–8 weeks. Proven workflows, battle-tested templates, and zero back-and-forth delays.' },
     secure: { title: 'Built for Revenue', desc: 'Every decision is made with your bottom line in mind. We optimize for conversion, retention, and growth — not just aesthetics.' },
     clean: { title: 'Premium Quality Standard', desc: 'Lighthouse 95+, sub-2s load times, clean architecture. Your product reflects your brand — so it has to be flawless.' },
-    comms: { title: 'True Partnership', desc: 'Transparent updates, dedicated communication, and 3 months post-launch support included. We are invested in your success.' },
+    comms: { title: 'True Partnership', desc: 'Transparent updates, a direct line to Elias, and post-launch support scoped into every engagement. We are invested in your success.' },
   },
 
   // Portfolio teaser
@@ -94,7 +94,7 @@ export default {
     sub: 'No agency bloat. No endless back-and-forth. Just results.',
     step1: { num: '01', title: 'Brief & Strategy', desc: 'Tell us your goal. We audit your current setup, identify the gaps, and map a clear execution plan. No fluff, no upsell — just honest direction.' },
     step2: { num: '02', title: 'Build & Deliver', desc: 'We execute fast. Most projects ship in 4–8 weeks with regular check-ins and live previews. You stay in control the entire time.' },
-    step3: { num: '03', title: 'Launch & Grow', desc: 'Go live with confidence. 3 months of free support, performance monitoring, and optimization included. We are not done until you are winning.' },
+    step3: { num: '03', title: 'Launch & Grow', desc: 'Go live with confidence. Post-launch support, performance monitoring, and optimization are scoped into every engagement. We are not done until you are winning.' },
   },
 
   // FAQ
@@ -104,7 +104,7 @@ export default {
     items: [
       { q: 'How long does a project take?', a: 'Most websites and funnels go live in 4–8 weeks. Complex builds may take 10–12 weeks. You get a clear timeline before we start — no surprises.' },
       { q: 'What do I need to get started?', a: 'Just a conversation. We handle strategy, design, development, and launch. You provide direction and feedback. We handle the rest.' },
-      { q: 'Do you offer ongoing support?', a: 'Yes. Every project includes 3 months of free post-launch support. After that, flexible retainer plans are available.' },
+      { q: 'Do you offer ongoing support?', a: 'Yes. Post-launch support is scoped into every engagement — the exact window is agreed upfront so there are no surprises. Flexible retainer plans are available after that.' },
       { q: 'What if I only need something small?', a: 'Check our Store — templates, prompt packs, and tools start at $14. No agency engagement needed for smaller needs.' },
       { q: 'Do you work in Spanish?', a: 'Absolutely. Our team is fully bilingual. All deliverables are available in English and Spanish.' },
     ],
@@ -264,9 +264,23 @@ export default {
     lostBtn: 'Sign Up Anyway',
   },
 
+  // Cookies
+  cookies: {
+    body: 'We use essential cookies only — a session token and banner preferences. No cross-site tracking.',
+    link: 'Read our privacy policy',
+  },
+
   // Footer
   footer: {
     rights: 'All rights reserved',
+    tagline: 'Premium real estate, AI automation & digital products.',
+    explore: 'Explore',
+    legal: 'Legal',
+    connect: 'Connect',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Service',
+    fairHousing: 'Equal Housing Opportunity — Fair Housing compliant.',
+    license: 'Elias Karam — licensed Florida real estate agent.',
   },
 
   // Download

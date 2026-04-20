@@ -403,10 +403,6 @@ export default function PortfolioPage() {
 
       </div>
 
-      <footer style={s.footer}>
-        <p>&copy; {new Date().getFullYear()} Claude.FO — {t('footer.rights')}</p>
-      </footer>
-
       <style>{`
         @keyframes pulse-avail {
           0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
@@ -493,5 +489,4 @@ const s = {
   bottomCtaGhost: { padding: '0.9rem 2rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: '#aaa', fontSize: '0.95rem', cursor: 'pointer' },
 
   empty: { textAlign: 'center', color: '#555', padding: '3rem', fontSize: '1rem' },
-  footer: { textAlign: 'center', padding: '2rem', color: '#444', fontSize: '0.85rem', borderTop: '1px solid rgba(255,255,255,0.06)' },
 }
