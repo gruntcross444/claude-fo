@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import { useAuth } from '../context/AuthContext'
-import useScrollReveal from '../hooks/useScrollReveal'
 import { useLang } from '../i18n/LanguageContext'
 
 const CATEGORIES = ['All', 'Slash Commands', 'AI Agents', 'Hooks & Automation', 'Code Review', 'Marketing', 'Business', 'Content Creation']
@@ -126,7 +125,6 @@ export default function PromptsPage() {
   const [search, setSearch] = useState('')
   const { isAuthenticated } = useAuth()
   const navigate = useNavigate()
-  const [ref, visible] = useScrollReveal(0.05)
   const { t } = useLang()
 
   const filtered = PROMPTS
@@ -175,15 +173,7 @@ export default function PromptsPage() {
           ))}
         </div>
 
-        <div
-          ref={ref}
-          style={{
-            ...styles.grid,
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'all 0.6s ease',
-          }}
-        >
+        <div style={styles.grid}>
           {filtered.map((p) => (
             <PromptCard
               key={p.id}

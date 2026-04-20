@@ -1,46 +1,43 @@
 import { useState, useEffect, useRef } from 'react'
 
-export default function useCounter(end, duration = 2000, startOnVisible = true) {
+export default function useCounter(end, duration = 2000) {
   const [count, setCount] = useState(0)
-  const [started, setStarted] = useState(!startOnVisible)
   const ref = useRef(null)
 
   useEffect(() => {
-    if (!startOnVisible) return
     const el = ref.current
     if (!el) return
 
+    let rafId = null
+    let triggered = false // closure guard — avoids resetting if IO fires twice
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setStarted(true)
-          observer.unobserve(el)
+        // threshold:0 fires on first pixel; Reveal's translateY previously
+        // pushed items below the fold before the 0.3 threshold was ever met
+        if (!entry.isIntersecting || triggered) return
+        triggered = true
+        observer.disconnect()
+
+        const startTime = performance.now()
+        const tick = (now) => {
+          const elapsed = now - startTime
+          const progress = Math.min(elapsed / duration, 1)
+          const eased = 1 - Math.pow(1 - progress, 3) // ease-out cubic
+          setCount(Math.round(eased * end))
+          if (progress < 1) rafId = requestAnimationFrame(tick)
         }
+        rafId = requestAnimationFrame(tick)
       },
-      { threshold: 0.3 }
+      { threshold: 0 }
     )
 
     observer.observe(el)
-    return () => observer.disconnect()
-  }, [startOnVisible])
-
-  useEffect(() => {
-    if (!started) return
-
-    let start = 0
-    const increment = end / (duration / 16)
-    const timer = setInterval(() => {
-      start += increment
-      if (start >= end) {
-        setCount(end)
-        clearInterval(timer)
-      } else {
-        setCount(Math.floor(start))
-      }
-    }, 16)
-
-    return () => clearInterval(timer)
-  }, [started, end, duration])
+    return () => {
+      observer.disconnect()
+      if (rafId) cancelAnimationFrame(rafId)
+    }
+  }, [end, duration])
 
   return [ref, count]
 }
