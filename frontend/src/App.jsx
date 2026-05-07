@@ -24,6 +24,8 @@ const ApplicationConfirmationPage = lazy(() => import('./pages/ApplicationConfir
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
 const TermsPage = lazy(() => import('./pages/TermsPage'))
+const ServicesPage = lazy(() => import('./pages/ServicesPage'))
+const PricingPage = lazy(() => import('./pages/PricingPage'))
 
 function RouteFallback() {
   return (
@@ -57,6 +59,8 @@ export default function App() {
       <Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/store" element={<StorePage />} />

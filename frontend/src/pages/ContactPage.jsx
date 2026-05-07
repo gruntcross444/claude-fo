@@ -4,22 +4,85 @@ import Navbar from '../components/Navbar'
 import { useLang } from '../i18n/LanguageContext'
 import api from '../api'
 
+const initialForm = {
+  name: '',
+  email: '',
+  business: '',
+  industry: '',
+  web: '',
+  automate: '',
+  tools: '',
+  timeline: '',
+  budget: '',
+  language: '',
+  notes: '',
+}
+
 export default function ContactPage() {
-  const { t } = useLang()
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const { t, lang } = useLang()
+  const [form, setForm] = useState(initialForm)
   const [status, setStatus] = useState(null) // 'sending' | 'sent' | 'error'
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  function buildMessage() {
+    const labels = lang === 'es'
+      ? {
+          business: 'Negocio',
+          industry: 'Industria',
+          web: 'Web / Social',
+          automate: 'Que quiere automatizar',
+          tools: 'Herramientas actuales',
+          timeline: 'Plazo',
+          budget: 'Presupuesto',
+          language: 'Idioma preferido',
+          notes: 'Notas',
+        }
+      : {
+          business: 'Business',
+          industry: 'Industry',
+          web: 'Web / Social',
+          automate: 'What to automate',
+          tools: 'Current tools',
+          timeline: 'Timeline',
+          budget: 'Budget',
+          language: 'Preferred language',
+          notes: 'Notes',
+        }
+
+    const lines = [
+      `${labels.business}: ${form.business || '—'}`,
+      `${labels.industry}: ${form.industry || '—'}`,
+      `${labels.web}: ${form.web || '—'}`,
+      `${labels.timeline}: ${form.timeline || '—'}`,
+      `${labels.budget}: ${form.budget || '—'}`,
+      `${labels.language}: ${form.language || '—'}`,
+      '',
+      `${labels.automate}:`,
+      form.automate || '—',
+      '',
+      `${labels.tools}:`,
+      form.tools || '—',
+    ]
+    if (form.notes.trim()) {
+      lines.push('', `${labels.notes}:`, form.notes)
+    }
+    return lines.join('\n')
+  }
+
   async function handleSubmit(e) {
     e.preventDefault()
     setStatus('sending')
     try {
-      await api.post('/contact', form)
+      await api.post('/contact', {
+        name: form.name,
+        email: form.email,
+        message: buildMessage(),
+      })
       setStatus('sent')
-      setForm({ name: '', email: '', message: '' })
+      setForm(initialForm)
     } catch {
       setStatus('error')
     }
@@ -40,7 +103,7 @@ export default function ContactPage() {
           {/* ── Quick Contact Cards ─────────────────────── */}
           <div style={styles.sidebar}>
             <a
-              href="https://wa.me/13057999003?text=Hi%2C%20I'm%20interested%20in%20your%20services"
+              href="https://wa.me/13057999003?text=Hi%2C%20I'm%20interested%20in%20automating%20my%20business"
               target="_blank"
               rel="noopener noreferrer"
               style={styles.contactCard}
@@ -100,9 +163,10 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* ── Contact Form ───────────────────────────── */}
+          {/* ── Application Form ───────────────────────── */}
           <div style={styles.formCard}>
             <h2 style={styles.formTitle}>{t('contact.formTitle')}</h2>
+            <p style={styles.formSub}>{t('contact.formSub')}</p>
 
             {status === 'sent' && (
               <div style={styles.success}>{t('contact.sent')}</div>
@@ -112,18 +176,83 @@ export default function ContactPage() {
             )}
 
             <form onSubmit={handleSubmit} style={styles.form}>
+              <div style={styles.row}>
+                <label style={styles.label}>
+                  {t('contact.name')}
+                  <input name="name" type="text" value={form.name} onChange={handleChange} required maxLength={100} style={styles.input} placeholder={t('contact.namePlaceholder')} />
+                </label>
+                <label style={styles.label}>
+                  {t('contact.email')}
+                  <input name="email" type="email" value={form.email} onChange={handleChange} required style={styles.input} placeholder={t('contact.emailPlaceholder')} />
+                </label>
+              </div>
+
+              <div style={styles.row}>
+                <label style={styles.label}>
+                  {t('contact.business')}
+                  <input name="business" type="text" value={form.business} onChange={handleChange} required maxLength={150} style={styles.input} placeholder={t('contact.businessPlaceholder')} />
+                </label>
+                <label style={styles.label}>
+                  {t('contact.industry')}
+                  <input name="industry" type="text" value={form.industry} onChange={handleChange} required maxLength={150} style={styles.input} placeholder={t('contact.industryPlaceholder')} />
+                </label>
+              </div>
+
               <label style={styles.label}>
-                {t('contact.name')}
-                <input name="name" type="text" value={form.name} onChange={handleChange} required maxLength={100} style={styles.input} placeholder={t('contact.namePlaceholder')} />
+                {t('contact.web')}
+                <input name="web" type="text" value={form.web} onChange={handleChange} maxLength={250} style={styles.input} placeholder={t('contact.webPlaceholder')} />
               </label>
+
               <label style={styles.label}>
-                {t('contact.email')}
-                <input name="email" type="email" value={form.email} onChange={handleChange} required style={styles.input} placeholder={t('contact.emailPlaceholder')} />
+                {t('contact.automate')}
+                <textarea name="automate" value={form.automate} onChange={handleChange} required maxLength={2000} style={{ ...styles.input, minHeight: '110px', resize: 'vertical' }} placeholder={t('contact.automatePlaceholder')} />
               </label>
+
               <label style={styles.label}>
-                {t('contact.message')}
-                <textarea name="message" value={form.message} onChange={handleChange} required maxLength={5000} style={{ ...styles.input, minHeight: '140px', resize: 'vertical' }} placeholder={t('contact.messagePlaceholder')} />
+                {t('contact.tools')}
+                <input name="tools" type="text" value={form.tools} onChange={handleChange} maxLength={400} style={styles.input} placeholder={t('contact.toolsPlaceholder')} />
+                <span style={styles.helper}>{t('contact.toolsHelp')}</span>
               </label>
+
+              <div style={styles.row}>
+                <label style={styles.label}>
+                  {t('contact.timeline')}
+                  <select name="timeline" value={form.timeline} onChange={handleChange} required style={styles.input}>
+                    <option value="">{t('contact.timelineOptions.select')}</option>
+                    <option value="asap">{t('contact.timelineOptions.asap')}</option>
+                    <option value="month">{t('contact.timelineOptions.month')}</option>
+                    <option value="quarter">{t('contact.timelineOptions.quarter')}</option>
+                    <option value="flex">{t('contact.timelineOptions.flex')}</option>
+                  </select>
+                </label>
+                <label style={styles.label}>
+                  {t('contact.budget')}
+                  <select name="budget" value={form.budget} onChange={handleChange} required style={styles.input}>
+                    <option value="">{t('contact.budgetOptions.select')}</option>
+                    <option value="audit">{t('contact.budgetOptions.audit')}</option>
+                    <option value="sprint">{t('contact.budgetOptions.sprint')}</option>
+                    <option value="system">{t('contact.budgetOptions.system')}</option>
+                    <option value="enterprise">{t('contact.budgetOptions.enterprise')}</option>
+                    <option value="unsure">{t('contact.budgetOptions.unsure')}</option>
+                  </select>
+                </label>
+              </div>
+
+              <label style={styles.label}>
+                {t('contact.language')}
+                <select name="language" value={form.language} onChange={handleChange} required style={styles.input}>
+                  <option value="">{t('contact.languageOptions.select')}</option>
+                  <option value="en">{t('contact.languageOptions.en')}</option>
+                  <option value="es">{t('contact.languageOptions.es')}</option>
+                  <option value="both">{t('contact.languageOptions.both')}</option>
+                </select>
+              </label>
+
+              <label style={styles.label}>
+                {t('contact.notes')}
+                <textarea name="notes" value={form.notes} onChange={handleChange} maxLength={2000} style={{ ...styles.input, minHeight: '90px', resize: 'vertical' }} placeholder={t('contact.notesPlaceholder')} />
+              </label>
+
               <button type="submit" disabled={status === 'sending'} style={styles.submitBtn}>
                 {status === 'sending' ? <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite', display: 'inline-block', verticalAlign: 'middle', marginRight: '0.4rem' }} />{t('contact.sending')}</> : t('contact.send')}
               </button>
@@ -142,9 +271,9 @@ const styles = {
   headerGlow: { position: 'absolute', top: '-100px', left: '50%', transform: 'translateX(-50%)', width: '500px', height: '300px', background: 'radial-gradient(ellipse, rgba(99,102,241,0.1) 0%, transparent 70%)', pointerEvents: 'none' },
   eyebrow: { display: 'inline-block', padding: '0.3rem 0.9rem', borderRadius: '999px', border: '1px solid rgba(200,167,107,0.3)', background: 'rgba(200,167,107,0.08)', color: '#c8a76b', fontSize: '0.82rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 },
   heading: { fontSize: 'clamp(1.8rem, 5vw, 2.4rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
-  sub: { color: '#888', fontSize: '1rem', margin: 0 },
-  grid: { display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '2rem', alignItems: 'start' },
-  sidebar: { display: 'flex', flexDirection: 'column', gap: '1rem' },
+  sub: { color: '#888', fontSize: '1rem', margin: 0, maxWidth: '640px', marginLeft: 'auto', marginRight: 'auto' },
+  grid: { display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '2rem', alignItems: 'start' },
+  sidebar: { display: 'flex', flexDirection: 'column', gap: '1rem', position: 'sticky', top: '1.5rem' },
   contactCard: { display: 'flex', alignItems: 'center', gap: '1rem', padding: '1.2rem', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', backdropFilter: 'blur(4px)', textDecoration: 'none', color: 'inherit', transition: 'all 0.3s ease' },
   iconWrap: { width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid', flexShrink: 0 },
   cardTitle: { display: 'block', fontSize: '0.95rem', marginBottom: '0.15rem' },
@@ -155,11 +284,14 @@ const styles = {
   socialLinks: { display: 'flex', gap: '0.6rem' },
   socialBtn: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.03)', color: '#aaa', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500, transition: 'border-color 0.2s, color 0.2s' },
   formCard: { padding: '2rem', borderRadius: '20px', border: '1px solid rgba(99,102,241,0.15)', background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(8px)' },
-  formTitle: { fontSize: '1.2rem', fontWeight: 700, margin: '0 0 1.5rem' },
-  success: { padding: '0.8rem 1rem', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', fontSize: '0.9rem', marginBottom: '1rem' },
-  errorMsg: { padding: '0.8rem 1rem', borderRadius: '10px', background: 'rgba(248,113,113,0.1)', color: '#f87171', fontSize: '0.9rem', marginBottom: '1rem' },
+  formTitle: { fontSize: '1.2rem', fontWeight: 700, margin: '0 0 0.4rem' },
+  formSub: { fontSize: '0.88rem', color: '#888', margin: '0 0 1.5rem' },
+  success: { padding: '0.9rem 1rem', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', fontSize: '0.92rem', marginBottom: '1rem', border: '1px solid rgba(16,185,129,0.25)' },
+  errorMsg: { padding: '0.9rem 1rem', borderRadius: '10px', background: 'rgba(248,113,113,0.1)', color: '#f87171', fontSize: '0.92rem', marginBottom: '1rem', border: '1px solid rgba(248,113,113,0.25)' },
   form: { display: 'flex', flexDirection: 'column', gap: '1rem' },
+  row: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' },
   label: { display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.9rem', color: '#ccc' },
   input: { padding: '0.65rem 0.9rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.05)', color: 'inherit', fontSize: '0.95rem', outline: 'none', fontFamily: 'inherit' },
-  submitBtn: { padding: '0.85rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', marginTop: '0.5rem', boxShadow: '0 4px 15px rgba(99,102,241,0.25)', transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+  helper: { fontSize: '0.78rem', color: '#777' },
+  submitBtn: { padding: '0.95rem', borderRadius: '12px', border: 'none', background: 'linear-gradient(135deg, #6366f1, #a855f7)', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer', marginTop: '0.5rem', boxShadow: '0 4px 15px rgba(99,102,241,0.25)', transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center' },
 }

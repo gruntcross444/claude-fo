@@ -1,4 +1,4 @@
-import { Code2, Building2, Palette, Bot, Smartphone } from 'lucide-react'
+import { Inbox, CalendarClock, Database, UserCheck, FileText } from 'lucide-react'
 import useScrollReveal from '../../hooks/useScrollReveal'
 import { useLang } from '../../i18n/LanguageContext'
 
@@ -39,11 +39,11 @@ export default function ServicesSection() {
   const { t } = useLang()
 
   const services = [
-    { Icon: Code2, title: t('services.webDev.title'), description: t('services.webDev.desc'), accent: '#6366f1', large: true },
-    { Icon: Bot, title: t('services.ai.title'), description: t('services.ai.desc'), accent: '#14b8a6', large: true },
-    { Icon: Building2, title: t('services.realEstate.title'), description: t('services.realEstate.desc'), accent: '#c8a76b', large: false },
-    { Icon: Palette, title: t('services.branding.title'), description: t('services.branding.desc'), accent: '#a855f7', large: false },
-    { Icon: Smartphone, title: t('services.mobile.title'), description: t('services.mobile.desc'), accent: '#f59e0b', large: false },
+    { Icon: Inbox, title: t('services.leadCapture.title'), description: t('services.leadCapture.desc'), accent: '#6366f1', large: true },
+    { Icon: CalendarClock, title: t('services.scheduling.title'), description: t('services.scheduling.desc'), accent: '#14b8a6', large: true },
+    { Icon: Database, title: t('services.crm.title'), description: t('services.crm.desc'), accent: '#a855f7', large: false },
+    { Icon: UserCheck, title: t('services.onboarding.title'), description: t('services.onboarding.desc'), accent: '#c8a76b', large: false },
+    { Icon: FileText, title: t('services.proposal.title'), description: t('services.proposal.desc'), accent: '#f59e0b', large: false },
   ]
 
   return (
@@ -62,7 +62,7 @@ export default function ServicesSection() {
 const styles = {
   section: { padding: '6rem 2rem', maxWidth: '1100px', margin: '0 auto', textAlign: 'center' },
   heading: { fontSize: 'clamp(1.8rem, 4vw, 2.4rem)', fontWeight: 800, marginBottom: '0.5rem', letterSpacing: '-0.02em' },
-  subheading: { color: '#666', marginBottom: '3rem', fontSize: '1rem' },
+  subheading: { color: '#666', marginBottom: '3rem', fontSize: '1rem', maxWidth: '640px', marginLeft: 'auto', marginRight: 'auto' },
   bentoGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(6, 1fr)',
@@ -96,7 +96,7 @@ const styles = {
   cardLine: { position: 'absolute', bottom: 0, left: 0, right: 0, height: '2px', opacity: 0.4 },
 }
 
-// Responsive: collapse bento to single column on mobile
+// Responsive: collapse bento on mobile
 if (typeof document !== 'undefined') {
   const id = 'services-responsive'
   if (!document.getElementById(id)) {

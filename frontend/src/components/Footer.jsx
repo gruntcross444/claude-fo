@@ -48,10 +48,11 @@ export default function Footer() {
 
         <div style={s.col}>
           <h4 style={s.colHead}>{t('footer.explore')}</h4>
+          <Link to="/services" style={s.link}>{t('nav.services')}</Link>
+          <Link to="/pricing" style={s.link}>{t('nav.pricing')}</Link>
+          <Link to="/portfolio" style={s.link}>{t('nav.portfolio')}</Link>
           <Link to="/store" style={s.link}>{t('nav.store')}</Link>
           <Link to="/tools" style={s.link}>{t('nav.tools')}</Link>
-          <Link to="/prompts" style={s.link}>{t('nav.prompts')}</Link>
-          <Link to="/brickell" style={s.link}>Brickell</Link>
           <Link to="/contact" style={s.link}>{t('nav.contact')}</Link>
         </div>
 

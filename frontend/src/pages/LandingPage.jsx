@@ -5,10 +5,8 @@ import Navbar from '../components/Navbar'
 import ServicesSection from '../components/sections/ServicesSection'
 import FeaturesSection from '../components/sections/FeaturesSection'
 import PortfolioTeaser from '../components/sections/PortfolioTeaser'
-import DealOfTheWeek from '../components/sections/DealOfTheWeek'
 import ProcessSection from '../components/sections/ProcessSection'
-import TestimonialsSection from '../components/sections/TestimonialsSection'
-import { useAuth } from '../context/AuthContext'
+import PackagesSection from '../components/sections/PackagesSection'
 import { useLang } from '../i18n/LanguageContext'
 import StickyCtaBar from '../components/StickyCtaBar'
 import useTypingEffect from '../hooks/useTypingEffect'
@@ -20,6 +18,23 @@ function StatCounter({ label, value, suffix }) {
   return (
     <div ref={ref} style={statStyles.item}>
       <span style={statStyles.number}>{count}{suffix}</span>
+      <span style={statStyles.label}>{label}</span>
+    </div>
+  )
+}
+
+function StatStatic({ label, value }) {
+  const [ref, visible] = useScrollReveal(0.1)
+  return (
+    <div
+      ref={ref}
+      style={{
+        ...statStyles.item,
+        opacity: visible ? 1 : 0,
+        transition: 'opacity 0.6s ease',
+      }}
+    >
+      <span style={statStyles.number}>{value}</span>
       <span style={statStyles.label}>{label}</span>
     </div>
   )
@@ -38,7 +53,7 @@ function Reveal({ children, delay = 0 }) {
   )
 }
 
-function FAQItem({ item, index }) {
+function FAQItem({ item }) {
   const [open, setOpen] = useState(false)
   return (
     <div
@@ -56,34 +71,26 @@ function FAQItem({ item, index }) {
 
 export default function LandingPage() {
   const navigate = useNavigate()
-  const { isAuthenticated } = useAuth()
   const { t } = useLang()
-  const typedText = useTypingEffect(t('typingWords'), 90, 50, 1800)
-
-  const STATS = [
-    { label: t('stats.projects'), value: 50, suffix: '+' },
-    { label: t('stats.clients'), value: 30, suffix: '+' },
-    { label: t('stats.tools'), value: 12, suffix: '' },
-    { label: t('stats.experience'), value: 5, suffix: '+' },
-  ]
+  const typedText = useTypingEffect(t('typingWords'), 70, 40, 1800)
 
   return (
     <div style={styles.page}>
       <Navbar />
       <StickyCtaBar />
 
-      {/* ── Hero ──────────────────────────────────────────── */}
+      {/* ── 1. Hero ──────────────────────────────────────── */}
       <section style={styles.hero}>
         <div style={styles.heroGlow} />
         <div style={styles.heroGlow2} />
-        <div style={styles.heroContent} data-hero-content>
-          <div style={styles.heroLeft} data-hero-left>
+        <div style={styles.heroContent}>
+          <div style={styles.heroInner}>
             <Reveal>
               <p style={styles.eyebrow}>{t('hero.eyebrow')}</p>
             </Reveal>
             <Reveal delay={0.1}>
               <h1 style={styles.heading}>
-                {t('hero.heading')}<br />
+                {t('hero.heading')}{' '}
                 <span style={styles.typed}>{typedText}</span>
                 <span style={styles.cursor}>|</span>
               </h1>
@@ -92,33 +99,16 @@ export default function LandingPage() {
               <p style={styles.sub}>{t('hero.sub')}</p>
             </Reveal>
             <Reveal delay={0.3}>
-              <div style={styles.heroActions} data-hero-actions>
+              <div style={styles.heroActions}>
                 <button
                   style={styles.primaryBtn}
-                  onClick={() => navigate(isAuthenticated ? '/portfolio' : '/register')}
+                  onClick={() => navigate('/contact')}
                 >
-                  {isAuthenticated ? t('hero.ctaAuth') : t('hero.cta')} <ArrowRight size={16} />
+                  {t('hero.cta')} <ArrowRight size={16} />
                 </button>
-                <button style={styles.ghostBtn} onClick={() => navigate('/store')}>
-                  {t('statsCta.store')}
+                <button style={styles.ghostBtn} onClick={() => navigate('/pricing')}>
+                  {t('hero.secondary')}
                 </button>
-              </div>
-            </Reveal>
-          </div>
-          <div style={styles.heroRight} data-hero-right>
-            <Reveal delay={0.2}>
-              <div style={styles.heroCard}>
-                <div style={styles.heroCardHeader}>
-                  <span style={styles.heroCardDot1} />
-                  <span style={styles.heroCardDot2} />
-                  <span style={styles.heroCardDot3} />
-                </div>
-                <div style={styles.heroCardBody}>
-                  <div style={styles.heroCardLine1} />
-                  <div style={styles.heroCardLine2} />
-                  <div style={styles.heroCardLine3} />
-                  <div style={styles.heroCardBtn}>{t('hero.secondary')}</div>
-                </div>
               </div>
             </Reveal>
           </div>
@@ -129,30 +119,30 @@ export default function LandingPage() {
       <section style={styles.statsStrip}>
         <Reveal>
           <div style={statStyles.bar}>
-            {STATS.map((s) => <StatCounter key={s.label} {...s} />)}
+            <StatCounter label={t('stats.projects')} value={50} suffix="+" />
+            <StatCounter label={t('stats.clients')} value={30} suffix="+" />
+            <StatStatic label={t('stats.tools')} value="EN/ES" />
+            <StatCounter label={t('stats.experience')} value={5} suffix="+" />
           </div>
         </Reveal>
       </section>
 
-      {/* ── Services (Bento Grid) ────────────────────────── */}
+      {/* ── 2. What we automate ─────────────────────────── */}
       <ServicesSection />
 
-      {/* ── Features ─────────────────────────────────────── */}
-      <FeaturesSection />
-
-      {/* ── Testimonials ─────────────────────────────────── */}
-      <TestimonialsSection />
-
-      {/* ── Portfolio Teaser ──────────────────────────────── */}
-      <PortfolioTeaser />
-
-      {/* ── Deal of the Week ─────────────────────────────── */}
-      <DealOfTheWeek />
-
-      {/* ── How It Works ─────────────────────────────────── */}
+      {/* ── 3. How it works ─────────────────────────────── */}
       <ProcessSection />
 
-      {/* ── FAQ ──────────────────────────────────────────── */}
+      {/* ── 4. Packages ─────────────────────────────────── */}
+      <PackagesSection />
+
+      {/* ── 5. Why Claude.FO ────────────────────────────── */}
+      <FeaturesSection />
+
+      {/* ── 6. Portfolio highlights ─────────────────────── */}
+      <PortfolioTeaser />
+
+      {/* ── 7. FAQ ──────────────────────────────────────── */}
       <section style={styles.faqSection}>
         <Reveal>
           <h2 style={styles.sectionHeading}>{t('faq.heading')}</h2>
@@ -161,13 +151,13 @@ export default function LandingPage() {
         <div style={styles.faqList}>
           {t('faq.items').map((item, i) => (
             <Reveal key={i} delay={i * 0.05}>
-              <FAQItem item={item} index={i} />
+              <FAQItem item={item} />
             </Reveal>
           ))}
         </div>
       </section>
 
-      {/* ── Final CTA ────────────────────────────────────── */}
+      {/* ── 8. Final CTA ────────────────────────────────── */}
       <section style={styles.ctaSection}>
         <div style={styles.ctaGlow} />
         <Reveal>
@@ -176,27 +166,23 @@ export default function LandingPage() {
           <div style={styles.ctaActions}>
             <button
               style={styles.ctaBtn}
-              onClick={() => navigate(isAuthenticated ? '/contact' : '/register')}
+              onClick={() => navigate('/contact')}
             >
-              {isAuthenticated ? t('cta.btnAuth') : t('cta.btn')} <ArrowRight size={16} />
+              {t('cta.btn')} <ArrowRight size={16} />
             </button>
-            <button style={styles.ghostBtn} onClick={() => navigate('/prompts')}>
+            <button style={styles.ghostBtn} onClick={() => navigate('/pricing')}>
               {t('cta.prompts')}
             </button>
           </div>
         </Reveal>
       </section>
-
     </div>
   )
 }
 
 const styles = {
-  page: {
-    minHeight: '100vh',
-  },
+  page: { minHeight: '100vh' },
 
-  // ── Hero ─────────────────────────────────────────────
   hero: {
     position: 'relative',
     overflow: 'hidden',
@@ -223,20 +209,15 @@ const styles = {
     animation: 'float 10s ease-in-out infinite reverse',
   },
   heroContent: {
-    maxWidth: '1100px',
+    maxWidth: '900px',
     margin: '0 auto',
-    display: 'flex',
-    alignItems: 'center',
-    gap: 'clamp(2rem, 5vw, 4rem)',
     position: 'relative',
+    textAlign: 'center',
   },
-  heroLeft: {
-    flex: '1 1 55%',
-  },
-  heroRight: {
-    flex: '1 1 40%',
+  heroInner: {
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   eyebrow: {
     display: 'inline-block',
@@ -252,11 +233,12 @@ const styles = {
     fontWeight: 600,
   },
   heading: {
-    fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+    fontSize: 'clamp(2rem, 5vw, 3.4rem)',
     fontWeight: 800,
-    lineHeight: 1.1,
+    lineHeight: 1.15,
     marginBottom: '1.2rem',
     letterSpacing: '-0.03em',
+    maxWidth: '880px',
   },
   typed: {
     background: 'linear-gradient(135deg, #6366f1, #a855f7, #c8a76b, #6366f1)',
@@ -272,9 +254,9 @@ const styles = {
     animation: 'blink 1s step-end infinite',
   },
   sub: {
-    color: '#888',
+    color: '#9ca3af',
     fontSize: '1.05rem',
-    maxWidth: '480px',
+    maxWidth: '680px',
     lineHeight: 1.7,
     marginBottom: '2rem',
   },
@@ -282,48 +264,8 @@ const styles = {
     display: 'flex',
     gap: '0.8rem',
     flexWrap: 'wrap',
+    justifyContent: 'center',
   },
-
-  // Hero visual card mockup
-  heroCard: {
-    width: 'min(320px, 100%)',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '16px',
-    overflow: 'hidden',
-    backdropFilter: 'blur(8px)',
-  },
-  heroCardHeader: {
-    padding: '0.8rem 1rem',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-    display: 'flex',
-    gap: '6px',
-  },
-  heroCardDot1: { width: '10px', height: '10px', borderRadius: '50%', background: '#f43f5e' },
-  heroCardDot2: { width: '10px', height: '10px', borderRadius: '50%', background: '#f59e0b' },
-  heroCardDot3: { width: '10px', height: '10px', borderRadius: '50%', background: '#10b981' },
-  heroCardBody: {
-    padding: '1.5rem',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '0.8rem',
-  },
-  heroCardLine1: { height: '10px', width: '80%', borderRadius: '6px', background: 'rgba(99,102,241,0.15)' },
-  heroCardLine2: { height: '10px', width: '60%', borderRadius: '6px', background: 'rgba(200,167,107,0.12)' },
-  heroCardLine3: { height: '10px', width: '90%', borderRadius: '6px', background: 'rgba(168,85,247,0.1)' },
-  heroCardBtn: {
-    marginTop: '0.5rem',
-    padding: '0.6rem 1.2rem',
-    borderRadius: '8px',
-    background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-    color: '#fff',
-    fontSize: '0.8rem',
-    fontWeight: 600,
-    textAlign: 'center',
-    width: 'fit-content',
-  },
-
-  // ── Buttons ──────────────────────────────────────────
   primaryBtn: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -350,14 +292,12 @@ const styles = {
     transition: 'all 0.3s ease',
   },
 
-  // ── Stats Strip ──────────────────────────────────────
   statsStrip: {
     padding: '0 2rem 4rem',
     maxWidth: '900px',
     margin: '0 auto',
   },
 
-  // ── Section headings ─────────────────────────────────
   sectionHeading: {
     fontSize: 'clamp(1.5rem, 3vw, 2rem)',
     fontWeight: 800,
@@ -366,7 +306,6 @@ const styles = {
     textAlign: 'center',
   },
 
-  // ── FAQ ──────────────────────────────────────────────
   faqSection: {
     padding: '5rem 2rem',
     maxWidth: '720px',
@@ -384,7 +323,6 @@ const styles = {
     gap: '0.6rem',
   },
 
-  // ── CTA ──────────────────────────────────────────────
   ctaSection: {
     textAlign: 'center',
     padding: '5rem 2rem',
@@ -408,10 +346,12 @@ const styles = {
     position: 'relative',
   },
   ctaSub: {
-    color: '#777',
+    color: '#9ca3af',
     fontSize: '1.05rem',
     marginBottom: '2rem',
     position: 'relative',
+    maxWidth: '640px',
+    margin: '0 auto 2rem',
   },
   ctaActions: {
     display: 'flex',
@@ -435,7 +375,6 @@ const styles = {
     cursor: 'pointer',
     transition: 'all 0.3s ease',
   },
-
 }
 
 const faqStyles = {
@@ -459,7 +398,7 @@ const faqStyles = {
     color: '#e0e0e0',
   },
   answer: {
-    color: '#888',
+    color: '#9ca3af',
     fontSize: '0.88rem',
     lineHeight: 1.7,
     margin: '0.8rem 0 0',
@@ -483,7 +422,7 @@ const statStyles = {
   item: { textAlign: 'center', minWidth: '100px' },
   number: {
     display: 'block',
-    fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+    fontSize: 'clamp(1.6rem, 3.5vw, 2.3rem)',
     fontWeight: 800,
     background: 'linear-gradient(135deg, #c8a76b, #f0d89c)',
     WebkitBackgroundClip: 'text',
@@ -497,33 +436,4 @@ const statStyles = {
     textTransform: 'uppercase',
     letterSpacing: '0.08em',
   },
-}
-
-// Responsive: hero stacks on mobile
-if (typeof document !== 'undefined') {
-  const id = 'landing-responsive'
-  if (!document.getElementById(id)) {
-    const style = document.createElement('style')
-    style.id = id
-    style.textContent = `
-      @media (max-width: 768px) {
-        [data-hero-content] {
-          flex-direction: column !important;
-          text-align: center !important;
-        }
-        [data-hero-left] {
-          align-items: center;
-          display: flex;
-          flex-direction: column;
-        }
-        [data-hero-right] {
-          display: none !important;
-        }
-        [data-hero-actions] {
-          justify-content: center !important;
-        }
-      }
-    `
-    document.head.appendChild(style)
-  }
 }

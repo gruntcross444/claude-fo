@@ -1,4 +1,4 @@
-import { Zap, ShieldCheck, Sparkles, MessageCircle } from 'lucide-react'
+import { Languages, Briefcase, Plug, Phone } from 'lucide-react'
 import useScrollReveal from '../../hooks/useScrollReveal'
 import { useLang } from '../../i18n/LanguageContext'
 
@@ -37,10 +37,10 @@ export default function FeaturesSection() {
   const { t } = useLang()
 
   const features = [
-    { Icon: Zap, title: t('features.fast.title'), description: t('features.fast.desc'), color: '#f59e0b' },
-    { Icon: ShieldCheck, title: t('features.secure.title'), description: t('features.secure.desc'), color: '#10b981' },
-    { Icon: Sparkles, title: t('features.clean.title'), description: t('features.clean.desc'), color: '#a855f7' },
-    { Icon: MessageCircle, title: t('features.comms.title'), description: t('features.comms.desc'), color: '#6366f1' },
+    { Icon: Languages, title: t('features.bilingual.title'), description: t('features.bilingual.desc'), color: '#c8a76b' },
+    { Icon: Briefcase, title: t('features.smb.title'), description: t('features.smb.desc'), color: '#10b981' },
+    { Icon: Plug, title: t('features.ready.title'), description: t('features.ready.desc'), color: '#a855f7' },
+    { Icon: Phone, title: t('features.partner.title'), description: t('features.partner.desc'), color: '#6366f1' },
   ]
 
   return (

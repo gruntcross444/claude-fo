@@ -1,129 +1,170 @@
 export default {
   // Navbar
   nav: {
+    home: 'Inicio',
     services: 'Servicios',
-    features: 'Ventajas',
+    pricing: 'Precios',
     portfolio: 'Portafolio',
     store: 'Tienda',
+    contact: 'Contacto',
     tools: 'Herramientas',
     prompts: 'Prompts',
-    contact: 'Contacto',
+    features: 'Ventajas',
     login: 'Iniciar sesion',
     logout: 'Cerrar sesion',
-    getStarted: 'Comenzar',
+    getStarted: 'Aplicar a una Automatizacion',
     switchLang: 'Switch to English',
     brickell: 'Brickell',
+    apply: 'Aplicar a una Automatizacion',
   },
 
   // Hero
   hero: {
-    eyebrow: 'Agencia Digital Enfocada en Conversion',
-    heading: 'Construimos',
-    sub: 'Ayudamos a agentes inmobiliarios, emprendedores y fundadores a convertir mas visitantes en clientes. Hecho para ti, en semanas — no en meses.',
-    sub2: 'Exclusivo. Premium. Enfocado en resultados.',
-    cta: 'Inicia Tu Proyecto',
-    ctaAuth: 'Ver Portafolio',
-    secondary: 'Nuestros Servicios',
+    eyebrow: 'Sistemas de Automatizacion con IA · Bilingue EN/ES',
+    heading: 'Sistemas de automatizacion con IA para pequenos negocios que',
+    sub: 'Disenamos e implementamos sistemas de automatizacion bilingues (EN/ES) que capturan leads, dan seguimiento automatico y reducen el trabajo manual — para operadores que quieren velocidad sin perder el control.',
+    sub2: 'Hecho para ti. Bilingue. Listo para entregar.',
+    cta: 'Aplicar a una Automatizacion',
+    ctaAuth: 'Aplicar a una Automatizacion',
+    secondary: 'Ver paquetes',
   },
 
   // Typing words
   typingWords: [
-    'sitios que generan ingresos',
-    'embudos con IA',
-    'identidades de marca premium',
-    'plataformas inmobiliarias',
-    'sistemas de captacion de leads',
-    'experiencias moviles',
-    'productos digitales',
+    'realmente venden.',
+    'capturan leads 24/7.',
+    'dan seguimiento en segundos.',
+    'cortan el trabajo manual.',
+    'funcionan en EN y ES.',
   ],
 
   // Stats
   stats: {
-    projects: 'Proyectos Lanzados',
-    clients: 'Marcas Atendidas',
-    tools: 'Herramientas Gratis',
-    experience: 'Anos de Experiencia',
+    projects: 'Sistemas Lanzados',
+    clients: 'Operadores Atendidos',
+    tools: 'Bilingue EN/ES',
+    experience: 'Anos en la Trinchera',
   },
 
   // Trust
   trust: {
-    label: 'Con la confianza de empresas en',
+    label: 'Con la confianza de operadores en',
   },
 
-  // Services
+  // What we automate
   services: {
-    heading: 'Servicios',
-    sub: 'Todo lo que necesitas para crecer — bajo un mismo techo',
-    webDev: { title: 'Desarrollo Web', desc: 'Sitios web personalizados disenados para convertir. Desde landing pages hasta apps completas — rapido, bien hecho y listo para escalar.' },
-    realEstate: { title: 'Tecnologia Inmobiliaria', desc: 'Plataformas de alquiler, paginas de captacion y herramientas que convierten visitantes en inquilinos y compradores.' },
-    branding: { title: 'Logo y Marca', desc: 'Identidad de marca que justifica precios premium. Logos, sistemas visuales y kits para redes que te hacen inolvidable.' },
-    ai: { title: 'IA y Automatizacion', desc: 'Embudos, secuencias de email y flujos de trabajo que funcionan 24/7 sin ti. Tu mejor vendedor — y nunca duerme.' },
-    mobile: { title: 'Apps Moviles', desc: 'Experiencias moviles de calidad nativa que hacen volver a tus clientes. Rapidas, intuitivas y construidas para retener.' },
+    heading: 'Lo que automatizamos',
+    sub: 'El trabajo repetitivo que silenciosamente desangra tu negocio — entregado a un sistema que corre sin ti.',
+    leadCapture: { title: 'Captura de Leads + Seguimiento Inmediato', desc: 'Forms, ads, DMs y chats van a un solo inbox. Cada lead recibe respuesta en menos de 60 segundos — bilingue, en tu marca.' },
+    scheduling: { title: 'Agenda y Recordatorios', desc: 'Reservas, confirmaciones, recordatorios anti-no-show y reagendamiento automaticos. Tu calendario lleno, tu telefono callado.' },
+    crm: { title: 'CRM y Pipeline Automatizado', desc: 'Leads etiquetados, calificados y movidos por etapas en automatico. Ves exactamente donde esta cada deal — sin infierno de Excel.' },
+    onboarding: { title: 'Onboarding de Clientes Automatizado', desc: 'Emails de bienvenida, formularios, contratos, pagos y kickoff — disparados en cuanto un cliente dice si.' },
+    proposal: { title: 'Propuestas y Cotizaciones Automatizadas', desc: 'Propuestas y cotizaciones generadas desde un brief corto, enviadas, monitoreadas y con seguimiento — sin que copies y pegues a medianoche.' },
   },
 
-  // Features
+  // Why Claude.FO
   features: {
     heading: 'Por que Claude.FO',
-    sub: 'Lo que nos diferencia de cualquier otra agencia',
-    fast: { title: 'Lanzamos en Semanas, No en Meses', desc: 'La mayoria de los proyectos salen en 4 a 8 semanas. Flujos probados, cero retrasos y sin idas y venidas interminables.' },
-    secure: { title: 'Construido para Generar Ingresos', desc: 'Cada decision se toma pensando en tu negocio. Optimizamos para conversion, retencion y crecimiento — no solo estetica.' },
-    clean: { title: 'Estandar de Calidad Premium', desc: 'Lighthouse 95+, carga en menos de 2 segundos, arquitectura limpia. Tu producto refleja tu marca — tiene que ser impecable.' },
-    comms: { title: 'Verdadera Alianza', desc: 'Actualizaciones transparentes, linea directa con Elias, y soporte post-lanzamiento incluido en cada proyecto. Tu exito es nuestro exito.' },
+    sub: 'Operador primero. Tecnologia despues. Construido para realmente correr un negocio.',
+    bilingual: { title: 'Bilingue, negocio primero, tech despues', desc: 'Cada sistema sale en ingles y espanol. Copy, flujos, respuestas — todo nativo, no traducido por Google. Construido alrededor de como tu negocio realmente vende.' },
+    smb: { title: 'Hecho para pequenos negocios con operacion real', desc: 'Sin teatro corporativo. Sin rollouts de 12 meses. Construimos sistemas para operadores con nomina, llamadas que devolver y clientes esperando — hoy.' },
+    ready: { title: 'Sistemas listos para usar, no documentos', desc: 'No recibes un deck de 40 paginas. Recibes un sistema vivo en tu stack — conectado a tu CRM, calendario, pagos e inbox — corriendo desde el dia uno.' },
+    partner: { title: 'Un operador, un sistema, un solo numero', desc: 'Linea directa con quien lo construye. Sin gerentes de cuenta. Sin colas de tickets. La persona que lo hace es la que responde cuando preguntas.' },
   },
 
   // Portfolio teaser
   portfolioTeaser: {
-    heading: 'Portafolio',
-    sub: 'Una seleccion de nuestro trabajo — registrate para verlo todo',
+    heading: 'Trabajo seleccionado',
+    sub: 'Sistemas y sitios que hemos lanzado para operadores',
     cta: 'Crear Cuenta Gratis',
     ctaAuth: 'Ver Portafolio',
-    ctaText: 'Registrate para acceder al portafolio completo',
-    more: '+18 proyectos mas',
+    ctaText: 'Registrate para ver los casos completos',
+    more: '+ proyectos mas',
   },
 
   // Testimonials
   testimonials: {
-    heading: 'Lo que dicen nuestros clientes de verdad',
-    sub: 'Resultados reales de personas reales',
+    heading: 'Lo que dicen los operadores',
+    sub: 'Resultados reales de negocios reales',
   },
 
-  // Process section
+  // Process
   process: {
     eyebrow: 'Como Funciona',
-    heading: 'De idea a ingresos en 3 pasos',
-    sub: 'Sin burocracia de agencia. Sin idas y venidas eternas. Solo resultados.',
-    step1: { num: '01', title: 'Brief y Estrategia', desc: 'Cuentanos tu objetivo. Auditamos tu situacion actual, identificamos los gaps y trazamos un plan claro. Sin relleno, sin ventas de mas.' },
-    step2: { num: '02', title: 'Construccion y Entrega', desc: 'Ejecutamos rapido. La mayoria de proyectos se lanzan en 4 a 8 semanas con check-ins regulares y previsualizaciones en vivo. Tu tienes el control.' },
-    step3: { num: '03', title: 'Lanzamiento y Crecimiento', desc: 'Sal en vivo con confianza. Soporte post-lanzamiento, monitoreo de rendimiento y optimizacion incluidos en cada proyecto. No terminamos hasta que estes ganando.' },
+    heading: 'De auditoria a sistema en vivo en 3 pasos',
+    sub: 'Sin teatro de agencia. Sin discovery interminable. Solo un sistema funcionando en tu stack.',
+    step1: { num: '01', title: 'Auditar y Mapear', desc: 'Auditamos tu operacion actual — donde entran leads, donde se pierden, que es manual. Recibes un mapa claro de que automatizar primero y el ROI detras.' },
+    step2: { num: '02', title: 'Construir y Conectar', desc: 'Construimos el sistema dentro de tu stack — CRM, calendario, pagos, inbox, WhatsApp, email. Flujos bilingues, copy real, probado de punta a punta antes de que lo toques.' },
+    step3: { num: '03', title: 'Lanzar y Optimizar', desc: 'El sistema sale en vivo, lo monitoreamos, arreglamos lo que rompe y afinamos los flujos con tu data. El retainer opcional lo mantiene afilado mes a mes.' },
+  },
+
+  // Packages
+  packages: {
+    eyebrow: 'Paquetes',
+    heading: 'Elige donde empezar',
+    sub: 'Auditoria primero. Sin retainer enorme para descubrir si encaja.',
+    audit: {
+      tag: 'Empieza aqui',
+      title: 'Automation Audit',
+      price: '$297',
+      priceNote: 'pago unico',
+      desc: 'Auditoria profunda de 60 minutos a tu operacion + un mapa escrito: que automatizar primero, ROI esperado, recomendacion de stack.',
+      cta: 'Reservar la Auditoria',
+    },
+    sprint: {
+      tag: 'Mas popular',
+      title: 'Automation Sprint',
+      price: 'desde $1,500',
+      priceNote: '2–3 semanas',
+      desc: 'Un workflow enfocado construido y entregado — captura + seguimiento, flujo de reservas, onboarding o cotizaciones. En vivo dentro de tu stack.',
+      cta: 'Iniciar un Sprint',
+    },
+    system: {
+      tag: 'Sistema completo',
+      title: 'Automation System',
+      price: 'desde $3,500',
+      priceNote: '4–6 semanas',
+      desc: 'Automatizacion de punta a punta de tu operacion — captura, seguimiento, CRM, agenda, onboarding, reportes. Bilingue, integrado, documentado.',
+      cta: 'Construir el Sistema',
+    },
+    retainer: {
+      tag: 'Mantenlo afilado',
+      title: 'Optimization Retainer',
+      price: 'desde $197/mes',
+      priceNote: 'mensual',
+      desc: 'Optimizacion continua, monitoreo, arreglos y nuevos flujos pequenos. Tu sistema se mantiene actual mientras tu negocio crece.',
+      cta: 'Anadir un Retainer',
+    },
+    seeAll: 'Ver todos los paquetes y precios',
   },
 
   // FAQ
   faq: {
-    heading: 'Preguntas Frecuentes',
-    sub: 'Todo lo que necesitas saber antes de empezar',
+    heading: 'Preguntas frecuentes',
+    sub: 'Respuestas rapidas antes de aplicar',
     items: [
-      { q: 'Cuanto tiempo tarda un proyecto?', a: 'La mayoria de sitios web y embudos salen en 4 a 8 semanas. Proyectos complejos pueden tomar 10 a 12 semanas. Recibes un cronograma claro desde el inicio.' },
-      { q: 'Que necesito para empezar?', a: 'Solo una conversacion. Nosotros manejamos estrategia, diseno, desarrollo y lanzamiento. Tu das la direccion y el feedback. Nosotros nos encargamos del resto.' },
-      { q: 'Ofrecen soporte despues del lanzamiento?', a: 'Si. El soporte post-lanzamiento se define al inicio de cada proyecto — la ventana exacta se acuerda por adelantado sin sorpresas. Despues hay planes de mantenimiento flexibles disponibles.' },
-      { q: 'Y si solo necesito algo pequeno?', a: 'Revisa nuestra Tienda — plantillas, paquetes de prompts y herramientas desde $14. Sin necesidad de contratar una agencia.' },
-      { q: 'Trabajan en espanol?', a: 'Por supuesto. Nuestro equipo es completamente bilingue. Todos los entregables disponibles en ingles y espanol.' },
+      { q: 'Que tan rapido pueden lanzar un sistema?', a: 'Un Sprint enfocado se lanza en 2–3 semanas. Un Sistema completo aterriza en 4–6 semanas. Recibes un cronograma claro antes de empezar — sin scope creep.' },
+      { q: 'Tengo que cambiar de herramientas?', a: 'No. Construimos dentro de tu stack — HubSpot, GoHighLevel, Notion, Airtable, Calendly, Make/Zapier, WhatsApp, Stripe. Si ya tienes algo que funciona, lo usamos. Si no, recomendamos la opcion mas ligera.' },
+      { q: 'Es todo bilingue EN/ES?', a: 'Si. Cada flujo, respuesta, email y formulario sale en ingles y espanol — escrito a mano, no traducido por maquina. Construido para como los pequenos negocios en US realmente venden.' },
+      { q: 'Y si solo necesito una web o landing page?', a: 'Tambien lo hacemos. Conversion Landing Page desde $1,250, Business Website desde $2,500. Podemos sumar automatizacion encima para que los leads no se queden olvidados en un inbox.' },
+      { q: 'Y si no se que automatizar?', a: 'Para eso es la Automation Audit de $297. Sales con un mapa escrito de que automatizar primero, ROI esperado y un siguiente paso claro — incluso si nunca nos contratas de nuevo.' },
     ],
   },
 
   // CTA
   cta: {
-    heading: 'Listo para convertir visitantes en clientes?',
-    sub: 'Unete a mas de 30 marcas que han crecido con Claude.FO. Construyamos algo que realmente funcione.',
-    btn: 'Inicia Tu Proyecto',
-    btnAuth: 'Contactanos',
-    prompts: 'Explora Prompts Gratis',
+    heading: 'Listo para dejar de correr tu negocio a mano?',
+    sub: 'Aplica a una Automatizacion. Revisamos cada aplicacion y solo tomamos proyectos que podemos entregar limpio.',
+    btn: 'Aplicar a una Automatizacion',
+    btnAuth: 'Aplicar a una Automatizacion',
+    prompts: 'Ver paquetes',
   },
 
   // Store
   store: {
     eyebrow: 'Productos Digitales',
     heading: 'Tienda',
-    sub: 'Plantillas premium, herramientas y paquetes de prompts para hacer crecer tu negocio',
+    sub: 'Prompt packs, plantillas y mini herramientas — para operadores que quieren moverse hoy.',
     premiumProducts: 'Productos Premium',
     freeTools: 'Herramientas Gratis',
     free: 'Gratis',
@@ -131,9 +172,9 @@ export default {
     redirecting: 'Redirigiendo...',
     useFree: 'Usar Gratis',
     off: 'desc.',
-    customCta: 'Necesitas algo personalizado?',
-    customSub: 'Construimos soluciones a medida para tu negocio — desde landing pages hasta sistemas de automatizacion completos.',
-    customBtn: 'Construyamoslo',
+    customCta: 'Necesitas un sistema completo?',
+    customSub: 'Construimos sistemas de automatizacion bilingues hechos para ti — captura, seguimiento, CRM, onboarding.',
+    customBtn: 'Aplicar a una Automatizacion',
     successBanner: 'Pago exitoso! Revisa tu email para el enlace de descarga.',
     cancelBanner: 'Compra cancelada. No se realizo ningun cargo.',
   },
@@ -141,13 +182,13 @@ export default {
   // Tools
   tools: {
     eyebrow: 'Herramientas Gratis',
-    heading: 'Herramientas Inmobiliarias',
-    sub: 'Calculadoras, checklists y evaluaciones para tomar decisiones mas inteligentes',
+    heading: 'Herramientas Gratis',
+    sub: 'Calculadoras y evaluaciones — gratis, sin registro requerido.',
   },
 
   // Prompts
   prompts: {
-    eyebrow: 'Biblioteca de Prompts Magicos',
+    eyebrow: 'Biblioteca de Prompts',
     heading: 'Biblioteca de Prompts',
     free: 'Gratis',
     premium: 'Premium',
@@ -155,31 +196,67 @@ export default {
     copied: 'Copiado!',
     unlock: 'Obtener Acceso Completo',
     ctaHeading: 'Quieres todos los prompts?',
-    ctaSub: 'Obtene la biblioteca completa — desbloquea todas las plantillas premium.',
+    ctaSub: 'Obten la biblioteca completa — desbloquea todas las plantillas premium.',
     ctaBtn: 'Ver Paquetes en la Tienda',
   },
 
-  // Contact
+  // Contact / Aplicacion
   contact: {
-    eyebrow: 'Ponte en contacto',
-    heading: 'Contacto',
-    sub: 'Hablemos de tu proyecto',
+    eyebrow: 'Cupos limitados',
+    heading: 'Aplicar para una automatizacion',
+    sub: 'Cuentanos que quieres automatizar. Revisaremos tu flujo, identificaremos las oportunidades mas rapidas y responderemos con el mejor siguiente paso.',
     whatsapp: 'WhatsApp',
-    whatsappSub: 'Chatea conmigo directamente',
-    calendly: 'Reserva una Llamada Gratis',
-    calendlySub: 'Agenda una sesión estratégica de 30 min',
+    whatsappSub: 'Para preguntas rapidas, linea directa',
+    calendly: 'Reservar la Auditoria $297',
+    calendlySub: 'Salta el formulario — agenda una auditoria de 30 min',
     follow: 'Siguenos',
-    formTitle: 'Envia un mensaje',
+    formTitle: 'Aplicacion',
+    formSub: 'La revisamos personalmente. Solo tomamos proyectos que podemos entregar bien.',
     name: 'Nombre',
     email: 'Email',
-    message: 'Mensaje',
-    send: 'Enviar Mensaje',
+    business: 'Nombre del negocio',
+    industry: 'Industria',
+    web: 'Web o perfil social actual',
+    automate: '¿Que quieres automatizar?',
+    tools: 'Herramientas actuales',
+    toolsHelp: 'CRM, email, calendario, pagos, WhatsApp, ads — lo que uses hoy.',
+    timeline: 'Plazo',
+    budget: 'Rango de presupuesto',
+    language: 'Idioma preferido',
+    notes: 'Notas',
+    send: 'Enviar aplicacion',
     sending: 'Enviando...',
-    sent: 'Mensaje enviado! Te respondere pronto.',
-    error: 'Algo salio mal. Prueba por WhatsApp.',
+    sent: 'Aplicacion recibida. Revisaremos tu flujo y responderemos con el mejor siguiente paso.',
+    error: 'Algo salio mal al enviar tu aplicacion. Prueba por WhatsApp o email.',
     namePlaceholder: 'Tu nombre',
     emailPlaceholder: 'tu@email.com',
-    messagePlaceholder: 'Cuentame sobre tu proyecto...',
+    businessPlaceholder: 'Acme Co.',
+    industryPlaceholder: 'ej. inmobiliaria, dental, legal, e-commerce',
+    webPlaceholder: 'https://tunegocio.com o @usuario',
+    automatePlaceholder: 'Captura y seguimiento de leads, reservas, onboarding, cotizaciones, CRM...',
+    toolsPlaceholder: 'HubSpot, GoHighLevel, Calendly, Stripe, WhatsApp, Notion, etc.',
+    notesPlaceholder: 'Cualquier otro contexto — tamano del equipo, volumen actual, fechas, restricciones.',
+    timelineOptions: {
+      select: 'Selecciona un plazo',
+      asap: 'Lo antes posible — en 2 semanas',
+      month: 'En menos de un mes',
+      quarter: 'En el trimestre',
+      flex: 'Flexible / explorando',
+    },
+    budgetOptions: {
+      select: 'Selecciona un rango',
+      audit: 'Solo auditoria ($297)',
+      sprint: '$1.5k – $5k (sprint)',
+      system: '$5k – $15k (sistema completo)',
+      enterprise: '$15k+ (multi-sistema)',
+      unsure: 'Aun no estoy seguro',
+    },
+    languageOptions: {
+      select: 'Selecciona idioma',
+      en: 'Ingles',
+      es: 'Espanol',
+      both: 'Bilingue EN/ES',
+    },
   },
 
   // Auth
@@ -215,37 +292,37 @@ export default {
   // Exit popup
   exitPopup: {
     heading: 'Espera — no te vayas con las manos vacias!',
-    sub: 'Obtene <strong>10% de descuento</strong> en tu primera compra + nuestro Kit Inmobiliario gratis.',
+    sub: 'Obten <strong>10% de descuento</strong> en tu primer prompt pack o plantilla.',
     btn: 'Reclamar Mi 10% Off',
     sending: 'Enviando...',
     privacy: 'Sin spam. Cancela cuando quieras.',
     successHeading: 'Ya estas dentro!',
-    successSub: 'Revisa tu bandeja para el codigo de descuento y el kit gratuito.',
+    successSub: 'Revisa tu bandeja para el codigo de descuento.',
     continue: 'Seguir Navegando',
   },
 
   // Sticky CTA
   stickyCta: {
-    text: 'Disponibilidad limitada — 3 cupos abiertos este mes.',
-    btn: 'Reserva Tu Lugar',
-    btnAuth: 'Contactanos',
+    text: 'Cupos limitados — 3 slots de automatizacion abiertos este mes.',
+    btn: 'Aplicar a una Automatizacion',
+    btnAuth: 'Aplicar a una Automatizacion',
   },
 
-  // Free PDF offer modal
+  // Free PDF
   freePdf: {
     badge: 'Descarga Gratis',
-    heading: 'Consigue el Pack de Prompts Inmobiliarios — Gratis',
-    sub: '50 prompts de IA listos para agentes, inversores y administradores. Normalmente $14.',
-    f1: 'Descripciones de propiedades en 30 segundos',
-    f2: 'Templates de email para inquilinos e inversores',
-    f3: 'Reportes de mercado y copia para redes sociales',
+    heading: 'Recibe el Mapa de Automatizacion para Pequenos Negocios — Gratis',
+    sub: '12 automatizaciones de alto impacto que los pequenos negocios deberian lanzar primero. Bilingue EN/ES. Normalmente $14.',
+    f1: 'Flujos de captura + seguimiento en 30 segundos',
+    f2: 'Plantillas de reservas y recordatorios',
+    f3: 'Etiquetado de CRM y automatizaciones de pipeline',
     free: 'GRATIS',
     placeholder: 'tu@email.com',
     cta: 'Enviarme el PDF',
     loading: 'Enviando...',
     privacy: 'Sin spam. Date de baja cuando quieras.',
     successHeading: 'En camino!',
-    successSub: 'Revisa tu inbox — el PDF ya va para alla. O descargalo directo aqui abajo.',
+    successSub: 'Revisa tu inbox — el PDF ya va para alla.',
     download: 'Descargar PDF',
     continue: 'Seguir Navegando',
   },
@@ -259,7 +336,7 @@ export default {
     wonHeading: 'Ganaste!',
     lostHeading: 'Casi!',
     wonSub: 'Tu codigo de descuento fue enviado a tu email!',
-    lostSub: 'No te preocupes — registrate ahora y obtene 5% automaticamente.',
+    lostSub: 'No te preocupes — registrate ahora y obten 5% automaticamente.',
     wonBtn: 'Seguir Comprando',
     lostBtn: 'Registrarme',
   },
@@ -273,14 +350,14 @@ export default {
   // Footer
   footer: {
     rights: 'Todos los derechos reservados',
-    tagline: 'Bienes raíces premium, automatización con IA y productos digitales.',
+    tagline: 'Sistemas de automatizacion con IA bilingues para pequenos negocios. Hechos para ti.',
     explore: 'Explorar',
     legal: 'Legal',
     connect: 'Conectar',
-    privacy: 'Política de Privacidad',
-    terms: 'Términos de Servicio',
+    privacy: 'Politica de Privacidad',
+    terms: 'Terminos de Servicio',
     fairHousing: 'Igualdad de Oportunidad de Vivienda — cumplimos con Fair Housing.',
-    license: 'Elias Karam — agente de bienes raíces licenciado en Florida.',
+    license: 'Elias Karam — agente de bienes raices licenciado en Florida.',
   },
 
   // Download
@@ -298,27 +375,24 @@ export default {
 
   // Portfolio
   portfolio: {
-    eyebrow: 'Nuestro Trabajo',
+    eyebrow: 'Trabajo Seleccionado',
     heading: 'Portafolio',
-    sub: 'Trabajo seleccionado en bienes raices, web, movil y diseno',
+    sub: 'Sistemas de automatizacion, landing pages y sitios que hemos lanzado',
     empty: 'No hay proyectos en esta categoria aun. Proximamente!',
     visitSite: 'Visitar sitio',
     viewInStore: 'Ver en tienda',
   },
 
-  // Tools extra
   toolsExtra: {
     menu: 'Menu de Herramientas',
     freeNote: 'Todas las herramientas son 100% gratis.\nNo se requiere tarjeta de credito.',
   },
 
-  // Prompts extra
   promptsExtra: {
     description: 'prompts listos para usar en IA, marketing, negocios y codigo.',
     searchPlaceholder: 'Buscar prompts...',
   },
 
-  // Auth extra
   authExtra: {
     backToLogin: 'Volver al inicio de sesion',
     noCode: 'No se recibio codigo de autorizacion de',
@@ -326,13 +400,43 @@ export default {
     loggingIn: 'Iniciando sesion con',
   },
 
-  // Stats section CTAs
   statsCta: {
-    store: 'Ver Tienda',
+    store: 'Ver paquetes',
     tools: 'Probar Herramientas Gratis',
   },
 
-  // Tool components
+  // Pricing page
+  pricing: {
+    eyebrow: 'Precios',
+    heading: 'Precios y Paquetes',
+    sub: 'Precios transparentes. Auditoria primero. Sin retainers gigantes para descubrir si encajamos.',
+    mainHeading: 'Ofertas principales',
+    mainSub: 'Sistemas de automatizacion con IA hechos para ti',
+    addonHeading: 'Add-ons',
+    addonSub: 'Sitios y landings que se conectan a tu sistema de automatizacion',
+    digitalHeading: 'Productos digitales',
+    digitalSub: 'Prompt packs, plantillas y mini herramientas — compras una vez, las usas para siempre',
+    landingPage: { title: 'Conversion Landing Page', price: 'desde $1,250', desc: 'Una landing page de alta conversion — bilingue, rapida, integrada a tu sistema de automatizacion.' },
+    website: { title: 'Business Website', price: 'desde $2,500', desc: 'Un sitio bilingue completo — servicios, captura, reservas y CMS, conectado a tus flujos de automatizacion.' },
+    digital: { title: 'Prompt Packs · Plantillas · Mini Herramientas', price: '$19 – $79', desc: 'Productos digitales self-serve para operadores que quieren moverse ya sin contratar a un constructor.' },
+    finalCta: 'Aplicar a una Automatizacion',
+    finalSub: 'No estas seguro que paquete encaja? Empieza con la Automation Audit de $297 — su costo se acredita a cualquier engagement mas grande.',
+  },
+
+  // Services page
+  servicesPage: {
+    eyebrow: 'Servicios',
+    heading: 'Sistemas de automatizacion con IA, hechos para pequenos negocios',
+    sub: 'Sistemas bilingues hechos para ti que capturan leads, dan seguimiento automatico y cortan trabajo manual — construidos dentro de tu stack.',
+    coreHeading: 'Servicio principal: Sistemas de Automatizacion con IA',
+    coreSub: 'Cinco workflows que entregamos cada semana',
+    addonHeading: 'Add-ons: web que se conecta al sistema',
+    addonSub: 'Landings y sitios construidos para alimentar la automatizacion',
+    digitalHeading: 'Self-serve: productos digitales',
+    digitalSub: 'Para operadores que quieren moverse sin contratar a un constructor',
+    cta: 'Aplicar a una Automatizacion',
+  },
+
   mortgageCalc: {
     title: 'Calculadora Hipotecaria',
     desc: 'Estima tu pago mensual',
@@ -365,14 +469,14 @@ export default {
     items: [
       { text: 'Revisa tu puntaje crediticio (meta: 620+, ideal 740+)', tip: 'Gratis en annualcreditreport.com' },
       { text: 'Ahorra para el pago inicial (3-20% del precio)', tip: 'Prestamos FHA requieren tan solo 3.5%' },
-      { text: 'Obtene una pre-aprobacion hipotecaria', tip: 'Demuestra a los vendedores que eres un comprador serio' },
+      { text: 'Obten una pre-aprobacion hipotecaria', tip: 'Demuestra a los vendedores que eres un comprador serio' },
       { text: 'Calcula tu relacion deuda-ingreso (menor al 43%)', tip: 'Deudas mensuales / ingreso bruto mensual' },
       { text: 'Presupuesta los costos de cierre (2-5% del prestamo)', tip: 'Incluye avaluo, titulo y cargos del prestamista' },
       { text: 'Crea un fondo de emergencia (3-6 meses de gastos)', tip: 'Separado de tus ahorros para el pago inicial' },
       { text: 'Investiga programas para compradores primerizos en tu estado', tip: 'Muchos ofrecen asistencia para el pago inicial' },
       { text: 'Reune documentos (W-2, declaraciones de impuestos, estados de cuenta)', tip: 'Los prestamistas usualmente necesitan los ultimos 2 anos' },
       { text: 'Contrata un agente de bienes raices', tip: 'Los agentes del comprador usualmente son gratis — el vendedor paga' },
-      { text: 'Obtene una inspeccion de la casa antes del cierre', tip: 'Puede ahorrarte sorpresas costosas' },
+      { text: 'Obten una inspeccion de la casa antes del cierre', tip: 'Puede ahorrarte sorpresas costosas' },
     ],
   },
   rentVsBuy: {
@@ -402,7 +506,7 @@ export default {
     seeResults: 'Ver Resultados',
     retake: 'Repetir Evaluacion',
     results: {
-      strong: { label: 'Candidato Fuerte', text: 'Estas en una gran posicion para comprar. Habla con un prestamista y obtene tu pre-aprobacion!' },
+      strong: { label: 'Candidato Fuerte', text: 'Estas en una gran posicion para comprar. Habla con un prestamista y obten tu pre-aprobacion!' },
       good: { label: 'Buen Candidato', text: 'Vas por buen camino. Algunas mejoras podrian fortalecer tu solicitud.' },
       getting: { label: 'En Camino', text: 'Enfocate en ahorrar y mejorar tu puntaje crediticio antes de aplicar.' },
       needs: { label: 'Necesita Preparacion', text: 'Considera trabajar en tus finanzas por 6-12 meses antes de comenzar el proceso de compra.' },
@@ -416,7 +520,6 @@ export default {
     ],
   },
 
-  // Categories
   categories: {
     all: 'Todos',
     realEstate: 'Bienes Raices',
@@ -426,7 +529,6 @@ export default {
     branding: 'Logo y Marca',
   },
 
-  // Brickell Living
   brickell: {
     eyebrow: 'Vida en Brickell',
     heading: 'Vida de Lujo en Brickell',
@@ -483,7 +585,6 @@ export default {
     externalBtn: 'Visitar Brickell Rentals',
   },
 
-  // Rental Application Wizard
   application: {
     title: 'Solicitud de Alquiler',
     applyNow: 'Aplicar Ahora',

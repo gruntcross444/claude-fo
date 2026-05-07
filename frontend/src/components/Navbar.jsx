@@ -31,13 +31,10 @@ export default function Navbar() {
 
       {/* Desktop links */}
       <div style={styles.links}>
-        <a href="/#services" style={styles.link}>{t('nav.services')}</a>
-        <a href="/#features" style={styles.link}>{t('nav.features')}</a>
+        <Link to="/services" style={styles.link}>{t('nav.services')}</Link>
+        <Link to="/pricing" style={styles.link}>{t('nav.pricing')}</Link>
         <Link to="/portfolio" style={styles.link}>{t('nav.portfolio')}</Link>
         <Link to="/store" style={styles.link}>{t('nav.store')}</Link>
-        <Link to="/tools" style={styles.link}>{t('nav.tools')}</Link>
-        <Link to="/prompts" style={styles.link}>{t('nav.prompts')}</Link>
-        <Link to="/brickell" style={styles.link}>{t('nav.brickell')}</Link>
         <Link to="/contact" style={styles.link}>{t('nav.contact')}</Link>
       </div>
 
@@ -66,13 +63,10 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <div style={styles.mobileMenu}>
-          <a href="/#services" style={styles.mobileLink} onClick={closeMenu}>{t('nav.services')}</a>
-          <a href="/#features" style={styles.mobileLink} onClick={closeMenu}>{t('nav.features')}</a>
+          <Link to="/services" style={styles.mobileLink} onClick={closeMenu}>{t('nav.services')}</Link>
+          <Link to="/pricing" style={styles.mobileLink} onClick={closeMenu}>{t('nav.pricing')}</Link>
           <Link to="/portfolio" style={styles.mobileLink} onClick={closeMenu}>{t('nav.portfolio')}</Link>
           <Link to="/store" style={styles.mobileLink} onClick={closeMenu}>{t('nav.store')}</Link>
-          <Link to="/tools" style={styles.mobileLink} onClick={closeMenu}>{t('nav.tools')}</Link>
-          <Link to="/prompts" style={styles.mobileLink} onClick={closeMenu}>{t('nav.prompts')}</Link>
-          <Link to="/brickell" style={styles.mobileLink} onClick={closeMenu}>{t('nav.brickell')}</Link>
           <Link to="/contact" style={styles.mobileLink} onClick={closeMenu}>{t('nav.contact')}</Link>
           <div style={styles.mobileDivider} />
           <button onClick={toggleLang} style={styles.mobileLangBtn}>

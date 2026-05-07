@@ -1,129 +1,170 @@
 export default {
   // Navbar
   nav: {
+    home: 'Home',
     services: 'Services',
-    features: 'Features',
+    pricing: 'Pricing',
     portfolio: 'Portfolio',
     store: 'Store',
+    contact: 'Contact',
     tools: 'Tools',
     prompts: 'Prompts',
-    contact: 'Contact',
+    features: 'Features',
     login: 'Log in',
     logout: 'Log out',
-    getStarted: 'Get Started',
+    getStarted: 'Apply for an Automation',
     switchLang: 'Cambiar a Espanol',
     brickell: 'Brickell',
+    apply: 'Apply for an Automation',
   },
 
   // Hero
   hero: {
-    eyebrow: 'Conversion-First Digital Agency',
-    heading: 'We build',
-    sub: 'We help real estate agents, e-commerce founders, and entrepreneurs convert more visitors into customers. Done-for-you, in weeks — not months.',
-    sub2: 'Exclusive. Premium. Results-driven.',
-    cta: 'Start Your Project',
-    ctaAuth: 'View Portfolio',
-    secondary: 'Our Services',
+    eyebrow: 'AI Automation Systems · Bilingual EN/ES',
+    heading: 'AI automation systems for small businesses that',
+    sub: 'We design and implement bilingual (EN/ES) automation systems that capture leads, follow up automatically, and cut manual work — for operators who want speed without losing control.',
+    sub2: 'Done-for-you. Bilingual. Built to ship.',
+    cta: 'Apply for an Automation',
+    ctaAuth: 'Apply for an Automation',
+    secondary: 'See packages',
   },
 
-  // Typing words
+  // Typing words (rotating verb after "that")
   typingWords: [
-    'revenue-generating sites',
-    'AI-powered funnels',
-    'premium brand identities',
-    'real estate platforms',
-    'lead generation systems',
-    'mobile experiences',
-    'digital products',
+    'actually sell.',
+    'capture leads 24/7.',
+    'follow up in seconds.',
+    'cut manual work.',
+    'work in EN and ES.',
   ],
 
   // Stats
   stats: {
-    projects: 'Projects Shipped',
-    clients: 'Brands Served',
-    tools: 'Free Tools Available',
-    experience: 'Years of Expertise',
+    projects: 'Systems Shipped',
+    clients: 'Operators Served',
+    tools: 'Bilingual EN/ES',
+    experience: 'Years in the Trenches',
   },
 
   // Trust
   trust: {
-    label: 'Trusted by businesses in',
+    label: 'Trusted by operators in',
   },
 
-  // Services
+  // What we automate (replaces "services" on homepage bento)
   services: {
-    heading: 'Services',
-    sub: 'Everything you need to grow — under one roof',
-    webDev: { title: 'Web Development', desc: 'Custom websites engineered to convert. From landing pages to full-stack apps — built fast, built right, built to scale.' },
-    realEstate: { title: 'Real Estate Tech', desc: 'Rental platforms, lead capture pages, and property tools that turn lookers into tenants and buyers. Built for agents who want results.' },
-    branding: { title: 'Logo & Branding', desc: 'Brand identity that commands premium pricing. Logos, visual systems, and social kits that make you impossible to ignore.' },
-    ai: { title: 'AI & Automation', desc: 'Lead funnels, email sequences, and workflows that run 24/7 without you. Your best salesperson — and it never sleeps.' },
-    mobile: { title: 'Mobile Apps', desc: 'Native-quality mobile experiences that keep customers coming back. Fast, intuitive, and built to retain.' },
+    heading: 'What we automate',
+    sub: 'The repetitive work that quietly bleeds your business — handed off to a system that runs without you.',
+    leadCapture: { title: 'Lead Capture + Instant Follow-Up', desc: 'Forms, ads, DMs and chats route into one inbox. Every lead gets a reply in under 60 seconds — bilingual, on-brand, on-message.' },
+    scheduling: { title: 'Scheduling & Reminders', desc: 'Bookings, confirmations, no-show reminders and reschedules handled automatically. Calendars stay full, your phone stops ringing.' },
+    crm: { title: 'CRM & Pipeline Automation', desc: 'Leads tagged, scored and moved through stages on autopilot. You see exactly where every deal sits — no spreadsheet hell.' },
+    onboarding: { title: 'Client Onboarding Automation', desc: 'Welcome emails, intake forms, contracts, payments and kickoff — all triggered the second a client says yes.' },
+    proposal: { title: 'Proposal / Quote Automation', desc: 'Proposals and quotes generated from a short brief, sent, tracked, and followed up — without you copy-pasting at midnight.' },
   },
 
-  // Features
+  // Why Claude.FO (features)
   features: {
     heading: 'Why Claude.FO',
-    sub: 'What separates us from every other agency',
-    fast: { title: 'Ship in Weeks, Not Months', desc: 'Most projects go live in 4–8 weeks. Proven workflows, battle-tested templates, and zero back-and-forth delays.' },
-    secure: { title: 'Built for Revenue', desc: 'Every decision is made with your bottom line in mind. We optimize for conversion, retention, and growth — not just aesthetics.' },
-    clean: { title: 'Premium Quality Standard', desc: 'Lighthouse 95+, sub-2s load times, clean architecture. Your product reflects your brand — so it has to be flawless.' },
-    comms: { title: 'True Partnership', desc: 'Transparent updates, a direct line to Elias, and post-launch support scoped into every engagement. We are invested in your success.' },
+    sub: 'Operators-first. Tech-second. Built to actually run a business.',
+    bilingual: { title: 'Bilingual, business-first, tech-second', desc: 'Every system ships in English and Spanish. Copy, flows, replies — all native, not Google-translated. Built around how your business actually sells.' },
+    smb: { title: 'Built for small businesses with real operations', desc: 'No enterprise theater. No 12-month rollouts. We build systems for operators with payroll, calls to return, and customers waiting — today.' },
+    ready: { title: 'Systems ready to use, not just documents', desc: 'You do not get a 40-page deck. You get a system live in your stack — connected to your CRM, calendar, payments and inbox — running on day one.' },
+    partner: { title: 'One operator, one system, one phone number', desc: 'Direct line to the builder. No account managers. No ticket queues. The person who builds it is the person who answers when you ask.' },
   },
 
   // Portfolio teaser
   portfolioTeaser: {
-    heading: 'Portfolio',
-    sub: 'A selection of our work — register to see everything',
+    heading: 'Selected work',
+    sub: 'Systems and sites we have shipped for operators',
     cta: 'Create Free Account',
     ctaAuth: 'View Portfolio',
-    ctaText: 'Sign up to access the full portfolio',
-    more: '+18 more projects',
+    ctaText: 'Sign up to see the full case studies',
+    more: '+ more projects',
   },
 
   // Testimonials
   testimonials: {
-    heading: 'What our clients actually say',
-    sub: 'Real results from real people',
+    heading: 'What operators say',
+    sub: 'Real results from real businesses',
   },
 
   // Process section
   process: {
     eyebrow: 'How It Works',
-    heading: 'From idea to revenue in 3 steps',
-    sub: 'No agency bloat. No endless back-and-forth. Just results.',
-    step1: { num: '01', title: 'Brief & Strategy', desc: 'Tell us your goal. We audit your current setup, identify the gaps, and map a clear execution plan. No fluff, no upsell — just honest direction.' },
-    step2: { num: '02', title: 'Build & Deliver', desc: 'We execute fast. Most projects ship in 4–8 weeks with regular check-ins and live previews. You stay in control the entire time.' },
-    step3: { num: '03', title: 'Launch & Grow', desc: 'Go live with confidence. Post-launch support, performance monitoring, and optimization are scoped into every engagement. We are not done until you are winning.' },
+    heading: 'From audit to live system in 3 steps',
+    sub: 'No agency theater. No endless discovery. Just a working system in your stack.',
+    step1: { num: '01', title: 'Audit & Map', desc: 'We audit your current ops — where leads come in, where they leak, what is manual. You get a clear map of what to automate first and the ROI behind it.' },
+    step2: { num: '02', title: 'Build & Connect', desc: 'We build the system inside your stack — CRM, calendar, payments, inbox, WhatsApp, email. Bilingual flows, real copy, tested end-to-end before you touch it.' },
+    step3: { num: '03', title: 'Launch & Optimize', desc: 'System goes live, we monitor it, fix what breaks, and tune the flows as your data comes in. Optional retainer keeps it sharp month after month.' },
+  },
+
+  // Packages (homepage section)
+  packages: {
+    eyebrow: 'Packages',
+    heading: 'Pick where you start',
+    sub: 'Audit-first. No giant retainer to find out if this fits.',
+    audit: {
+      tag: 'Start here',
+      title: 'Automation Audit',
+      price: '$297',
+      priceNote: 'one-time',
+      desc: 'A 60-minute deep audit of your operation + a written automation map: what to automate first, expected ROI, stack recommendation.',
+      cta: 'Book the Audit',
+    },
+    sprint: {
+      tag: 'Most popular',
+      title: 'Automation Sprint',
+      price: 'from $1,500',
+      priceNote: '2–3 weeks',
+      desc: 'One focused workflow built and shipped — lead capture + follow-up, booking flow, onboarding, or quote automation. Live in your stack.',
+      cta: 'Start a Sprint',
+    },
+    system: {
+      tag: 'Full system',
+      title: 'Automation System',
+      price: 'from $3,500',
+      priceNote: '4–6 weeks',
+      desc: 'End-to-end automation across your operation — capture, follow-up, CRM, scheduling, onboarding, reporting. Bilingual, integrated, documented.',
+      cta: 'Build the System',
+    },
+    retainer: {
+      tag: 'Keep it sharp',
+      title: 'Optimization Retainer',
+      price: 'from $197/mo',
+      priceNote: 'monthly',
+      desc: 'Ongoing optimization, monitoring, fixes and small new flows. Your system stays current as your business grows.',
+      cta: 'Add a Retainer',
+    },
+    seeAll: 'See all packages & pricing',
   },
 
   // FAQ
   faq: {
-    heading: 'Common Questions',
-    sub: 'Everything you need to know before we start',
+    heading: 'Common questions',
+    sub: 'Quick answers before you apply',
     items: [
-      { q: 'How long does a project take?', a: 'Most websites and funnels go live in 4–8 weeks. Complex builds may take 10–12 weeks. You get a clear timeline before we start — no surprises.' },
-      { q: 'What do I need to get started?', a: 'Just a conversation. We handle strategy, design, development, and launch. You provide direction and feedback. We handle the rest.' },
-      { q: 'Do you offer ongoing support?', a: 'Yes. Post-launch support is scoped into every engagement — the exact window is agreed upfront so there are no surprises. Flexible retainer plans are available after that.' },
-      { q: 'What if I only need something small?', a: 'Check our Store — templates, prompt packs, and tools start at $14. No agency engagement needed for smaller needs.' },
-      { q: 'Do you work in Spanish?', a: 'Absolutely. Our team is fully bilingual. All deliverables are available in English and Spanish.' },
+      { q: 'How fast can you ship a system?', a: 'A focused Automation Sprint ships in 2–3 weeks. A full Automation System lands in 4–6 weeks. You get a clear timeline before we start — no scope creep, no surprises.' },
+      { q: 'Do I need to switch tools?', a: 'No. We build inside your stack — HubSpot, GoHighLevel, Notion, Airtable, Calendly, Make/Zapier, WhatsApp, Stripe. If you have a tool that works, we use it. If not, we recommend the lightest option.' },
+      { q: 'Is everything bilingual EN/ES?', a: 'Yes. Every flow, reply, email and form ships in English and Spanish — written, not machine-translated. Built for the way US small businesses actually sell.' },
+      { q: 'What if I just want a website or landing page?', a: 'We do that too. Conversion Landing Page from $1,250, Business Website from $2,500. We can also bolt automation on top so the leads do not just sit in an inbox.' },
+      { q: 'What if I am not sure what to automate?', a: 'That is exactly what the $297 Automation Audit is for. You leave with a written map of what to automate first, expected ROI, and a clear next step — even if you never hire us again.' },
     ],
   },
 
   // CTA
   cta: {
-    heading: 'Ready to turn visitors into customers?',
-    sub: 'Join 30+ brands that have grown with Claude.FO. Let\'s build something that actually works.',
-    btn: 'Start Your Project',
-    btnAuth: 'Get in Touch',
-    prompts: 'Explore Free Prompts',
+    heading: 'Ready to stop running your business by hand?',
+    sub: 'Apply for an Automation. We review every application, and we only take on projects we can ship cleanly.',
+    btn: 'Apply for an Automation',
+    btnAuth: 'Apply for an Automation',
+    prompts: 'See packages',
   },
 
   // Store
   store: {
     eyebrow: 'Digital Products',
     heading: 'Store',
-    sub: 'Premium templates, tools, and prompt packs to grow your business',
+    sub: 'Prompt packs, templates and mini tools — for operators who want to move now.',
     premiumProducts: 'Premium Products',
     freeTools: 'Free Tools',
     free: 'Free',
@@ -131,9 +172,9 @@ export default {
     redirecting: 'Redirecting...',
     useFree: 'Use Free Tool',
     off: 'off',
-    customCta: 'Need something custom?',
-    customSub: 'We build tailored solutions for your business — from landing pages to full automation systems.',
-    customBtn: "Let's Build It",
+    customCta: 'Need a full system?',
+    customSub: 'We build done-for-you bilingual automation systems — capture, follow-up, CRM, onboarding.',
+    customBtn: 'Apply for an Automation',
     successBanner: 'Payment successful! Check your email for the download link.',
     cancelBanner: 'Checkout was canceled. No charge was made.',
   },
@@ -141,13 +182,13 @@ export default {
   // Tools
   tools: {
     eyebrow: 'Free Tools',
-    heading: 'Real Estate Tools',
-    sub: 'Calculators, checklists, and assessments to help you make smarter decisions',
+    heading: 'Free Tools',
+    sub: 'Calculators and assessments — free, no signup required.',
   },
 
   // Prompts
   prompts: {
-    eyebrow: 'Magic Prompts Library',
+    eyebrow: 'Prompt Library',
     heading: 'Prompt Library',
     free: 'Free',
     premium: 'Premium',
@@ -159,27 +200,63 @@ export default {
     ctaBtn: 'Browse Prompt Packs in Store',
   },
 
-  // Contact
+  // Contact / Application
   contact: {
-    eyebrow: 'Get in touch',
-    heading: 'Contact',
-    sub: "Let's talk about your project",
+    eyebrow: 'Limited intake',
+    heading: 'Apply for an Automation',
+    sub: "Tell us what you want to automate. We'll review your workflow, identify the fastest wins, and reply with the best next step.",
     whatsapp: 'WhatsApp',
-    whatsappSub: 'Chat with me directly',
-    calendly: 'Book a Free Call',
-    calendlySub: 'Schedule a 30-min strategy session',
+    whatsappSub: 'Quick questions, direct line',
+    calendly: 'Book the $297 Audit',
+    calendlySub: 'Skip the form — go straight to a 30-min audit',
     follow: 'Follow us',
-    formTitle: 'Send a message',
+    formTitle: 'Application',
+    formSub: 'Reviewed personally. We only take projects we can ship cleanly.',
     name: 'Name',
     email: 'Email',
-    message: 'Message',
-    send: 'Send Message',
-    sending: 'Sending...',
-    sent: "Message sent! I'll get back to you soon.",
-    error: 'Something went wrong. Try WhatsApp instead.',
+    business: 'Business name',
+    industry: 'Industry',
+    web: 'Current website or social profile',
+    automate: 'What do you want to automate?',
+    tools: 'Current tools',
+    toolsHelp: 'CRM, email, calendar, payments, WhatsApp, ads — whatever you use today.',
+    timeline: 'Timeline',
+    budget: 'Budget range',
+    language: 'Preferred language',
+    notes: 'Notes',
+    send: 'Submit application',
+    sending: 'Submitting...',
+    sent: "Application received. We'll review your workflow and follow up with the best next step.",
+    error: 'Something went wrong submitting your application. Try WhatsApp or email instead.',
     namePlaceholder: 'Your name',
     emailPlaceholder: 'you@example.com',
-    messagePlaceholder: 'Tell me about your project...',
+    businessPlaceholder: 'Acme Co.',
+    industryPlaceholder: 'e.g. real estate, dental, legal, e-commerce',
+    webPlaceholder: 'https://yourbusiness.com or @handle',
+    automatePlaceholder: 'Lead capture and follow-up, booking, onboarding, quote automation, CRM cleanup...',
+    toolsPlaceholder: 'HubSpot, GoHighLevel, Calendly, Stripe, WhatsApp, Notion, etc.',
+    notesPlaceholder: 'Anything else we should know — team size, current volume, deadlines, constraints.',
+    timelineOptions: {
+      select: 'Select a timeline',
+      asap: 'ASAP — within 2 weeks',
+      month: 'Within a month',
+      quarter: 'Within a quarter',
+      flex: 'Flexible / exploring',
+    },
+    budgetOptions: {
+      select: 'Select a budget range',
+      audit: 'Audit only ($297)',
+      sprint: '$1.5k – $5k (sprint)',
+      system: '$5k – $15k (full system)',
+      enterprise: '$15k+ (multi-system)',
+      unsure: 'Not sure yet',
+    },
+    languageOptions: {
+      select: 'Select preferred language',
+      en: 'English',
+      es: 'Spanish',
+      both: 'Bilingual EN/ES',
+    },
   },
 
   // Auth
@@ -215,37 +292,37 @@ export default {
   // Exit popup
   exitPopup: {
     heading: "Wait — don't leave empty-handed!",
-    sub: 'Get <strong>10% off</strong> your first purchase + our free Real Estate Toolkit.',
+    sub: 'Get <strong>10% off</strong> your first prompt pack or template.',
     btn: 'Claim My 10% Off',
     sending: 'Sending...',
     privacy: 'No spam. Unsubscribe anytime.',
     successHeading: "You're in!",
-    successSub: 'Check your inbox for the discount code and free toolkit.',
+    successSub: 'Check your inbox for the discount code.',
     continue: 'Continue Browsing',
   },
 
   // Sticky CTA
   stickyCta: {
-    text: 'Limited availability — 3 project slots open this month.',
-    btn: 'Reserve Your Spot',
-    btnAuth: 'Get in Touch',
+    text: 'Limited intake — 3 automation slots open this month.',
+    btn: 'Apply for an Automation',
+    btnAuth: 'Apply for an Automation',
   },
 
   // Free PDF offer modal
   freePdf: {
     badge: 'Free Download',
-    heading: 'Get the Real Estate Prompt Pack — Free',
-    sub: '50 fill-in-the-blank AI prompts for agents, investors & property managers. Normally $14.',
-    f1: 'Property listing descriptions in 30 seconds',
-    f2: 'Tenant & investor email templates',
-    f3: 'Market report and social media copy',
+    heading: 'Get the Small-Business Automation Map — Free',
+    sub: '12 high-leverage automations small businesses should ship first. Bilingual EN/ES. Normally $14.',
+    f1: 'Lead capture + follow-up flows in 30 seconds',
+    f2: 'Booking and reminder templates',
+    f3: 'CRM tagging and pipeline automations',
     free: 'FREE',
     placeholder: 'your@email.com',
     cta: 'Send Me the PDF',
     loading: 'Sending...',
     privacy: 'No spam. Unsubscribe anytime.',
     successHeading: "It's on its way!",
-    successSub: 'Check your inbox — the PDF is heading to you now. Or download it directly below.',
+    successSub: 'Check your inbox — the PDF is heading to you now.',
     download: 'Download PDF',
     continue: 'Continue Browsing',
   },
@@ -273,7 +350,7 @@ export default {
   // Footer
   footer: {
     rights: 'All rights reserved',
-    tagline: 'Premium real estate, AI automation & digital products.',
+    tagline: 'Bilingual AI automation systems for small businesses. Done-for-you.',
     explore: 'Explore',
     legal: 'Legal',
     connect: 'Connect',
@@ -298,9 +375,9 @@ export default {
 
   // Portfolio
   portfolio: {
-    eyebrow: 'Our Work',
+    eyebrow: 'Selected Work',
     heading: 'Portfolio',
-    sub: 'Selected work across real estate, web, mobile, and design',
+    sub: 'Automation systems, landing pages and websites we have shipped',
     empty: 'No projects in this category yet. Stay tuned!',
     visitSite: 'Visit site',
     viewInStore: 'View in store',
@@ -328,8 +405,40 @@ export default {
 
   // Stats section CTAs
   statsCta: {
-    store: 'Browse Store',
+    store: 'See packages',
     tools: 'Try Free Tools',
+  },
+
+  // Pricing page
+  pricing: {
+    eyebrow: 'Pricing',
+    heading: 'Pricing & Packages',
+    sub: 'Transparent prices. Audit-first. No giant retainers to find out if we are a fit.',
+    mainHeading: 'Main offers',
+    mainSub: 'Done-for-you AI automation systems',
+    addonHeading: 'Add-ons',
+    addonSub: 'Conversion sites and landing pages — built to plug into your automation system',
+    digitalHeading: 'Digital products',
+    digitalSub: 'Prompt packs, templates and mini tools — buy once, use forever',
+    landingPage: { title: 'Conversion Landing Page', price: 'from $1,250', desc: 'A single high-converting landing page — bilingual, fast, integrated with your automation system.' },
+    website: { title: 'Business Website', price: 'from $2,500', desc: 'A full bilingual business website — services, lead capture, booking and CMS, wired into your automation flows.' },
+    digital: { title: 'Prompt Packs · Templates · Mini Tools', price: '$19 – $79', desc: 'Self-serve digital products for operators who want to move now without hiring a builder.' },
+    finalCta: 'Apply for an Automation',
+    finalSub: 'Not sure which package fits? Start with the $297 Automation Audit — credited toward any larger engagement.',
+  },
+
+  // Services page
+  servicesPage: {
+    eyebrow: 'Services',
+    heading: 'AI automation systems, built for small businesses',
+    sub: 'Done-for-you bilingual systems that capture leads, follow up automatically and cut manual work — built inside your stack.',
+    coreHeading: 'Core service: AI Automation Systems',
+    coreSub: 'Five workflows we ship every week',
+    addonHeading: 'Add-ons: web that plugs into the system',
+    addonSub: 'Landing pages and websites built to feed the automation',
+    digitalHeading: 'Self-serve: digital products',
+    digitalSub: 'For operators who want to move without hiring a builder',
+    cta: 'Apply for an Automation',
   },
 
   // Tool components
@@ -426,7 +535,7 @@ export default {
     branding: 'Logo & Branding',
   },
 
-  // Brickell Living
+  // Brickell Living (kept for /brickell internal page; not shown in main nav)
   brickell: {
     eyebrow: 'Brickell Living',
     heading: 'Luxury Living in Brickell',
@@ -491,7 +600,6 @@ export default {
     of: 'of',
     next: 'Next',
     back: 'Back',
-    // Step 1
     step1Title: 'Personal Information',
     step1Sub: 'Tell us about yourself',
     fullName: 'Full Legal Name',
@@ -502,7 +610,6 @@ export default {
     email: 'Email Address',
     emergencyName: 'Emergency Contact Name',
     emergencyPhone: 'Emergency Contact Phone',
-    // Step 2
     step2Title: 'Current Residence',
     step2Sub: 'Where do you live now?',
     address: 'Street Address',
@@ -515,7 +622,6 @@ export default {
     landlordName: 'Landlord / Management Name',
     landlordPhone: 'Landlord Phone',
     moveReason: 'Reason for Moving',
-    // Step 3
     step3Title: 'Employment & Income',
     step3Sub: 'Your current employment details',
     employmentStatus: 'Employment Status',
@@ -526,7 +632,6 @@ export default {
     supervisorName: 'Supervisor Name',
     supervisorPhone: 'Supervisor Phone',
     jobDuration: 'How Long at This Job?',
-    // Step 4
     step4Title: 'Building & Unit',
     step4Sub: 'What are you looking for?',
     building: 'Building',
@@ -536,14 +641,12 @@ export default {
     moveInDate: 'Desired Move-in Date',
     maxBudget: 'Max Monthly Budget ($)',
     specialRequirements: 'Special Requirements',
-    // Step 5
     step5Title: 'Authorization',
     step5Sub: 'Please review and authorize',
     authCredit: 'I authorize a credit check and background check',
     authAccurate: 'I confirm all information provided is accurate and complete',
     authFee: 'I understand the application fee ($200) is non-refundable',
     authId: 'I have a valid government-issued ID (driver\'s license or passport)',
-    // Step 6
     step6Title: 'Review & Pay',
     step6Sub: 'Review your application and submit payment',
     reviewPersonal: 'Personal Information',
@@ -556,7 +659,6 @@ export default {
     total: 'Total',
     paySubmit: 'Pay $200 & Submit Application',
     submitting: 'Processing...',
-    // Confirmation
     confirmTitle: 'Application Submitted!',
     confirmSub: 'Your rental application has been received and payment confirmed.',
     confirmNext: 'Our team will review your application and contact you within 24-48 hours.',
